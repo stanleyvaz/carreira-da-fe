@@ -1,0 +1,128 @@
+{
+ "topic": "fe",
+ "title": "Primeiros 7 dias",
+ "summary": "Uma semana de começo leve: um minuto por dia, no seu ritmo. Se faltar um dia, é só voltar.",
+ "kind": "challenge",
+ "days": 7,
+ "steps": [
+  {
+   "title": "Começar pequeno",
+   "passage": "Salmos 1:2",
+   "context": "O Salmo 1 compara quem se ocupa da lei do Senhor com uma árvore plantada junto a ribeiros de águas. Nesta primeira semana você só precisa de um minuto por dia.",
+   "explanation": "O texto fala de quem tem prazer na lei do Senhor e nela medita de dia e de noite. Meditar é voltar ao texto com calma, e um minuto diário já é um começo real. Constância pequena vale mais do que um grande esforço que não se repete.",
+   "application": "Escolha um momento fixo para este minuto (depois do café, antes de dormir) e volte a ele amanhã.",
+   "question": {
+    "prompt": "Segundo o versículo, o que caracteriza a pessoa descrita?",
+    "options": [
+     "Ela tem prazer na lei do Senhor e nela medita",
+     "Ela evita todos os desafios",
+     "Ela lê apenas aos domingos"
+    ],
+    "correctIndex": 0,
+    "explanation": "O texto diz que o seu prazer está na lei do Senhor, e que nela medita de dia e de noite."
+   }
+  },
+  {
+   "title": "Uma luz para o caminho",
+   "passage": "Salmos 119:105",
+   "context": "O Salmo 119 é um longo poema sobre a Palavra de Deus. Este verso usa a imagem de uma lâmpada para falar de direção.",
+   "explanation": "A Palavra é comparada a uma lâmpada para os pés e uma luz para o caminho. Uma lâmpada não ilumina o trajeto inteiro de uma vez, mostra o próximo passo. Assim, não é preciso entender tudo hoje: basta o passo de hoje.",
+   "application": "Pense em uma decisão pequena de hoje e peça direção para esse único passo.",
+   "question": {
+    "prompt": "O que a imagem da lâmpada sugere?",
+    "options": [
+     "Que a Palavra mostra o caminho passo a passo",
+     "Que a Palavra só serve à noite",
+     "Que o caminho já está todo à vista"
+    ],
+    "correctIndex": 0,
+    "explanation": "A lâmpada para os pés e luz para o caminho indica orientação para o trajeto, passo a passo."
+   }
+  },
+  {
+   "title": "Um momento a sós",
+   "passage": "Mateus 6:6",
+   "context": "Dentro do Sermão do Monte, Jesus ensina sobre a oração sem exibição.",
+   "explanation": "Jesus fala em entrar no quarto, fechar a porta e orar ao Pai em secreto. A oração aqui é encontro simples, sem plateia e sem fórmulas longas. Um minuto sincero conta.",
+   "application": "Hoje, reserve um minuto de silêncio e diga a Deus, com suas palavras, como você está.",
+   "question": {
+    "prompt": "Que tipo de oração Jesus descreve neste versículo?",
+    "options": [
+     "Uma oração em secreto, sem exibição",
+     "Uma oração em voz alta na praça",
+     "Uma oração só com palavras prontas"
+    ],
+    "correctIndex": 0,
+    "explanation": "Jesus fala de orar ao Pai em secreto, e o Pai, que vê em secreto, recompensa."
+   }
+  },
+  {
+   "title": "Confiar mesmo sem entender",
+   "passage": "Provérbios 3:5-6",
+   "context": "Provérbios reúne conselhos práticos de sabedoria. Estes versos tratam de confiança e direção.",
+   "explanation": "O texto convida a confiar no Senhor de todo o coração e a não se apoiar no próprio entendimento. Reconhecê-lo em todos os caminhos é a base para ter as veredas endireitadas. Confiar não é deixar de pensar, é não depender só de si.",
+   "application": "Escolha uma preocupação de hoje e entregue-a em uma frase simples.",
+   "question": {
+    "prompt": "Em quem o texto convida a confiar?",
+    "options": [
+     "No Senhor, de todo o coração",
+     "Apenas no próprio entendimento",
+     "Na sorte"
+    ],
+    "correctIndex": 0,
+    "explanation": "O versículo manda confiar no Senhor de todo o coração e não se estribar no próprio entendimento."
+   }
+  },
+  {
+   "title": "Pôr em prática",
+   "passage": "Tiago 1:22",
+   "context": "A carta de Tiago é prática e fala de uma fé que aparece nas atitudes.",
+   "explanation": "Tiago pede para sermos cumpridores da palavra e não somente ouvintes. Ouvir é o começo, e viver o que se ouviu completa o ciclo. Pequenas ações concretas valem mais do que boas intenções.",
+   "application": "Escolha uma atitude pequena, de um minuto, para praticar hoje o que você leu nesta semana.",
+   "question": {
+    "prompt": "O que Tiago pede além de ouvir?",
+    "options": [
+     "Ser cumpridor da palavra",
+     "Memorizar tudo",
+     "Falar mais do que ouvir"
+    ],
+    "correctIndex": 0,
+    "explanation": "O texto diz: sede cumpridores da palavra, e não somente ouvintes."
+   }
+  },
+  {
+   "title": "Sem desanimar",
+   "passage": "Gálatas 6:9",
+   "context": "Paulo encoraja os gálatas a continuarem fazendo o bem, mesmo quando os resultados demoram.",
+   "explanation": "O texto diz para não nos cansarmos de fazer o bem, pois a seu tempo ceifaremos, se não desfalecermos. Recomeçar também faz parte do caminho. Se faltar um dia, o mais importante é voltar.",
+   "application": "Se você pulou algum dia desta semana, tudo bem: volte hoje, com um minuto.",
+   "question": {
+    "prompt": "Qual é o encorajamento do texto?",
+    "options": [
+     "Não nos cansarmos de fazer o bem",
+     "Desistir quando é difícil",
+     "Esperar resultados imediatos"
+    ],
+    "correctIndex": 0,
+    "explanation": "O versículo diz para não nos cansarmos de fazer o bem, porque a seu tempo ceifaremos."
+   }
+  },
+  {
+   "title": "Falar da Palavra no dia a dia",
+   "passage": "Deuteronômio 6:6-7",
+   "context": "Moisés orienta o povo sobre manter as palavras de Deus presentes na vida cotidiana e na família.",
+   "explanation": "As palavras devem estar no coração e ser repetidas aos filhos, em casa, no caminho, ao deitar e ao levantar. A Palavra entra na rotina comum: pequena, frequente e compartilhada.",
+   "application": "Compartilhe com alguém, em uma frase, algo que você aprendeu nesta semana.",
+   "question": {
+    "prompt": "Quando o texto diz que as palavras devem ser lembradas?",
+    "options": [
+     "Em casa, no caminho, ao deitar e ao levantar",
+     "Somente em dias de festa",
+     "Apenas no templo"
+    ],
+    "correctIndex": 0,
+    "explanation": "O texto cita falar delas assentado em casa, andando pelo caminho, ao deitar-se e ao levantar-se."
+   }
+  }
+ ]
+}

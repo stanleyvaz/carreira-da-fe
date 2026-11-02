@@ -1,0 +1,51 @@
+{
+  "topic": "honestidade",
+  "title": "Palavras que merecem confiança",
+  "summary": "Três dias para refletir sobre verdade, sinceridade e fidelidade nas coisas pequenas, a partir de textos de Paulo, dos Provérbios e de Jesus.",
+  "kind": "journey",
+  "days": 3,
+  "steps": [
+    {
+      "title": "Falar a verdade ao próximo",
+      "passage": "Efésios 4:25",
+      "context": "Paulo escreve a cristãos de Éfeso sobre como viver uma vida nova na convivência diária. Nesse trecho ele trata de atitudes concretas entre as pessoas da comunidade.",
+      "explanation": "O versículo pede deixar a mentira e falar a verdade com o próximo. O motivo apresentado não é uma regra abstrata, e sim um vínculo: somos membros uns dos outros. Se somos parte de um mesmo corpo, mentir ao outro enfraquece a todos. A honestidade, aqui, é cuidado com a relação.",
+      "application": "Hoje, repare em uma situação em que seria mais cômodo omitir ou enfeitar e escolha dizer o que é verdadeiro, com respeito.",
+      "extra": "Falar a verdade não dispensa a gentileza. O próprio contexto da carta fala de palavras que edificam, e não de palavras que ferem.",
+      "question": {
+        "prompt": "Segundo o texto, por que devemos falar a verdade uns aos outros?",
+        "options": ["Porque somos membros uns dos outros", "Porque assim evitamos punições", "Porque a verdade sempre agrada a todos"],
+        "correctIndex": 0,
+        "explanation": "O texto diz: falai a verdade cada um com o seu próximo, porque somos membros uns dos outros."
+      }
+    },
+    {
+      "title": "A sinceridade como guia",
+      "passage": "Provérbios 11:3",
+      "context": "Provérbios reúne ditos de sabedoria prática, em geral contrastando dois modos de viver. Aqui o contraste é entre os íntegros e os transgressores.",
+      "explanation": "O provérbio afirma que a sinceridade dos íntegros os guiará. A imagem é a de um guia: quem vive com integridade tem uma bússola interna para decidir. Já a perversidade, segundo o texto, leva à destruição. Provérbios fala em tendências gerais da vida, não em fórmulas que valem para cada caso.",
+      "application": "Ao decidir algo hoje, pergunte-se: o que eu faria se não precisasse parecer bem para ninguém?",
+      "extra": "A palavra traduzida como íntegros remete a quem é inteiro, sem divisão entre o que mostra e o que é.",
+      "question": {
+        "prompt": "O que, segundo o provérbio, guia os íntegros?",
+        "options": ["A riqueza que acumulam", "A opinião dos outros", "A sua sinceridade"],
+        "correctIndex": 2,
+        "explanation": "O texto diz: a sinceridade dos íntegros os guiará."
+      }
+    },
+    {
+      "title": "Fiel no pouco",
+      "passage": "Lucas 16:10",
+      "context": "Jesus diz essa frase em meio a ensinamentos sobre o uso responsável dos bens e a confiança. Ela aparece no Evangelho de Lucas, depois da parábola do administrador.",
+      "explanation": "Jesus afirma que quem é fiel no mínimo também é fiel no muito, e quem é injusto no mínimo também o é no muito. A ideia é que o caráter se revela nas coisas pequenas: um troco devolvido, um horário cumprido, uma informação dita por inteiro. Não há honestidade grande sem prática pequena.",
+      "application": "Escolha hoje um detalhe aparentemente insignificante e trate-o com total fidelidade.",
+      "extra": "Muitos leitores veem aqui um convite a não esperar grandes ocasiões para viver com integridade: o cotidiano já é o lugar do teste.",
+      "question": {
+        "prompt": "De acordo com o versículo, quem é fiel no mínimo...",
+        "options": ["precisa provar isso aos outros", "também é fiel no muito", "deve receber mais responsabilidades"],
+        "correctIndex": 1,
+        "explanation": "O texto diz: quem é fiel no mínimo, também é fiel no muito."
+      }
+    }
+  ]
+}

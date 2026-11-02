@@ -1,0 +1,79 @@
+{
+  "topic": "sabedoria",
+  "title": "Cinco passos de sabedoria",
+  "summary": "Uma jornada curta pelos ensinos bíblicos sobre sabedoria: onde ela começa, como pedi-la, como confiar, como falar e como viver os dias.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Onde a sabedoria começa",
+      "passage": "Provérbios 1:7",
+      "context": "O livro de Provérbios abre com este versículo, que funciona como uma chave de leitura para tudo o que vem depois. É poesia de sabedoria, escrita para ensinar a viver bem.",
+      "explanation": "O texto afirma que ‘o temor do Senhor é o princípio do conhecimento’. Muitos estudiosos explicam esse ‘temor’ como reverência e respeito diante de Deus, e não como pavor. Em outras palavras, conhecer de verdade começa por reconhecer a quem pertence a vida. O versículo também contrasta isso com os ‘loucos’, que desprezam a sabedoria e a instrução, ou seja, que não querem aprender.",
+      "application": "Se quiser, comece o dia com uma pausa de um minuto, reconhecendo em silêncio que você não sabe tudo. Que tal escolher hoje uma pergunta que você tenha vontade de aprender e dar um passo para respondê-la?",
+      "extra": "Em Provérbios, ‘sabedoria’ costuma significar habilidade para viver bem, e não apenas ter informação ou inteligência.",
+      "question": {
+        "prompt": "Segundo o texto, o que é o princípio do conhecimento?",
+        "options": ["O temor do Senhor", "Ler muitos livros", "Ter boa memória"],
+        "correctIndex": 0,
+        "explanation": "O versículo diz: ‘O temor do Senhor é o princípio do conhecimento’."
+      }
+    },
+    {
+      "title": "Pedir sem receio",
+      "passage": "Tiago 1:5-6",
+      "context": "A carta de Tiago é um texto prático, dirigido a cristãos que enfrentavam dificuldades. Logo no começo, o autor fala de como lidar com as provações com sabedoria.",
+      "explanation": "Quem sente falta de sabedoria deve pedi-la a Deus. O texto descreve Deus como quem ‘a todos dá liberalmente’ e ‘não lança em rosto’, isto é, sem constrangimento e sem cobrar por ter pedido. O versículo 6 acrescenta que o pedido seja feito com fé, sem duvidar, e compara a dúvida a uma onda empurrada pelo vento. A imagem fala de quem fica oscilando, sem firmeza no que pede.",
+      "application": "Que tal fazer hoje uma oração curta e honesta sobre uma decisão que você precisa tomar, dizendo apenas: ‘Preciso de sabedoria nisto’? Pedir não exige ter tudo claro antes.",
+      "extra": "Tiago escreve ‘se algum de vós tem falta’. A frase assume que faltar sabedoria é normal e que a resposta não é esconder, e sim pedir.",
+      "question": {
+        "prompt": "Como o texto diz que Deus dá a sabedoria a quem pede?",
+        "options": ["Só a quem já é muito instruído", "Aos poucos, depois de cobrar o pedido", "Liberalmente, sem lançar em rosto"],
+        "correctIndex": 2,
+        "explanation": "O versículo 5 diz que Deus ‘a todos dá liberalmente, e o não lança em rosto’."
+      }
+    },
+    {
+      "title": "Confiar além do que se vê",
+      "passage": "Provérbios 3:5-6",
+      "context": "Estes versos fazem parte de uma instrução de um pai a um filho, no começo de Provérbios. O tom é de conselho próximo e afetuoso.",
+      "explanation": "O texto convida a confiar no Senhor ‘de todo o teu coração’ e a não se apoiar no ‘próprio entendimento’. Não diz que pensar seja ruim, mas que o nosso entendimento tem limites. Depois pede: ‘reconhece-o em todos os teus caminhos’, e diz que ele ‘endireitará as tuas veredas’. Há leitores que entendem isso como orientação ao longo da vida; o texto não promete que o caminho será fácil, apenas que será endireitado.",
+      "application": "Se quiser, pense em uma situação em que você tem confiado só nos seus cálculos. Que tal conversar com Deus sobre ela hoje e, se possível, ouvir também a opinião de alguém em quem você confia?",
+      "extra": "‘Veredas’ são caminhos estreitos, de uso diário. A imagem sugere que Deus cuida também das decisões pequenas do cotidiano.",
+      "question": {
+        "prompt": "No que o texto diz para não nos estribarmos?",
+        "options": ["Nos conselhos de outras pessoas", "No nosso próprio entendimento", "Nas lições do passado"],
+        "correctIndex": 1,
+        "explanation": "O versículo 5 diz: ‘não te estribes no teu próprio entendimento’."
+      }
+    },
+    {
+      "title": "A força de uma resposta branda",
+      "passage": "Provérbios 15:1-2",
+      "context": "Provérbios traz muitos ditos sobre o uso das palavras. Este contrapõe a fala calma à fala dura e liga o modo de falar à sabedoria.",
+      "explanation": "O versículo 1 observa que a resposta branda ‘desvia o furor’, enquanto a palavra dura ‘suscita a ira’. É uma observação sobre como as conversas costumam funcionar: o tom pesa tanto quanto o conteúdo. O versículo 2 diz que a língua dos sábios ‘adorna a sabedoria’, e a boca dos tolos ‘derrama a estultícia’. Ser sábio, então, inclui saber dizer, e não apenas saber.",
+      "application": "Que tal, em uma conversa difícil de hoje, respirar fundo antes de responder e escolher um tom mais suave? Se não der certo, tudo bem: amanhã é uma nova chance.",
+      "extra": "O provérbio descreve uma tendência, e não uma garantia. Há conversas em que a calma não resolve tudo, mas ainda assim ajuda a não piorar.",
+      "question": {
+        "prompt": "O que, segundo o versículo 1, desvia o furor?",
+        "options": ["Uma resposta branda", "Um silêncio prolongado", "Uma palavra dura"],
+        "correctIndex": 0,
+        "explanation": "O texto diz que ‘a resposta branda desvia o furor’, enquanto a palavra dura suscita a ira."
+      }
+    },
+    {
+      "title": "Contar os dias",
+      "passage": "Salmos 90:12",
+      "context": "O Salmo 90 é uma oração que a tradição atribui a Moisés. Ele contrasta a brevidade da vida humana com a eternidade de Deus.",
+      "explanation": "O salmista pede: ‘Ensina-nos a contar os nossos dias, de tal maneira que alcancemos corações sábios’. A sabedoria, aqui, nasce de reconhecer que os dias são limitados. Não é um pedido para viver com medo, mas para dar valor ao que cada dia traz. Repare que ele pede que Deus ensine: sabedoria é vista como algo que se aprende e se recebe, não como algo que já temos.",
+      "application": "Para fechar a jornada, que tal escolher uma coisa que realmente importa para você e dedicar a ela alguns minutos hoje? Se quiser, termine o dia agradecendo por algo que aprendeu nestes cinco dias.",
+      "extra": "Nos dias anteriores, vimos que a sabedoria começa em reverência, se pede, se confia, se expressa no falar e, agora, se aprende ao contar os dias.",
+      "question": {
+        "prompt": "O que o salmista pede que Deus nos ensine?",
+        "options": ["A guardar nossas riquezas", "A contar os nossos dias, para termos corações sábios", "A evitar todo trabalho"],
+        "correctIndex": 1,
+        "explanation": "O versículo diz: ‘Ensina-nos a contar os nossos dias, de tal maneira que alcancemos corações sábios’."
+      }
+    }
+  ]
+}

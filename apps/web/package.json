@@ -1,0 +1,40 @@
+{
+  "name": "@jornada/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "migrate": "tsx scripts/migrate.ts",
+    "seed": "tsx scripts/seed.ts",
+    "test": "vitest run",
+    "import-bible": "tsx scripts/import-bible.ts",
+    "import-music": "tsx scripts/import-music.ts",
+    "import-content": "tsx scripts/import-content.ts",
+    "import-resources": "tsx scripts/import-resources.ts",
+    "sync-resources": "tsx scripts/sync-resources.ts",
+    "push-worker": "tsx scripts/push-worker.ts",
+    "create-admin": "tsx scripts/create-admin.ts"
+  },
+  "dependencies": {
+    "@jornada/shared": "*",
+    "next": "16.4.3",
+    "pg": "^8.13.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/pg": "^8.11.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "tsx": "^4.19.0",
+    "typescript": "^5",
+    "vitest": "^2.1.0"
+  }
+}

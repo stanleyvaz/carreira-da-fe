@@ -1,0 +1,11 @@
+# Nunca enviar para a hospedagem
+bible
+music
+ios
+.env*
+**/.env*
+node_modules
+**/node_modules
+.next
+**/.next
+.git

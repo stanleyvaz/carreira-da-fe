@@ -1,0 +1,152 @@
+[
+ {
+  "topic": "oracao",
+  "title": "Uma oração pelo caminho",
+  "invitation": "Se quiser, ore hoje por alguns minutos enquanto caminha ou espera o transporte, dizendo a Deus o que está no seu coração."
+ },
+ {
+  "topic": "oracao",
+  "title": "Orar por quem você não gosta",
+  "invitation": "Que tal dedicar um minuto hoje a desejar algo bom, em oração, a alguém com quem você tem dificuldade?"
+ },
+ {
+  "topic": "oracao",
+  "title": "Três frases ao acordar",
+  "invitation": "Se quiser, ao acordar diga três frases curtas a Deus: um agradecimento, um pedido e uma entrega do dia."
+ },
+ {
+  "topic": "relacionamentos",
+  "title": "Ligar para quem está distante",
+  "invitation": "Que tal telefonar hoje para alguém com quem você não fala há tempos, só para saber como a pessoa está?"
+ },
+ {
+  "topic": "relacionamentos",
+  "title": "Perguntar e escutar a resposta",
+  "invitation": "Se quiser, faça hoje uma pergunta sincera a alguém e ouça a resposta inteira, sem pensar no que vai dizer depois."
+ },
+ {
+  "topic": "relacionamentos",
+  "title": "Um recado de reconhecimento",
+  "invitation": "Que tal escrever hoje duas linhas agradecendo a alguém por algo que a pessoa fez e talvez nem saiba que importou?"
+ },
+ {
+  "topic": "perdao",
+  "title": "Soltar uma pequena mágoa",
+  "invitation": "Se quiser, escolha uma mágoa pequena e pergunte-se, com calma, se hoje dá para deixá-la ir um pouco."
+ },
+ {
+  "topic": "perdao",
+  "title": "Desejar bem sem se aproximar",
+  "invitation": "Que tal, hoje, desejar em silêncio o bem de alguém que o magoou, no seu tempo e sem precisar procurar a pessoa?"
+ },
+ {
+  "topic": "familia",
+  "title": "Uma lembrança contada à mesa",
+  "invitation": "Se quiser, conte hoje à sua família uma lembrança querida e peça que alguém conte outra."
+ },
+ {
+  "topic": "familia",
+  "title": "Ajudar em casa sem ser pedido",
+  "invitation": "Que tal fazer hoje uma tarefa doméstica que costuma ser de outra pessoa, sem avisar e sem esperar elogio?"
+ },
+ {
+  "topic": "familia",
+  "title": "Ouvir quem mora com você",
+  "invitation": "Se quiser, reserve dez minutos hoje para ouvir alguém da sua casa falar do próprio dia, sem interromper."
+ },
+ {
+  "topic": "casamento",
+  "title": "Um gesto de carinho inesperado",
+  "invitation": "Que tal fazer hoje um gesto pequeno de carinho ao seu cônjuge, como um bilhete, um café ou um abraço mais demorado?"
+ },
+ {
+  "topic": "casamento",
+  "title": "Falar de gratidão a dois",
+  "invitation": "Se quiser, diga ao seu cônjuge três coisas que você valoriza nele ou nela, com palavras simples."
+ },
+ {
+  "topic": "trabalho",
+  "title": "Começar o dia com uma intenção",
+  "invitation": "Que tal, antes de abrir o e-mail, pensar numa intenção honesta para o seu trabalho de hoje?"
+ },
+ {
+  "topic": "trabalho",
+  "title": "Reconhecer o trabalho de alguém",
+  "invitation": "Se quiser, agradeça hoje a um colega por algo bem-feito, citando exatamente o que foi."
+ },
+ {
+  "topic": "trabalho",
+  "title": "Terminar o que estava pendente",
+  "invitation": "Que tal concluir hoje uma tarefa pequena que você vinha adiando, com capricho, e sentir o alívio?"
+ },
+ {
+  "topic": "dominio-proprio",
+  "title": "Esperar antes de comprar",
+  "invitation": "Se quiser, adie por um dia uma compra não essencial e perceba como é a espera."
+ },
+ {
+  "topic": "dominio-proprio",
+  "title": "Um dia sem reclamar em voz alta",
+  "invitation": "Que tal observar hoje cada vez que vem uma reclamação e escolher, quando der, ficar em silêncio ou agradecer?"
+ },
+ {
+  "topic": "dominio-proprio",
+  "title": "Respirar antes de reagir",
+  "invitation": "Se quiser, numa irritação de hoje, faça três respirações lentas antes de responder."
+ },
+ {
+  "topic": "honestidade",
+  "title": "Dizer não com clareza",
+  "invitation": "Que tal recusar hoje com gentileza e sinceridade algo que você não consegue fazer, sem inventar desculpas?"
+ },
+ {
+  "topic": "honestidade",
+  "title": "Admitir que não sabe",
+  "invitation": "Se quiser, diga hoje com tranquilidade uma frase como \"ainda não sei\" quando for verdade."
+ },
+ {
+  "topic": "generosidade",
+  "title": "Doar algo que está parado",
+  "invitation": "Que tal separar hoje um objeto em bom estado que você não usa e entregá-lo a quem possa aproveitar?"
+ },
+ {
+  "topic": "generosidade",
+  "title": "Pagar um café de surpresa",
+  "invitation": "Se quiser, ofereça discretamente hoje um café ou um lanche a alguém, sem fazer alarde."
+ },
+ {
+  "topic": "generosidade",
+  "title": "Dar um tempo sem pressa",
+  "invitation": "Que tal oferecer hoje a alguém quinze minutos inteiros de atenção, com o celular guardado?"
+ },
+ {
+  "topic": "perseveranca",
+  "title": "Um passo a mais num projeto",
+  "invitation": "Se quiser, dê hoje um único passo pequeno em algo que você queria desistir, só um."
+ },
+ {
+  "topic": "perseveranca",
+  "title": "Lembrar de uma vitória antiga",
+  "invitation": "Que tal recordar hoje uma dificuldade que você já superou e agradecer por ter chegado até aqui?"
+ },
+ {
+  "topic": "sabedoria",
+  "title": "Pedir um conselho",
+  "invitation": "Se quiser, converse hoje com alguém mais experiente sobre uma decisão em aberto e escute sem se defender."
+ },
+ {
+  "topic": "sabedoria",
+  "title": "Dormir sobre a decisão",
+  "invitation": "Que tal deixar para amanhã uma resposta importante e usar a noite para pensar com mais calma?"
+ },
+ {
+  "topic": "fe",
+  "title": "Uma lista do que foi sustentado",
+  "invitation": "Se quiser, escreva hoje três momentos em que você se sentiu amparado, mesmo sem entender como."
+ },
+ {
+  "topic": "conhecimento-biblico",
+  "title": "Ler um capítulo curto em voz alta",
+  "invitation": "Que tal ler hoje em voz alta um capítulo curto da Bíblia, devagar, e notar uma frase que se destaca?"
+ }
+]

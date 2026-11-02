@@ -1,0 +1,99 @@
+{
+  "topic": "ensinamentos-de-jesus",
+  "title": "O Sermão do Monte em cinco passos",
+  "summary": "Cinco trechos do Sermão do Monte, em Mateus 5 a 7, para ler com calma, um por dia, e pensar no que Jesus ensina sobre o dia a dia.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Felizes os que sabem que precisam",
+      "passage": "Mateus 5:3-5",
+      "context": "O Sermão do Monte começa com as bem-aventuranças, frases que declaram felizes pessoas que normalmente não seriam vistas assim. Jesus ensina a seus discípulos e a uma multidão.",
+      "explanation": "Jesus chama de bem-aventurados os pobres em espírito, os que choram e os mansos, e a cada um associa uma promessa: o reino dos céus, a consolação, a herança da terra. Ele valoriza quem reconhece suas limitações e seu sofrimento, em vez de quem aparenta força. Há interpretações diferentes sobre o sentido exato de pobres em espírito.",
+      "application": "Hoje, permita-se admitir uma necessidade sua, diante de Deus ou de alguém de confiança, sem fingir que está tudo bem.",
+      "extra": "A palavra bem-aventurado também pode ser lida como feliz ou abençoado. Em todos os casos, é uma declaração de acolhimento.",
+      "question": {
+        "prompt": "O que Jesus diz sobre os que choram?",
+        "options": [
+          "Eles herdarão a terra",
+          "Eles serão consolados",
+          "Deles é o reino dos céus"
+        ],
+        "correctIndex": 1,
+        "explanation": "O texto diz: bem-aventurados os que choram, porque eles serão consolados."
+      }
+    },
+    {
+      "title": "Amar também quem é difícil",
+      "passage": "Mateus 5:43-45",
+      "context": "Jesus contrasta o que era dito com o que ele ensina. Aqui ele trata de como tratar inimigos e pessoas que nos maltratam.",
+      "explanation": "Jesus cita o que foi dito, amar o próximo e odiar o inimigo, e responde: amai os vossos inimigos, bendizei os que vos maldizem, fazei bem aos que vos odeiam e orai pelos que vos maltratam. Como motivo, aponta o Pai, que faz o sol nascer sobre maus e bons e a chuva cair sobre justos e injustos. O texto não pede aprovar o mal, e sim agir com bem.",
+      "application": "Pense em alguém difícil de lidar e, se quiser, ore por essa pessoa por um minuto, sem exigir sentimentos específicos.",
+      "extra": "Amar o inimigo não significa permanecer em situação de risco. O texto fala de atitude de bem, e cada pessoa precisa discernir como aplicá-la com sabedoria.",
+      "question": {
+        "prompt": "Que exemplo do Pai Jesus usa para justificar esse amor?",
+        "options": [
+          "Ele recompensa só os que o amam",
+          "Ele faz o sol nascer sobre maus e bons",
+          "Ele afasta os maus da terra"
+        ],
+        "correctIndex": 1,
+        "explanation": "O texto diz que o Pai faz o seu sol se levantar sobre maus e bons, e a chuva descer sobre justos e injustos."
+      }
+    },
+    {
+      "title": "Dar em secreto",
+      "passage": "Mateus 6:1-4",
+      "context": "Jesus fala aqui sobre atos de justiça, a começar pela esmola, a ajuda aos necessitados. O assunto é a motivação por trás das boas ações.",
+      "explanation": "Jesus pede cuidado para não praticar a esmola diante das pessoas só para ser visto. Ele cita quem faz tocar trombeta nas sinagogas e nas ruas para ser glorificado, e diz que esses já têm a sua recompensa. A orientação é que a mão esquerda não saiba o que faz a direita, para que a ajuda seja em secreto. O foco é um bem feito sem plateia.",
+      "application": "Se quiser, faça hoje um favor a alguém sem contar a ninguém e sem esperar agradecimento.",
+      "extra": "Em Mateus 5:16, Jesus fala de boas obras que as pessoas veem; aqui, de não praticá-las para ser visto. Muitos leem as duas passagens juntas: o que importa é a motivação, não a visibilidade em si.",
+      "question": {
+        "prompt": "O que Jesus diz que deve acontecer com a esmola?",
+        "options": [
+          "Deve ser anunciada com trombeta",
+          "Deve ser dada em secreto",
+          "Deve ser feita só nas sinagogas"
+        ],
+        "correctIndex": 1,
+        "explanation": "O texto diz que a esmola seja dada em secreto, sem fazer tocar trombeta."
+      }
+    },
+    {
+      "title": "Olhar as aves",
+      "passage": "Mateus 6:25-27",
+      "context": "Mais adiante no sermão, Jesus fala sobre ansiedade com as necessidades básicas, como comida e roupa, e convida os ouvintes a olhar para a natureza.",
+      "explanation": "Jesus pede: não andeis ansiosos quanto à vida, ao que comer, beber ou vestir. Pergunta se a vida não é mais do que o mantimento. Aponta as aves, que não semeiam nem ajuntam em celeiros, e diz que o Pai as alimenta, e pergunta se as pessoas não valem mais. Por fim, questiona o que a ansiedade acrescenta à nossa estatura. Não é uma crítica a quem sofre, é um convite à confiança.",
+      "application": "Hoje, quando a preocupação surgir, pare um instante, olhe ao redor e respire antes de decidir o que fazer.",
+      "extra": "O texto não proíbe planejar nem trabalhar. A ênfase está em soltar o cuidado ansioso. Para ansiedade intensa, procurar apoio profissional é sempre válido.",
+      "question": {
+        "prompt": "O que Jesus diz sobre as aves do céu?",
+        "options": [
+          "Elas ajuntam em celeiros",
+          "Elas semeiam e segam",
+          "O Pai celestial as alimenta"
+        ],
+        "correctIndex": 2,
+        "explanation": "O texto diz que as aves nem semeiam nem segam nem ajuntam em celeiros, e que o Pai celestial as alimenta."
+      }
+    },
+    {
+      "title": "Ouvir e praticar",
+      "passage": "Mateus 7:24-27",
+      "context": "Estas são as palavras finais do Sermão do Monte. Jesus encerra com uma parábola curta sobre duas casas construídas em lugares diferentes.",
+      "explanation": "Quem escuta as palavras de Jesus e as pratica é comparado a um homem prudente que edificou sobre a rocha. Quem as ouve e não as cumpre é como o insensato que construiu sobre a areia. A chuva, os rios e os ventos vêm sobre as duas casas, mas só uma permanece em pé. A diferença não está na tempestade, e sim no alicerce.",
+      "application": "Escolha um único ensinamento desta jornada e pratique-o em um gesto pequeno hoje.",
+      "extra": "Perceba que as duas casas enfrentam as mesmas dificuldades. O texto não promete uma vida sem tempestades, e sim um alicerce que sustenta.",
+      "question": {
+        "prompt": "Em que consiste a diferença entre as duas casas na parábola?",
+        "options": [
+          "O tamanho da casa",
+          "O lugar onde foi edificada, rocha ou areia",
+          "A intensidade da chuva"
+        ],
+        "correctIndex": 1,
+        "explanation": "O texto mostra que a chuva e os ventos vieram sobre as duas, mas uma foi edificada sobre a rocha e a outra sobre a areia."
+      }
+    }
+  ]
+}

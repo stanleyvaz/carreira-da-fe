@@ -1,0 +1,99 @@
+{
+  "topic": "familia",
+  "title": "Família: laços que a Palavra fortalece",
+  "summary": "Cinco dias com textos bíblicos sobre lealdade, ensino em casa, amor paciente, relação entre pais e filhos e a união entre irmãos.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Lealdade que fica",
+      "passage": "Rute 1:16-18",
+      "context": "O livro de Rute se passa no tempo dos juízes. Rute, viúva, decide permanecer ao lado de Noemi, sua sogra, que também ficou viúva.",
+      "explanation": "Noemi pediu que Rute voltasse para o seu povo, mas ela respondeu que iria aonde Noemi fosse e ficaria onde Noemi ficasse. O povo de Noemi seria o seu povo, e o Deus de Noemi, o seu Deus. Ao ver a resolução de Rute, Noemi deixou de insistir. A família, aqui, não é só laço de sangue: é escolha de permanecer junto na dor.",
+      "application": "Que tal lembrar hoje de alguém da família que está passando por um período difícil? Uma ligação, uma visita ou apenas a sua companhia pode dizer: eu estou aqui.",
+      "extra": "A relação entre nora e sogra, no livro de Rute, é um dos retratos de lealdade mais conhecidos da Bíblia.",
+      "question": {
+        "prompt": "O que Rute disse a Noemi?",
+        "options": [
+          "Que voltaria ao seu povo",
+          "Que iria aonde Noemi fosse e ficaria onde ela ficasse",
+          "Que precisava de tempo para decidir"
+        ],
+        "correctIndex": 1,
+        "explanation": "No versículo 16, Rute diz: aonde quer que tu fores irei eu, e onde quer que pousares, ali pousarei eu."
+      }
+    },
+    {
+      "title": "Conversar sobre o que importa",
+      "passage": "Deuteronômio 6:5-7",
+      "context": "Deuteronômio reúne discursos de Moisés ao povo de Israel antes de entrar na terra prometida. Este trecho faz parte do chamado Shemá.",
+      "explanation": "O texto começa com o amor a Deus de todo o coração, alma e forças. Depois diz que essas palavras estarão no coração e deverão ser ensinadas aos filhos. Isso não acontece só em momentos formais: elas são faladas em casa, andando pelo caminho, ao deitar e ao levantar. A fé é transmitida nas conversas comuns do dia, mais do que em grandes ocasiões.",
+      "application": "Se quiser, escolha hoje um momento comum, como o café da manhã ou o caminho para algum lugar, para compartilhar com alguém de casa uma coisa pela qual você é grato.",
+      "extra": "O Shemá, que começa em Deuteronômio 6:4, é até hoje recitado na tradição judaica. Jesus o citou como o maior mandamento, nos Evangelhos.",
+      "question": {
+        "prompt": "Segundo o texto, quando as palavras devem ser faladas aos filhos?",
+        "options": [
+          "Apenas aos sábados",
+          "Em casa, no caminho, ao deitar e ao levantar",
+          "Somente quando houver um problema"
+        ],
+        "correctIndex": 1,
+        "explanation": "O versículo 7 fala em conversar assentado em casa, andando pelo caminho, deitando-se e levantando-se."
+      }
+    },
+    {
+      "title": "O amor que se vive em casa",
+      "passage": "1 Coríntios 13:4-7",
+      "context": "Paulo escreve à comunidade de Corinto e, no capítulo 13, descreve como é o amor. O texto vale para todas as relações, inclusive a família.",
+      "explanation": "Paulo não define o amor como emoção, e sim como jeito de agir: sofredor, benigno, sem inveja, sem soberba. O amor não se porta com indecência, não busca os seus interesses, não se irrita e não suspeita mal. Ele se alegra com a verdade, e não com a injustiça. Esse retrato é uma boa régua gentil para olhar para dentro de casa.",
+      "application": "Que tal escolher uma característica da lista, por exemplo não se irritar, e tentar praticá-la hoje com alguém da família? Sem cobrar perfeição de si mesmo.",
+      "extra": "Esse capítulo foi escrito para uma comunidade com divisões e disputas, não especificamente para casamentos, embora seja muito lido neles.",
+      "question": {
+        "prompt": "De acordo com o texto, o amor:",
+        "options": [
+          "não se irrita",
+          "busca os seus interesses",
+          "se alegra com a injustiça"
+        ],
+        "correctIndex": 0,
+        "explanation": "O versículo 5 diz que o amor não busca os seus interesses e não se irrita; o versículo 6 diz que ele não folga com a injustiça."
+      }
+    },
+    {
+      "title": "Pais e filhos",
+      "passage": "Efésios 6:1-4",
+      "context": "Paulo escreve aos cristãos de Éfeso e fala sobre as relações dentro de casa, dirigindo-se tanto aos filhos quanto aos pais.",
+      "explanation": "Os filhos são chamados a obedecer aos pais e a honrá-los, citando o mandamento de honrar pai e mãe. Mas o texto também fala com os pais: não provoquem os filhos à ira, e sim criem-nos na doutrina e admoestação do Senhor. A responsabilidade é de ambos os lados. O cuidado dos pais inclui evitar atitudes que irritam e machucam, e não apenas orientar.",
+      "application": "Se quiser, olhe hoje para a sua relação com seus pais ou com seus filhos. Há algum gesto de honra ou de escuta que você poderia oferecer, mesmo que pequeno?",
+      "extra": "Muitas pessoas têm histórias familiares difíceis. O texto pede respeito e cuidado, mas não se limita a um modelo ideal: cada família o vive em sua realidade.",
+      "question": {
+        "prompt": "O que o versículo 4 pede aos pais?",
+        "options": [
+          "Que exijam obediência total dos filhos",
+          "Que deixem a educação para outros",
+          "Que não provoquem os filhos à ira, mas os criem com orientação"
+        ],
+        "correctIndex": 2,
+        "explanation": "O versículo 4 diz: vós, pais, não provoqueis à ira a vossos filhos, mas criai-os."
+      }
+    },
+    {
+      "title": "Viver em união",
+      "passage": "Salmos 133:1-3",
+      "context": "Este salmo faz parte dos chamados cânticos de romagem, que os peregrinos cantavam a caminho de Jerusalém. O título o atribui a Davi.",
+      "explanation": "O salmo abre com uma exclamação: quão bom e quão suave é que os irmãos vivam em união. Para descrever isso, usa imagens do óleo precioso e do orvalho de Hermom, duas coisas que refrescam e renovam. A união entre irmãos é apresentada como algo bom e agradável, algo que traz vida e frescor. Cuidar dos laços é, de certo modo, cuidar de uma fonte de alegria.",
+      "application": "Para fechar a jornada, que tal ligar hoje para um irmão, parente ou amigo querido com quem você anda distante? Mesmo uma conversa breve pode ser um orvalho na relação.",
+      "extra": "Ao longo dos cinco dias, vimos lealdade, ensino, amor, cuidado entre gerações e união. Todos podem ser vividos com passos bem pequenos.",
+      "question": {
+        "prompt": "Segundo o versículo 1, o que é bom e suave?",
+        "options": [
+          "Que os irmãos vivam em união",
+          "Que cada um viva sozinho",
+          "Que os filhos sigam os pais"
+        ],
+        "correctIndex": 0,
+        "explanation": "O versículo 1 diz: Oh! Quão bom e quão suave é que os irmãos vivam em união."
+      }
+    }
+  ]
+}

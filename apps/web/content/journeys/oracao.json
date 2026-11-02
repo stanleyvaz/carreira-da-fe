@@ -1,0 +1,99 @@
+{
+  "topic": "oracao",
+  "title": "Oração: aprender a conversar com Deus",
+  "summary": "Cinco dias com textos da Bíblia sobre oração: simplicidade, o Pai Nosso, descanso no refúgio, humildade e entrega das preocupações.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Orar sem plateia",
+      "passage": "Mateus 6:5-8",
+      "context": "Este trecho faz parte do Sermão do Monte, no Evangelho de Mateus, em que Jesus ensina seus ouvintes sobre a vida diante de Deus.",
+      "explanation": "Jesus contrasta duas atitudes. Há quem goste de orar em pé nas sinagogas e nas esquinas, para ser visto. Ele convida a entrar no aposento, fechar a porta e orar ao Pai que está em secreto. Também pede que não se usem vãs repetições, pensando que muito falar garante ser ouvido, pois o Pai sabe o que precisamos antes de pedirmos. A oração, aqui, é relação, não desempenho.",
+      "application": "Que tal reservar cinco minutos hoje em um lugar tranquilo, nem que seja o banco do carro ou a cozinha? Fale com Deus do jeito que você falaria com alguém de confiança.",
+      "extra": "A palavra aposento indica o cômodo mais reservado da casa. A ideia é privacidade, não um lugar obrigatório.",
+      "question": {
+        "prompt": "Por que Jesus diz que não precisamos de muitas palavras ao orar?",
+        "options": [
+          "Porque Deus só ouve orações curtas",
+          "Porque orar em voz alta é proibido",
+          "Porque o Pai sabe o que precisamos antes de pedirmos"
+        ],
+        "correctIndex": 2,
+        "explanation": "O versículo 8 diz que o Pai sabe o que nos é necessário antes de lho pedirmos."
+      }
+    },
+    {
+      "title": "O Pai Nosso, linha por linha",
+      "passage": "Mateus 6:9-13",
+      "context": "Logo depois de falar de oração em secreto, Jesus oferece um modelo de como orar. Ele é conhecido como Pai Nosso.",
+      "explanation": "A oração começa por Deus: Pai nosso, santificado seja o teu nome, venha o teu reino. Só depois vêm os pedidos: o pão de cada dia, o perdão das dívidas e o livramento do mal. Note o plural, nosso e nos: é uma oração que se faz com os outros em mente. E o pedido é pelo pão de hoje, o necessário para o dia, sem exigir o futuro inteiro resolvido.",
+      "application": "Se quiser, ore hoje o Pai Nosso devagar, parando em uma frase que mais toca você. Pode ser pelo pão de hoje ou pelas pessoas que vivem sob o mesmo teto que você.",
+      "extra": "A parte final, porque teu é o reino, o poder e a glória, aparece na tradução ACF. Alguns dos manuscritos mais antigos não a trazem, e as tradições cristãs a usam de formas diferentes.",
+      "question": {
+        "prompt": "O que o texto diz que se pede, no Pai Nosso, em relação ao pão?",
+        "options": [
+          "O pão para todo o ano",
+          "O pão nosso de cada dia",
+          "O pão para os mais ricos"
+        ],
+        "correctIndex": 1,
+        "explanation": "O versículo 11 diz: O pão nosso de cada dia nos dá hoje."
+      }
+    },
+    {
+      "title": "Descansar a alma em Deus",
+      "passage": "Salmos 62:5-8",
+      "context": "Salmos é o livro de orações e cânticos do povo de Israel. O título deste salmo o atribui a Davi.",
+      "explanation": "O salmista fala consigo mesmo: ó minha alma, espera somente em Deus. Ele usa imagens de segurança: rocha, defesa, fortaleza, refúgio. No versículo 8, convida o povo a confiar em todos os tempos e a derramar o coração diante de Deus. Orar, aqui, inclui despejar tudo o que há por dentro, sem filtro, na certeza de que há onde se abrigar.",
+      "application": "Que tal dizer hoje a Deus, sem arrumar as palavras, aquilo que está pesando no seu coração? Você pode usar a frase do salmo: Deus é o nosso refúgio.",
+      "extra": "A palavra Selá aparece em vários salmos. Provavelmente era uma indicação musical, mas seu sentido exato não é certo.",
+      "question": {
+        "prompt": "O que o versículo 8 convida o povo a fazer perante Deus?",
+        "options": [
+          "Derramar o coração",
+          "Guardar silêncio sobre suas dores",
+          "Ficar longe até se sentir pronto"
+        ],
+        "correctIndex": 0,
+        "explanation": "O versículo 8 diz: derramai perante ele o vosso coração."
+      }
+    },
+    {
+      "title": "A oração de quem chega de mãos vazias",
+      "passage": "Lucas 18:9-14",
+      "context": "Jesus conta esta parábola, registrada por Lucas, a pessoas que confiavam em si mesmas e desprezavam os outros.",
+      "explanation": "Dois homens sobem ao templo para orar: um fariseu e um publicano. O fariseu agradece por não ser como os outros e lista o que faz. O publicano fica de longe, bate no peito e diz apenas: Ó Deus, tem misericórdia de mim. Jesus afirma que este último desceu justificado para casa. O ponto não é a quantidade de palavras, mas a postura do coração: humildade diante de Deus.",
+      "application": "Se quiser, comece sua oração de hoje sem pedir nada, apenas dizendo com simplicidade quem você é diante de Deus. E, se puder, evite se comparar com alguém no processo.",
+      "extra": "Fariseus eram um grupo religioso respeitado. Publicanos eram cobradores de impostos, geralmente malvistos. Jesus inverte a expectativa dos ouvintes.",
+      "question": {
+        "prompt": "Quem, segundo Jesus, desceu justificado para casa?",
+        "options": [
+          "O fariseu, que jejuava e dava dízimos",
+          "Os dois homens",
+          "O publicano, que pediu misericórdia"
+        ],
+        "correctIndex": 2,
+        "explanation": "No versículo 14, Jesus diz que este, o publicano, desceu justificado, e não o fariseu."
+      }
+    },
+    {
+      "title": "Preocupações viram pedidos",
+      "passage": "Filipenses 4:6-7",
+      "context": "Paulo escreve aos cristãos de Filipos. Ao longo da carta, ele fala de alegria mesmo em tempos difíceis.",
+      "explanation": "Paulo convida a não ficar inquieto por coisa alguma e a levar as petições a Deus em oração e súplica, com ação de graças. O texto não promete que o problema desaparece. Promete a paz de Deus, que excede todo o entendimento e guarda o coração e os pensamentos em Cristo Jesus. A oração aparece como o caminho para trocar a ansiedade por confiança, com gratidão no meio.",
+      "application": "Para fechar a jornada, que tal escrever em um papel uma preocupação, um pedido e um agradecimento? Leia os três em voz baixa a Deus e guarde o papel onde possa ver. Se a inquietação for intensa e constante, conversar com alguém de confiança ou com um profissional também é um cuidado válido.",
+      "extra": "Os cinco dias mostraram a oração como relação, modelo, refúgio, humildade e entrega. Você pode voltar a eles quando quiser.",
+      "question": {
+        "prompt": "O que Paulo diz que deve acompanhar as petições feitas a Deus?",
+        "options": [
+          "Ação de graças",
+          "Jejum prolongado",
+          "Palavras repetidas"
+        ],
+        "correctIndex": 0,
+        "explanation": "O versículo 6 diz que as petições sejam conhecidas de Deus pela oração e súplica, com ação de graças."
+      }
+    }
+  ]
+}

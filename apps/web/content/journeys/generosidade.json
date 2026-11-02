@@ -1,0 +1,79 @@
+{
+  "topic": "generosidade",
+  "title": "Gestos de generosidade",
+  "summary": "Cinco dias com textos bíblicos sobre dar: o jeito, o coração, a alegria e o cuidado concreto com quem precisa.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Dar sem alarde",
+      "passage": "Mateus 6:1-4",
+      "context": "Estes versículos fazem parte do Sermão do Monte, em que Jesus ensina seus ouvintes sobre a vida diante de Deus. Aqui ele fala de ‘esmola’, o ato de ajudar quem é pobre.",
+      "explanation": "Jesus adverte contra dar para ser visto: quem faz ‘tocar trombeta’ para ser glorificado já recebeu o que buscava. Em contraste, ele sugere que a mão esquerda não saiba o que faz a direita, uma imagem de discrição. O texto diz que o Pai ‘vê em secreto’ e recompensa. Não se descreve aqui o tipo de recompensa, e o foco do ensino está no coração de quem dá, não em ganho algum.",
+      "application": "Se quiser, faça hoje um pequeno gesto de ajuda sem contar a ninguém: pagar um café, enviar uma mensagem de apoio, ceder o lugar. Não há obrigação de nada maior.",
+      "extra": "Jesus fala em ‘hipócritas’ porque a palavra se aplicava a atores de teatro. A crítica é a quem faz do dar um espetáculo.",
+      "question": {
+        "prompt": "O que o texto diz para não fazer ao dar esmola?",
+        "options": ["Dar em segredo", "Dar com a mão direita", "Fazer tocar trombeta diante de si"],
+        "correctIndex": 2,
+        "explanation": "O versículo 2 diz: ‘não faças tocar trombeta diante de ti’."
+      }
+    },
+    {
+      "title": "O que o olhar de Jesus vê",
+      "passage": "Lucas 21:1-4",
+      "context": "O evangelho de Lucas conta que Jesus estava no templo, observando as pessoas que depositavam suas ofertas na arca do tesouro.",
+      "explanation": "Jesus viu ricos lançarem suas ofertas e uma viúva pobre lançar duas pequenas moedas. Ele disse que ela lançou mais que todos, pois os outros deram do que lhes sobrava, e ela, da sua pobreza, deu ‘todo o sustento que tinha’. Jesus descreve e valoriza o gesto dela, mas não manda ninguém fazer o mesmo. O texto mostra que ele repara no que o gesto custa para cada pessoa, e não só no tamanho do valor.",
+      "application": "Que tal lembrar hoje de uma ajuda pequena, mas sincera, que alguém lhe deu, e agradecer? Se quiser, pense também em um gesto simples ao seu alcance, sem se comparar com ninguém.",
+      "extra": "Uma moeda daquelas era de valor muito baixo. O texto destaca justamente isso: o que importa para Jesus não é o montante visível.",
+      "question": {
+        "prompt": "Por que, segundo Jesus, a viúva lançou mais do que todos?",
+        "options": ["Porque os outros não deram nada", "Porque ela deu da sua pobreza todo o sustento que tinha", "Porque a oferta dela foi a maior em valor"],
+        "correctIndex": 1,
+        "explanation": "O versículo 4 diz que os outros deram do que lhes sobrava, mas ela, da sua pobreza, deu todo o sustento que tinha."
+      }
+    },
+    {
+      "title": "Dar com alegria",
+      "passage": "2 Coríntios 9:7",
+      "context": "Paulo escreveu aos cristãos de Corinto. Nos capítulos 8 e 9, ele fala de uma coleta para ajudar outros cristãos em necessidade.",
+      "explanation": "Paulo diz que cada um contribua ‘segundo propôs no seu coração’, não com tristeza nem por necessidade, isto é, não por pressão. E conclui que Deus ‘ama ao que dá com alegria’. O foco não está em quanto se dá, e sim na liberdade e na disposição de quem dá. Isso vale para qualquer tipo de dom, e não só para dinheiro: tempo, atenção, habilidade.",
+      "application": "Se quiser, escolha hoje algo que você pode oferecer de coração leve: dez minutos de escuta, uma carona, uma refeição dividida. Se não houver alegria em alguma oferta, tudo bem: o texto pede liberdade, e não obrigação.",
+      "extra": "O texto não dá um valor nem uma porcentagem: a medida é o que cada um propôs no coração, e o que importa é a disposição com que se dá.",
+      "question": {
+        "prompt": "Quem Deus ama, segundo o texto?",
+        "options": ["O que dá com alegria", "O que dá o máximo possível", "O que dá por necessidade"],
+        "correctIndex": 0,
+        "explanation": "O versículo 7 diz: ‘Deus ama ao que dá com alegria’."
+      }
+    },
+    {
+      "title": "Mais feliz é dar",
+      "passage": "Atos 20:35",
+      "context": "Paulo se despede dos líderes da igreja de Éfeso, e Lucas registra o discurso em Atos. Paulo lembra o próprio exemplo de trabalho e uma frase de Jesus.",
+      "explanation": "Paulo diz que mostrou, trabalhando, que é preciso ‘auxiliar os enfermos’ e recorda palavras do Senhor Jesus: ‘Mais bem-aventurada coisa é dar do que receber’. Essa frase de Jesus não aparece escrita nos evangelhos, mas é citada aqui por Paulo. Bem-aventurado quer dizer feliz ou abençoado. O texto liga a alegria de dar a um cuidado concreto com quem tem menos força.",
+      "application": "Que tal observar hoje como você se sente depois de ajudar alguém com algo simples? Se quiser, pergunte a um vizinho ou colega se precisa de uma mão em algo pequeno.",
+      "extra": "O texto fala de dar como fonte de felicidade, e não como forma de obter retorno. A bem-aventurança está no próprio ato.",
+      "question": {
+        "prompt": "Que palavras do Senhor Jesus Paulo recorda nesse trecho?",
+        "options": ["Mais bem-aventurada coisa é dar do que receber", "Quem muito dá, muito receberá", "É melhor guardar que gastar"],
+        "correctIndex": 0,
+        "explanation": "O versículo 35 cita: ‘Mais bem-aventurada coisa é dar do que receber’."
+      }
+    },
+    {
+      "title": "Amor em obra e em verdade",
+      "passage": "1 João 3:17-18",
+      "context": "A primeira carta de João fala muito de amor e de como ele aparece na vida prática. Estes versículos ligam o amor a como lidamos com quem passa necessidade.",
+      "explanation": "João pergunta como pode o amor de Deus morar em quem tem bens e, vendo um irmão necessitado, fecha o coração para ele. Depois diz: ‘não amemos de palavra, nem de língua, mas em obra e em verdade’. É um convite, dito com ternura (‘meus filhinhos’), para que o amor se mostre em atitudes. Ele fala de olhar de verdade para a necessidade ao redor, e não de medir quem dá mais.",
+      "application": "Para fechar a jornada, que tal pensar em alguém próximo que passa por uma necessidade e escolher uma pequena atitude concreta para esta semana? Pode ser uma visita, uma ajuda prática ou uma conversa atenta.",
+      "extra": "Nos dias anteriores, vimos o dar sem alarde, o olhar de Jesus, a alegria e a felicidade de dar. Aqui, tudo se une em amor que se faz visível.",
+      "question": {
+        "prompt": "Como o texto diz que devemos amar?",
+        "options": ["Apenas em oração silenciosa", "Em obra e em verdade", "De palavra e de língua"],
+        "correctIndex": 1,
+        "explanation": "O versículo 18 diz: ‘não amemos de palavra, nem de língua, mas em obra e em verdade’."
+      }
+    }
+  ]
+}

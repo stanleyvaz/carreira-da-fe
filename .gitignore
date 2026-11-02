@@ -1,0 +1,46 @@
+# dependências e builds
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+coverage/
+.vercel/
+
+# segredos e credenciais
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.cer
+credentials*.json
+service-account*.json
+id_rsa*
+id_ed25519*
+secrets/
+
+# logs e SO
+*.log
+.DS_Store
+
+# conteúdo licenciado/volumoso (importado por scripts; transferir fora do Git)
+bible/
+music/
+
+# iOS: builds, estado local e projetos gerados (project.yml é a fonte)
+ios/build/
+ios/**/DerivedData/
+ios/**/xcuserdata/
+ios/*.xcodeproj/
+ios/**/Info*.plist

@@ -1,0 +1,99 @@
+{
+  "topic": "fe",
+  "title": "Fé: confiar mesmo sem ver tudo",
+  "summary": "Cinco dias para entender o que a Bíblia chama de fé: confiança que caminha, que admite dúvidas, que se mostra em gestos e que olha para Jesus.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "O que é fé, afinal?",
+      "passage": "Hebreus 11:1-3",
+      "context": "Hebreus é uma carta cujo autor a tradição não identifica com certeza. O capítulo 11 abre uma longa lista de pessoas do passado que confiaram em Deus.",
+      "explanation": "O texto descreve a fé como o firme fundamento das coisas que se esperam e a prova das coisas que não se veem. Ou seja, fé não é um sentimento vago: é uma base firme para aquilo que ainda não chegou. O versículo 3 dá um exemplo: pela fé entendemos que o mundo foi criado pela palavra de Deus. Fé, aqui, é uma forma de enxergar além do que os olhos alcançam.",
+      "application": "Que tal começar o dia nomeando, em uma frase, uma coisa que você espera e ainda não vê? Entregar isso a Deus em oração já é um pequeno exercício de fé.",
+      "extra": "Os versículos 1 a 3 servem de introdução. A partir do versículo 4, o autor passa a contar histórias de pessoas, começando por Abel.",
+      "question": {
+        "prompt": "Segundo Hebreus 11:1, a fé é:",
+        "options": [
+          "a prova das coisas que não se veem",
+          "a certeza de que nunca teremos dúvidas",
+          "um sentimento que depende das circunstâncias"
+        ],
+        "correctIndex": 0,
+        "explanation": "O versículo 1 diz que a fé é o firme fundamento das coisas que se esperam e a prova das coisas que não se veem."
+      }
+    },
+    {
+      "title": "Abraão, que saiu sem saber para onde",
+      "passage": "Hebreus 11:8-10",
+      "context": "O autor de Hebreus recorda Abraão, personagem do livro de Gênesis, como exemplo de uma fé que se põe a caminho.",
+      "explanation": "O texto diz que Abraão, ao ser chamado, obedeceu e saiu sem saber para onde ia. Depois, viveu na terra da promessa como em terra alheia, morando em cabanas com Isaque e Jacó. O versículo 10 revela o que o sustentava: ele esperava a cidade que tem fundamentos, cujo construtor é Deus. A fé de Abraão não tinha o mapa completo, mas tinha uma esperança firme.",
+      "application": "Se quiser, pense em uma decisão ou fase da vida em que você não enxerga o caminho inteiro. Qual seria o próximo passo pequeno e possível para hoje?",
+      "extra": "A história de Abraão está em Gênesis, a partir do capítulo 12. Cabanas são moradas provisórias, o que combina com a ideia de quem está de passagem.",
+      "question": {
+        "prompt": "De acordo com o texto, o que Abraão fez quando foi chamado?",
+        "options": [
+          "Pediu um mapa antes de partir",
+          "Obedeceu e saiu sem saber para onde ia",
+          "Esperou muitos anos para decidir"
+        ],
+        "correctIndex": 1,
+        "explanation": "O versículo 8 diz que Abraão, sendo chamado, obedeceu e saiu sem saber para onde ia."
+      }
+    },
+    {
+      "title": "Quando a fé pede ajuda",
+      "passage": "Marcos 9:21-24",
+      "context": "O Evangelho de Marcos conta o encontro de Jesus com um pai aflito, cujo filho sofria desde a infância.",
+      "explanation": "O pai descreve a dor de anos e pede: se podes alguma coisa, tem compaixão de nós. Jesus responde que tudo é possível ao que crê. A reação do pai é honesta e muito humana: ele clama, com lágrimas, que crê, e pede ajuda para a sua incredulidade. O texto não o repreende por isso. Ele mostra que fé e dúvida podem coexistir, e que se pode pedir ajuda até para crer.",
+      "application": "Que tal fazer hoje a oração desse pai com as suas palavras: Eu creio, ajuda a minha incredulidade? Dizer com sinceridade onde você tem dúvida também é um jeito de se aproximar.",
+      "extra": "Esse relato continua nos versículos seguintes, em Marcos 9. Aqui o foco está na conversa entre Jesus e o pai.",
+      "question": {
+        "prompt": "Qual foi a resposta do pai no versículo 24?",
+        "options": [
+          "Ele disse que não precisava de ajuda",
+          "Ele foi embora em silêncio",
+          "Ele disse que cria e pediu ajuda para a sua incredulidade"
+        ],
+        "correctIndex": 2,
+        "explanation": "No versículo 24, o pai clama com lágrimas: Eu creio, Senhor! Ajuda a minha incredulidade."
+      }
+    },
+    {
+      "title": "Fé que se vê em gestos",
+      "passage": "Tiago 2:14-17",
+      "context": "A carta de Tiago é um texto prático, escrito para comunidades cristãs, com muitos conselhos sobre o dia a dia.",
+      "explanation": "Tiago pergunta de que adianta alguém dizer que tem fé se não tem obras. Ele dá um exemplo simples: um irmão ou irmã sem roupa e sem comida, a quem se diz apenas Ide em paz, sem dar o necessário para o corpo. O versículo 17 conclui que a fé, se não tiver obras, é morta em si mesma. Cristãos de diferentes tradições discutem como relacionar fé e obras, mas todos reconhecem que, nesse texto, a confiança em Deus se mostra em cuidado concreto.",
+      "application": "Se quiser, escolha hoje um gesto pequeno de cuidado: uma mensagem a quem está sozinho, uma ajuda prática a alguém próximo. Sem peso, só como expressão do que você confia.",
+      "extra": "Essa passagem costuma ser lida junto com as cartas de Paulo sobre a fé. Muitos estudiosos entendem que eles tratam de ênfases complementares.",
+      "question": {
+        "prompt": "No exemplo de Tiago, o que faltou a quem disse apenas Ide em paz?",
+        "options": [
+          "Dar as coisas necessárias para o corpo",
+          "Fazer uma oração mais longa",
+          "Conhecer melhor a pessoa necessitada"
+        ],
+        "correctIndex": 0,
+        "explanation": "O versículo 16 diz que a pessoa não lhes deu as coisas necessárias para o corpo."
+      }
+    },
+    {
+      "title": "Olhando para Jesus",
+      "passage": "Hebreus 12:1-2",
+      "context": "Aqui termina a sequência iniciada em Hebreus 11. O autor fala como quem encoraja uma comunidade que precisa de perseverança.",
+      "explanation": "Depois de lembrar tantos exemplos, o autor diz que estamos rodeados de uma grande nuvem de testemunhas. Ele convida a deixar todo embaraço e a correr com paciência a carreira proposta. O centro do convite está no versículo 2: olhar para Jesus, autor e consumador da fé. A fé, então, não depende só do nosso esforço: ela tem um começo e um fim em Alguém.",
+      "application": "Para fechar a jornada, que tal reservar um minuto de silêncio e agradecer por uma pessoa que, com sua vida, fortaleceu a sua fé? Depois, olhe para o seu dia pedindo paciência para o caminho.",
+      "extra": "A imagem da corrida lembra as competições do mundo antigo. O texto usa a ideia de resistência, não de velocidade.",
+      "question": {
+        "prompt": "Segundo Hebreus 12:2, para quem devemos olhar na corrida da fé?",
+        "options": [
+          "Para a nuvem de testemunhas",
+          "Para Jesus, autor e consumador da fé",
+          "Para os nossos próprios esforços"
+        ],
+        "correctIndex": 1,
+        "explanation": "O versículo 2 diz: Olhando para Jesus, autor e consumador da fé."
+      }
+    }
+  ]
+}

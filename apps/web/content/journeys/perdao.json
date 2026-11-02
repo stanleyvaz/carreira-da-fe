@@ -1,0 +1,99 @@
+{
+  "topic": "perdao",
+  "title": "Perdão: soltar o que pesa",
+  "summary": "Cinco dias para olhar o perdão na Bíblia: sua medida, seu peso, o alívio de ser perdoado, a festa do pai e o amor que une.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Quantas vezes perdoar?",
+      "passage": "Mateus 18:21-22",
+      "context": "No Evangelho de Mateus, Pedro faz a Jesus uma pergunta que muita gente já se fez: até onde vai a paciência com quem nos magoa?",
+      "explanation": "Pedro pergunta se deve perdoar até sete vezes, um número que para ele já parecia generoso. Jesus responde: não até sete, mas até setenta vezes sete. A resposta aponta para uma generosidade sem contabilidade, em vez de um novo limite. O perdão, nesse ensino, é um modo de viver, não uma conta a fechar.",
+      "application": "Se quiser, lembre hoje de uma pessoa que já magoou você mais de uma vez. Sem precisar decidir nada agora, apenas peça a Deus que lhe dê disposição para olhar para ela com mais brandura.",
+      "extra": "Alguns tradutores leem a expressão como setenta e sete vezes. Nos dois casos, a ideia é um número tão grande que não dá para contar.",
+      "question": {
+        "prompt": "O que Jesus respondeu a Pedro, que perguntou se perdoaria até sete vezes?",
+        "options": [
+          "Que sete vezes era suficiente",
+          "Que deveria perdoar até setenta vezes sete",
+          "Que não era preciso perdoar"
+        ],
+        "correctIndex": 1,
+        "explanation": "No versículo 22, Jesus diz: Não te digo que até sete; mas, até setenta vezes sete."
+      }
+    },
+    {
+      "title": "Deixar a amargura de lado",
+      "passage": "Efésios 4:31-32",
+      "context": "Paulo escreve aos cristãos de Éfeso e, na parte final da carta, trata do dia a dia da convivência.",
+      "explanation": "Paulo pede que sejam tiradas do meio da comunidade a amargura, a ira, a cólera, a gritaria e toda a malícia. No lugar, convida a ser benignos e misericordiosos, perdoando uns aos outros, como Deus perdoou em Cristo. O texto liga o perdão que damos ao perdão que recebemos. Também reconhece, sem rodeios, que ressentimento e raiva atrapalham a convivência.",
+      "application": "Que tal observar hoje, sem se julgar, que sentimento aparece quando você pensa em quem o feriu? Nomear o sentimento já ajuda. Se for uma ferida profunda, não é preciso carregá-la sozinho: busque alguém de confiança.",
+      "extra": "Perdoar não significa dizer que o que aconteceu foi pequeno. O texto fala de tirar a amargura, mas não pede que se finja que nada houve.",
+      "question": {
+        "prompt": "Com qual medida Paulo diz que devemos perdoar uns aos outros?",
+        "options": [
+          "Como merecem as pessoas",
+          "Como Deus nos perdoou em Cristo",
+          "Como cada um achar justo"
+        ],
+        "correctIndex": 1,
+        "explanation": "O versículo 32 diz: perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo."
+      }
+    },
+    {
+      "title": "O alívio de ser perdoado",
+      "passage": "Salmos 32:1-5",
+      "context": "Salmos é o livro de orações de Israel. O título deste salmo o atribui a Davi, e ele fala de alguém que reconhece uma falta.",
+      "explanation": "O salmista começa dizendo que é bem-aventurado aquele cuja transgressão é perdoada. Ele descreve o peso de guardar silêncio: os ossos envelhecem, a mão de Deus pesa dia e noite. Então vem a virada do versículo 5: ele confessa, não encobre a maldade, e Deus perdoa. Perdão, aqui, é o fim de um peso que vinha de esconder e de carregar sozinho.",
+      "application": "Se quiser, pense em algo que você guarda em silêncio e que pesa. Que tal falar sobre isso com Deus em oração, com franqueza e sem tentar se defender?",
+      "extra": "Esse salmo é tradicionalmente lido como uma oração de gratidão depois da confissão. A tradição cristã o inclui entre os chamados salmos penitenciais.",
+      "question": {
+        "prompt": "O que o salmista fez no versículo 5, antes de ser perdoado?",
+        "options": [
+          "Confessou o seu pecado e não encobriu a maldade",
+          "Esperou que o tempo resolvesse",
+          "Ofereceu uma explicação para o erro"
+        ],
+        "correctIndex": 0,
+        "explanation": "No versículo 5, ele diz: Confessei-te o meu pecado, e a minha maldade não encobri."
+      }
+    },
+    {
+      "title": "O pai que corre ao encontro",
+      "passage": "Lucas 15:20-24",
+      "context": "Jesus conta, no Evangelho de Lucas, a parábola de um filho que deixou a casa do pai, gastou tudo e decidiu voltar.",
+      "explanation": "Quando o filho ainda estava longe, o pai o viu, moveu-se de compaixão, correu, lançou-se ao seu pescoço e o beijou. O filho começa seu discurso de arrependimento, mas o pai já está providenciando roupa, anel, sandálias e uma festa. Ele diz que o filho estava perdido e foi achado. A cena mostra um perdão que se antecipa e restaura, sem exigir humilhação.",
+      "application": "Que tal pensar em alguém que tenha se afastado de você e que talvez esteja esperando um primeiro passo? Uma mensagem simples, sem cobranças, pode ser um começo, se você sentir que é o momento.",
+      "extra": "Em Lucas 15, essa parábola vem depois de outras duas sobre algo perdido e achado: a ovelha e a moeda. O tema é a alegria de encontrar.",
+      "question": {
+        "prompt": "O que o pai fez quando viu o filho ainda de longe?",
+        "options": [
+          "Esperou na porta de casa",
+          "Mandou um servo conversar primeiro",
+          "Correu, abraçou e beijou o filho"
+        ],
+        "correctIndex": 2,
+        "explanation": "O versículo 20 diz que o pai, movido de compaixão, correu, lançou-se-lhe ao pescoço e o beijou."
+      }
+    },
+    {
+      "title": "Revestir-se de amor",
+      "passage": "Colossenses 3:12-14",
+      "context": "Paulo escreve aos cristãos de Colossos, descrevendo como é uma vida moldada por Cristo, usando a imagem de trocar de roupa.",
+      "explanation": "Paulo convida a revestir-se de misericórdia, benignidade, humildade, mansidão e longanimidade, que significa paciência. No versículo 13, pede que suportemos uns aos outros e perdoemos, se alguém tiver queixa contra outro, assim como Cristo perdoou. E acima de tudo, diz o versículo 14, vem o amor, vínculo da perfeição. Perdoar, nessa imagem, é uma peça de roupa que se veste de novo a cada dia.",
+      "application": "Para fechar a jornada, escolha uma das virtudes da lista e pense em como vesti-la hoje. Que tal ser paciente com uma pessoa específica, em uma situação concreta?",
+      "extra": "Ao longo dos cinco dias, vimos a medida do perdão, seu peso, seu alívio, sua alegria e seu lugar no amor. Cada um vive isso no seu tempo.",
+      "question": {
+        "prompt": "O que Paulo coloca acima de tudo, como vínculo da perfeição?",
+        "options": [
+          "A justiça",
+          "A paciência",
+          "O amor"
+        ],
+        "correctIndex": 2,
+        "explanation": "O versículo 14 diz: sobre tudo isto, revesti-vos de amor, que é o vínculo da perfeição."
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "topic": "perseveranca",
+  "title": "Seguir em frente: cinco dias de perseverança",
+  "summary": "Textos bíblicos sobre continuar caminhando quando o cansaço chega: o que as provações ensinam, de onde vem a esperança e para onde olhar.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "O que a prova produz",
+      "passage": "Tiago 1:2-4",
+      "context": "Tiago escreveu a cristãos que passavam por dificuldades. A tradução ACF usa ‘tentações’ onde muitas versões atuais dizem ‘provações’, e ‘paciência’ no sentido de constância, firmeza para continuar.",
+      "explanation": "O texto pede ‘grande alegria’ diante de várias provações, não porque doer seja bom, mas porque a prova da fé ‘opera a paciência’, isto é, produz constância. O versículo 4 diz que essa constância tem uma ‘obra perfeita’, que nos torna completos. Muitos leitores notam que o texto não pede para fingir que está tudo bem: ele aponta um fruto que pode nascer no meio da dificuldade.",
+      "application": "Se quiser, pense em uma situação difícil que você atravessa ou atravessou e anote uma coisa que ela já lhe ensinou. Se hoje o cansaço for maior, apenas reconhecê-lo diante de Deus já é um bom começo.",
+      "extra": "A carta de Tiago é uma das mais práticas do Novo Testamento e fala muito de fé que se mostra em atitudes diárias.",
+      "question": {
+        "prompt": "Segundo o texto, o que a prova da fé opera?",
+        "options": ["A pressa", "A paciência", "O esquecimento"],
+        "correctIndex": 1,
+        "explanation": "O versículo 3 diz: ‘a prova da vossa fé opera a paciência’."
+      }
+    },
+    {
+      "title": "Uma escada de esperança",
+      "passage": "Romanos 5:3-5",
+      "context": "Paulo escreve à comunidade cristã de Roma e explica como a fé em Cristo sustenta a vida, inclusive em tempos de sofrimento.",
+      "explanation": "Paulo descreve uma sequência: a tribulação produz paciência, a paciência produz experiência, e a experiência produz esperança. Ele não elogia o sofrimento em si; mostra que, passo a passo, a firmeza vai gerando confiança. Depois acrescenta que a esperança não traz confusão, ou seja, não decepciona, ‘porquanto o amor de Deus está derramado em nossos corações pelo Espírito Santo’. A esperança, aqui, se apoia no amor de Deus, e não só no esforço de quem aguenta.",
+      "application": "Que tal olhar hoje para uma dificuldade passada e notar o caminho que você percorreu? Se quiser, agradeça por algum passo, por menor que seja, que o trouxe até aqui.",
+      "extra": "A palavra traduzida por ‘experiência’ pode ser entendida como caráter provado, como um metal testado e aprovado.",
+      "question": {
+        "prompt": "O que, no texto, a paciência produz?",
+        "options": ["Confusão", "Tribulação", "Experiência"],
+        "correctIndex": 2,
+        "explanation": "O versículo 4 diz que a tribulação produz a paciência e a paciência produz a experiência, que por sua vez produz esperança."
+      }
+    },
+    {
+      "title": "Não nos cansemos",
+      "passage": "Gálatas 6:9-10",
+      "context": "Paulo escreve às igrejas da região da Galácia. Perto do fim da carta, ele fala de como viver em comunidade e de fazer o bem aos outros.",
+      "explanation": "O texto diz: ‘não nos cansemos de fazer bem’. Ele reconhece que cansar é uma possibilidade real, e por isso o apelo é feito em primeira pessoa do plural, ‘nós’. A razão dada é que ‘a seu tempo ceifaremos, se não houvermos desfalecido’. A imagem é a de uma colheita, que não acontece no dia seguinte ao plantio. O versículo 10 amplia o horizonte: fazer bem a todos, principalmente aos da família da fé.",
+      "application": "Se quiser, escolha um bem que você faz há algum tempo e talvez esteja cansando de fazer, como cuidar de alguém, estudar ou servir. Que tal pedir ajuda, descansar um pouco hoje ou renovar o motivo pelo qual começou?",
+      "extra": "‘Os domésticos da fé’ significa, em linguagem de hoje, os que fazem parte da mesma comunidade de fé, como uma família.",
+      "question": {
+        "prompt": "De que o texto diz para não nos cansarmos?",
+        "options": ["De orar", "De fazer bem", "De trabalhar"],
+        "correctIndex": 1,
+        "explanation": "O versículo 9 diz: ‘não nos cansemos de fazer bem’."
+      }
+    },
+    {
+      "title": "Correr com os olhos em Jesus",
+      "passage": "Hebreus 12:1-2",
+      "context": "A carta aos Hebreus é um texto antigo de encorajamento a cristãos que enfrentavam dificuldades. O texto usa a imagem de uma corrida de resistência.",
+      "explanation": "O autor fala de uma ‘nuvem de testemunhas’, pessoas de fé que vieram antes. Ele convida a deixar de lado o que atrapalha, como um corredor que larga peso extra, e a correr ‘com paciência’ a carreira proposta. O versículo 2 indica para onde olhar: ‘para Jesus, autor e consumador da fé’. A perseverança aqui não depende só da própria força, mas de manter o olhar em alguém que já passou por tudo e chegou ao fim.",
+      "application": "Que tal identificar hoje uma coisa que pesa na sua caminhada e talvez possa ser deixada de lado, como um hábito, uma preocupação ou uma comparação? Se quiser, faça uma pausa curta para olhar, em oração, para Jesus.",
+      "extra": "A ‘carreira’ do texto é uma corrida de longa distância. A imagem fala de ritmo constante e não de velocidade.",
+      "question": {
+        "prompt": "Para quem o texto diz que devemos olhar enquanto corremos?",
+        "options": ["Para os outros corredores", "Para Jesus, autor e consumador da fé", "Para a linha de chegada apenas"],
+        "correctIndex": 1,
+        "explanation": "O versículo 2 diz: ‘Olhando para Jesus, autor e consumador da fé’."
+      }
+    },
+    {
+      "title": "Prosseguir, mesmo sem ter chegado",
+      "passage": "Filipenses 3:12-14",
+      "context": "Paulo escreve à igreja de Filipos e, no próprio texto, fala de si mesmo com franqueza. A carta é de tom afetuoso, escrita quando ele estava preso.",
+      "explanation": "Paulo admite: ‘Não que já a tenha alcançado, ou que já seja perfeito’. Mesmo assim, ele ‘prossegue’. Ele descreve o que faz: esquece o que ficou para trás e avança para o que está adiante. A perseverança, nesse relato, convive com a honestidade sobre os próprios limites. Ele não alega ter chegado, e continua caminhando em direção ao ‘alvo’.",
+      "application": "Para fechar a jornada, que tal reconhecer, sem se cobrar, algo em que você ainda não chegou? Se quiser, escolha um passo pequeno para amanhã e agradeça por quem já caminhou com você nestes dias.",
+      "extra": "Nos dias anteriores, vimos o fruto da prova, a esperança, o cansaço, o olhar em Jesus. Paulo agora mostra que tudo isso é um caminho, e não um ponto de chegada imediata.",
+      "question": {
+        "prompt": "O que Paulo diz que faz, esquecendo o que fica para trás?",
+        "options": ["Desiste do alvo", "Avança para as coisas que estão diante dele", "Para de caminhar"],
+        "correctIndex": 1,
+        "explanation": "O versículo 13 diz que ele esquece o que fica atrás e avança ‘para as que estão diante’ de si, prosseguindo para o alvo."
+      }
+    }
+  ]
+}

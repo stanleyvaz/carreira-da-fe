@@ -1,0 +1,107 @@
+{
+  "topic": "fe",
+  "title": "7 dias de gratidão",
+  "summary": "Um convite voluntário: a cada dia, um pequeno gesto de gratidão inspirado em uma passagem bíblica. Sem pontuação e sem cobrança; participe no seu ritmo.",
+  "kind": "challenge",
+  "days": 7,
+  "steps": [
+    {
+      "title": "Entrar com gratidão",
+      "passage": "Salmos 100:1-5",
+      "context": "O Salmo 100 é um cântico de louvor, usado há séculos para convidar o povo a celebrar. Nele, a gratidão é parte da própria forma de se aproximar de Deus.",
+      "explanation": "O salmista convida a servir ao Senhor com alegria e a entrar diante dele ‘com canto’. No versículo 4, pede que se entre pelas portas ‘com gratidão’ e nos átrios ‘com louvor’. A razão está nos versículos 3 e 5: o Senhor nos fez, somos povo seu, e ele é bom, com misericórdia eterna. A gratidão, aqui, nasce de reconhecer quem somos e quem é Deus.",
+      "application": "Convite do dia: se quiser, diga em voz alta, ou escreva, uma coisa pela qual você é grato hoje. Pode ser simples, como o café da manhã ou um dia de sol.",
+      "extra": "O salmo é muito usado em cultos e em momentos de agradecimento, por reunir louvor e gratidão em poucas linhas.",
+      "question": {
+        "prompt": "Com o quê o texto diz que devemos entrar pelas portas do Senhor?",
+        "options": ["Com pressa", "Com gratidão", "Com silêncio total"],
+        "correctIndex": 1,
+        "explanation": "O versículo 4 diz: ‘Entrai pelas portas dele com gratidão, e em seus átrios com louvor’."
+      }
+    },
+    {
+      "title": "Em tudo, dar graças",
+      "passage": "1 Tessalonicenses 5:16-18",
+      "context": "Paulo escreveu aos cristãos de Tessalônica. Perto do fim da carta, ele deixa breves orientações para o dia a dia da comunidade.",
+      "explanation": "Entre as orientações curtas está: ‘Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco’. O texto diz ‘em tudo’, ou seja, em todas as circunstâncias, e não pede para agradecer por cada coisa dolorosa, nem para negar o que dói. Ele convida a procurar motivos de gratidão mesmo em dias comuns ou difíceis, junto com alegria e oração.",
+      "application": "Convite do dia: se quiser, anote três coisas pequenas pelas quais agradece hoje, uma de manhã, uma à tarde e uma à noite. Se o dia estiver pesado, uma só já basta.",
+      "extra": "Os três versículos formam uma sequência curta: alegrar-se, orar, agradecer. Muitos leitores veem aí um ritmo possível para o dia.",
+      "question": {
+        "prompt": "Em que, segundo o texto, devemos dar graças?",
+        "options": ["Apenas nos bons momentos", "Somente aos domingos", "Em tudo"],
+        "correctIndex": 2,
+        "explanation": "O versículo 18 diz: ‘Em tudo dai graças’."
+      }
+    },
+    {
+      "title": "O que voltou para agradecer",
+      "passage": "Lucas 17:15-19",
+      "context": "Lucas conta que dez homens com lepra foram a Jesus, que os mandou se apresentarem aos sacerdotes. Este trecho mostra o que um deles fez depois de perceber que estava curado.",
+      "explanation": "Um dos dez, ao ver que estava são, voltou glorificando a Deus em alta voz, caiu aos pés de Jesus e lhe deu graças. O texto destaca que ele era samaritano, um estrangeiro. Jesus pergunta onde estão os outros nove e diz ao homem: ‘Levanta-te, e vai’. A narrativa chama atenção para o gesto de voltar e agradecer, sem condenar quem não voltou.",
+      "application": "Convite do dia: se quiser, agradeça pessoalmente a alguém que o ajudou, com uma mensagem, uma ligação ou um abraço. Pode ser alguém que nunca ouviu um obrigado seu.",
+      "extra": "Samaritanos e judeus costumavam ter relações tensas na época. Por isso, o fato de o único a voltar ser samaritano é notado no relato.",
+      "question": {
+        "prompt": "Quem voltou para dar graças a Jesus?",
+        "options": ["Um samaritano, estrangeiro", "Todos os dez", "Um sacerdote"],
+        "correctIndex": 0,
+        "explanation": "Os versículos 15 e 16 dizem que um deles voltou, deu graças e era samaritano; Jesus o chama de ‘estrangeiro’ no versículo 18."
+      }
+    },
+    {
+      "title": "Não esquecer os benefícios",
+      "passage": "Salmos 103:1-2",
+      "context": "O Salmo 103 é um cântico de louvor atribuído a Davi. Ele começa com o salmista falando consigo mesmo, como quem se anima a lembrar.",
+      "explanation": "O salmista diz à própria alma: ‘Bendize ao Senhor’, e repete o chamado. Em seguida pede: ‘não te esqueças de nenhum de seus benefícios’. Gratidão, aqui, é também memória: voltar o olhar para o que já foi recebido, para que não se perca no corre-corre. O versículo trata a gratidão como algo que se exercita, falando com a própria alma.",
+      "application": "Convite do dia: se quiser, lembre de um momento do passado em que você recebeu ajuda ou alegria, e conte-o a alguém, em voz alta ou por escrito. Reviver uma lembrança boa já é um agradecimento.",
+      "extra": "‘Bendizer’ significa falar bem de alguém. Aqui, é o salmista dizendo bem de Deus com a alma toda, e ‘tudo o que há em mim’.",
+      "question": {
+        "prompt": "De que o salmista pede para não se esquecer?",
+        "options": ["De nenhum de seus benefícios", "De seus erros passados", "De suas conquistas pessoais"],
+        "correctIndex": 0,
+        "explanation": "O versículo 2 diz: ‘não te esqueças de nenhum de seus benefícios’."
+      }
+    },
+    {
+      "title": "Agradecidos, no que fizerem",
+      "passage": "Colossenses 3:15-17",
+      "context": "Paulo escreve aos colossenses sobre como viver em comunidade. Neste trecho, a gratidão aparece três vezes em poucas linhas.",
+      "explanation": "O texto pede que a paz de Deus ‘domine em vossos corações’ e acrescenta: ‘sede agradecidos’. Fala de cantar ‘salmos, hinos e cânticos espirituais’ e termina dizendo que, em tudo o que se faz, seja por palavras ou por obras, se faça ‘em nome do Senhor Jesus, dando por ele graças a Deus Pai’. A gratidão acompanha o cotidiano inteiro, e não só momentos especiais.",
+      "application": "Convite do dia: se quiser, antes de uma tarefa comum, como cozinhar, trabalhar ou dirigir, faça uma pausa de dez segundos e diga ‘obrigado’. Ouvir ou cantar uma música que faz bem também vale.",
+      "extra": "O texto fala de gratidão ligada à comunidade: cantar e ensinar uns aos outros. Agradecer, na Bíblia, muitas vezes é algo feito junto.",
+      "question": {
+        "prompt": "O que o texto diz que devemos fazer em tudo o que fizermos por palavras ou por obras?",
+        "options": ["Fazer tudo em silêncio", "Fazer tudo em nome do Senhor Jesus, dando graças a Deus Pai", "Fazer tudo apenas para nós mesmos"],
+        "correctIndex": 1,
+        "explanation": "O versículo 17 diz: ‘fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus Pai’."
+      }
+    },
+    {
+      "title": "Gratidão no meio da inquietude",
+      "passage": "Filipenses 4:6-7",
+      "context": "Paulo escreve à igreja de Filipos, uma carta de tom afetuoso, escrita quando ele estava preso. Aqui ele fala de preocupação e de oração.",
+      "explanation": "O texto diz: ‘Não estejais inquietos por coisa alguma’ e indica um caminho: apresentar as petições a Deus ‘pela oração e súplica, com ação de graças’. A gratidão aparece junto com o pedido, não depois dele. O versículo 7 diz que a paz de Deus ‘excede todo o entendimento’ e guarda corações e pensamentos em Cristo Jesus. Isso não nega que preocupações existam: oferece um modo de levá-las a Deus.",
+      "application": "Convite do dia: se quiser, quando uma preocupação surgir, tente dizer a Deus o que você pede e acrescente uma coisa pela qual já é grato. Se a inquietude persistir, conversar com alguém de confiança também é bom.",
+      "extra": "A expressão ‘ação de graças’ faz o pedido caminhar junto com o agradecimento, como se um sustentasse o outro.",
+      "question": {
+        "prompt": "Com o quê o texto diz que as petições devem ser apresentadas a Deus?",
+        "options": ["Com reclamação", "Com oração e súplica, com ação de graças", "Com promessas de troca"],
+        "correctIndex": 1,
+        "explanation": "O versículo 6 diz: ‘as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças’."
+      }
+    },
+    {
+      "title": "A bondade que dura para sempre",
+      "passage": "Salmos 136:1-3",
+      "context": "O Salmo 136 é um cântico de louvor em que, depois de cada afirmação, o povo responde com o mesmo refrão. Era feito para ser cantado em conjunto.",
+      "explanation": "Os três primeiros versículos convidam a louvar ao Senhor, ao Deus dos deuses e ao Senhor dos senhores, e em cada um repete-se o mesmo motivo: ‘porque a sua benignidade dura para sempre’. A repetição funciona como uma lembrança que se fixa. Ao fim destes sete dias, o salmo resume o que a gratidão reconhece: uma bondade que não depende do nosso humor nem dos nossos dias.",
+      "application": "Convite do dia: para fechar, se quiser, escreva uma frase de gratidão que resuma estes sete dias e leia-a em voz alta ou compartilhe com alguém. Você pode também continuar a prática quando e como preferir.",
+      "extra": "O Salmo 136 tem 26 versículos e repete o refrão em todos eles. Esse formato ajuda quem canta a decorar e a lembrar.",
+      "question": {
+        "prompt": "Que refrão se repete em cada um dos três versículos?",
+        "options": ["Porque o Senhor é Rei sobre toda a terra", "Porque a sua benignidade dura para sempre", "Porque os seus caminhos são perfeitos"],
+        "correctIndex": 1,
+        "explanation": "Cada versículo termina com: ‘porque a sua benignidade dura para sempre’."
+      }
+    }
+  ]
+}

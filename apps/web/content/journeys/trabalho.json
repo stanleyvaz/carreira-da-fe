@@ -1,0 +1,79 @@
+{
+  "topic": "trabalho",
+  "title": "O trabalho à luz da Palavra",
+  "summary": "Cinco dias para olhar para o seu trabalho, pago ou não, com os olhos da Bíblia: seu sentido, seu modo, seus limites e a alegria possível nele.",
+  "kind": "journey",
+  "days": 5,
+  "steps": [
+    {
+      "title": "Um trabalho desde o começo",
+      "passage": "Gênesis 2:15",
+      "context": "O livro de Gênesis conta, em linguagem narrativa, como o mundo e a humanidade começaram. Este versículo vem antes de qualquer dificuldade descrita na história.",
+      "explanation": "O texto diz que o Senhor Deus pôs o homem no jardim do Éden ‘para o lavrar e o guardar’. Ou seja, cuidar do jardim aparece como parte do lugar que o ser humano recebe, e não como algo acrescentado depois. Os dois verbos juntos sugerem trabalho e zelo: cultivar e proteger. Cada tradição cristã explora esse tema de um jeito, mas todas reconhecem aqui um começo em que trabalhar tem sentido.",
+      "application": "Se quiser, pense hoje em uma tarefa sua, grande ou pequena, e pergunte: o que, nela, é cultivar e o que é cuidar? Pode ser organizar uma planilha, preparar uma refeição ou atender alguém com atenção.",
+      "extra": "A palavra hebraica traduzida por ‘guardar’ também aparece em outros textos com o sentido de vigiar e preservar. Por isso muitos leitores veem aqui a ideia de cuidado, além de produção.",
+      "question": {
+        "prompt": "Segundo o texto, para que o Senhor Deus pôs o homem no jardim do Éden?",
+        "options": ["Para o lavrar e o guardar", "Para apenas contemplar o jardim", "Para construir uma cidade"],
+        "correctIndex": 0,
+        "explanation": "O versículo diz que o homem foi posto no jardim ‘para o lavrar e o guardar’."
+      }
+    },
+    {
+      "title": "Fazer de todo o coração",
+      "passage": "Colossenses 3:23-24",
+      "context": "Paulo escreveu aos cristãos da cidade de Colossos. Pouco antes, no versículo 22, ele se dirige a servos, pessoas que trabalhavam sob ordens de outros, e estende a ideia a tudo o que se faz.",
+      "explanation": "O texto pede que tudo o que fizermos seja feito ‘de todo o coração, como ao Senhor, e não aos homens’. Não diz que a opinião das pessoas não importa, mas oferece outra medida: servir a Cristo no que se faz. O ‘galardão da herança’ é uma recompensa que vem do Senhor; o texto não a descreve como salário ou promoção, e não promete bons resultados materiais.",
+      "application": "Que tal escolher uma tarefa de hoje que ninguém vai conferir e fazê-la com um pouco mais de atenção, só por cuidado? Se preferir, comece o dia com uma frase breve, entregando o trabalho a Deus.",
+      "extra": "A carta aos Colossenses foi escrita por Paulo quando ele estava preso, segundo o que o próprio texto sugere em outros trechos. Mesmo assim, ele fala de dedicação no trabalho comum.",
+      "question": {
+        "prompt": "Como o texto diz que devemos fazer tudo o que fizermos?",
+        "options": ["Só quando alguém estiver olhando", "De todo o coração, como ao Senhor", "Com o mínimo de esforço possível"],
+        "correctIndex": 1,
+        "explanation": "O versículo 23 diz: ‘fazei-o de todo o coração, como ao Senhor, e não aos homens’."
+      }
+    },
+    {
+      "title": "Palavras e obras",
+      "passage": "Provérbios 14:23",
+      "context": "O livro de Provérbios reúne ditos de sabedoria prática, atribuídos em grande parte a Salomão. Eles descrevem tendências da vida, não promessas garantidas.",
+      "explanation": "O provérbio contrasta dois caminhos: em todo trabalho há proveito, mas ficar só em palavras leva à pobreza. Falar sobre projetos, planos e boas intenções não substitui dar o primeiro passo. É um ditado de observação geral: nem todo esforço é bem pago e há muitas causas de dificuldade que não dependem de ninguém. Ele aponta apenas que agir costuma render algo que falar sozinho não rende.",
+      "application": "Se quiser, pense em algo que você vem adiando por ficar só planejando. Que tal dar hoje um passo pequeno e concreto, de dez minutos, na direção disso?",
+      "extra": "Nos Provérbios, ‘proveito’ não se limita a dinheiro. Pode incluir aprendizado, bons vínculos e o próprio valor de ter feito algo bem.",
+      "question": {
+        "prompt": "O que, segundo o provérbio, leva à pobreza?",
+        "options": ["Descansar um dia na semana", "Trabalhar em muitas coisas", "Ficar só em palavras"],
+        "correctIndex": 2,
+        "explanation": "O texto diz que ‘em todo trabalho há proveito, mas ficar só em palavras leva à pobreza’."
+      }
+    },
+    {
+      "title": "O dia de parar",
+      "passage": "Êxodo 20:8-11",
+      "context": "Este trecho faz parte dos Dez Mandamentos, dados ao povo de Israel no Êxodo. O quarto mandamento fala ao mesmo tempo de trabalho e de descanso.",
+      "explanation": "O mandamento começa reconhecendo o trabalho: ‘seis dias trabalharás’. Depois reserva o sétimo dia, o sábado, para não fazer obra alguma, e inclui filhos, servos, estrangeiros e até os animais. A razão dada é que, em seis dias, o Senhor fez os céus e a terra e, no sétimo, descansou. O descanso aparece, então, como parte do ritmo da vida, e não como prêmio para quem já produziu bastante. Hoje, tradições cristãs entendem de modos diferentes como viver o sábado, e isso é respeitado.",
+      "application": "Que tal reservar hoje ou neste fim de semana um intervalo sem tela e sem tarefas, mesmo curto, para simplesmente descansar? Se quiser, convide alguém da casa a fazer o mesmo.",
+      "extra": "A lista de quem descansa, incluindo servos e estrangeiros, mostra que o descanso é pensado para todos, e não só para quem manda.",
+      "question": {
+        "prompt": "Qual é a razão dada no texto para o sábado?",
+        "options": ["Em seis dias o Senhor fez os céus e a terra e, no sétimo, descansou", "Porque o povo estava cansado de trabalhar", "Porque o sétimo dia era dedicado às viagens"],
+        "correctIndex": 0,
+        "explanation": "O versículo 11 diz que em seis dias o Senhor fez os céus, a terra, o mar e tudo o que neles há, e ao sétimo dia descansou."
+      }
+    },
+    {
+      "title": "Alegria no que se faz",
+      "passage": "Eclesiastes 3:12-13",
+      "context": "Eclesiastes é um livro de sabedoria em que o Pregador, tradicionalmente identificado com Salomão, reflete com franqueza sobre a vida, inclusive sobre suas frustrações.",
+      "explanation": "Depois de ponderar sobre o tempo e as dificuldades, o Pregador conclui que não há nada melhor do que alegrar-se e fazer o bem enquanto se vive. Ele acrescenta que comer, beber e gozar do bem do próprio trabalho é ‘um dom de Deus’. O trabalho aparece aqui não só como obrigação ou esforço, mas como algo em que também se pode encontrar prazer, e esse prazer é visto como presente. O livro não nega que o trabalho cansa; apenas reconhece esse lado bom.",
+      "application": "Para fechar estes cinco dias, que tal agradecer por um fruto concreto do seu trabalho, como uma refeição, um resultado ou um colega que ajudou? Se quiser, comece de novo amanhã com os olhos mais atentos ao que já é bom.",
+      "extra": "O Pregador repete, em outros pontos do livro, essa ideia de aproveitar com gratidão o que a vida dá, sem fingir que tudo é fácil.",
+      "question": {
+        "prompt": "Como o texto descreve o fato de gozar do bem de todo o seu trabalho?",
+        "options": ["Uma ilusão sem valor", "Um dom de Deus", "Um castigo inevitável"],
+        "correctIndex": 1,
+        "explanation": "O versículo 13 diz que gozar do bem de todo o seu trabalho ‘é um dom de Deus’."
+      }
+    }
+  ]
+}
