@@ -5,6 +5,7 @@ import * as users from "../lib/services/appUsers";
 import * as an from "../lib/services/analytics";
 import * as usage from "../lib/services/usage";
 import * as comp from "../lib/services/companion";
+import { getPreferences, savePreferences, setCompanion } from "../lib/services/user";
 import { userFromToken, createSession } from "../lib/auth";
 import { mkUser, publishedJourney, reset } from "./helpers";
 
@@ -98,5 +99,33 @@ describe("frases da ovelhinha", () => {
     await expect(comp.deletePhrase(editor, r!.id)).rejects.toMatchObject({ status: 403 });
     await comp.deletePhrase(pub, r!.id);
     expect((await comp.listPhrases(pub)).length).toBe(0);
+  });
+});
+
+describe("personagem (animal bíblico)", () => {
+  it("começa sem escolha; a escolha é salva e o onboarding não a apaga", async () => {
+    const u = await mkUser("pet@x.org");
+    expect(((await getPreferences(u.id)) as any).companion).toBeNull();
+    await expect(setCompanion(u.id, { companion: "dragao" })).rejects.toBeTruthy();
+    await setCompanion(u.id, { companion: "lion" });
+    await savePreferences(u.id, { topicSlugs: [], mode: "read", dailyMinutes: 3 }); // web: sem campo companion
+    expect(((await getPreferences(u.id)) as any).companion).toBe("lion");
+    await savePreferences(u.id, { topicSlugs: [], mode: "read", dailyMinutes: 3, companion: "dove" });
+    expect(((await getPreferences(u.id)) as any)).toMatchObject({ companion: "dove", onboarded: true });
+  });
+  it("frases: gerais para todos, específicas só para o animal", async () => {
+    const pub = await mkUser("pub2@x.org", "publisher");
+    await comp.createPhrase(pub, { category: "poke", text: "Você está indo bem.", enabled: true });
+    const lion = await comp.createPhrase(pub, { category: "poke", text: "Rrrr! 🦁", enabled: true, animal: "lion" });
+    await comp.createPhrase(pub, { category: "poke", text: "Béé! 🐑", enabled: true, animal: "sheep" });
+    expect((await comp.enabledPhrases("lion")).poke).toEqual(["Você está indo bem.", "Rrrr! 🦁"]);
+    expect((await comp.enabledPhrases("sheep")).poke).toEqual(["Você está indo bem.", "Béé! 🐑"]);
+    expect((await comp.enabledPhrases()).poke).toEqual(["Você está indo bem."]);
+    expect((await comp.enabledPhrases("unicornio")).poke).toEqual(["Você está indo bem."]);
+    await comp.updatePhrase(pub, lion!.id, { animal: null });
+    expect((await comp.enabledPhrases("eagle")).poke).toContain("Rrrr! 🦁");
+    await comp.updatePhrase(pub, lion!.id, { text: "Rrrr!" }); // sem animal: mantém
+    expect((await comp.listPhrases(pub)).find((r: any) => r.id === lion!.id)).toMatchObject({ animal: null, text: "Rrrr!" });
+    await expect(comp.createPhrase(pub, { category: "poke", text: "Oi", animal: "gato" as any })).rejects.toBeTruthy();
   });
 });

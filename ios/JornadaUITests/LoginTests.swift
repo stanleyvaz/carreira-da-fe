@@ -10,7 +10,7 @@ final class LoginTests: XCTestCase {
         try? app.screenshot().pngRepresentation.write(to: URL(fileURLWithPath: shot))
         app.buttons["Entrar"].tap(); sleep(4)
         try? app.screenshot().pngRepresentation.write(to: URL(fileURLWithPath: shot.replacingOccurrences(of: "login", with: "login2")))
-        // Conta sem onboarding cai em "Vamos começar"; conta com onboarding cai nas abas.
-        XCTAssertTrue(app.buttons["Começar"].waitForExistence(timeout: 8) || app.tabBars.firstMatch.exists || app.buttons["Hoje"].exists, "não logou")
+        // Conta sem personagem cai na escolha do companheiro; sem onboarding, em "Vamos começar"; com tudo feito, nas abas.
+        XCTAssertTrue(app.buttons["companion.confirm"].waitForExistence(timeout: 8) || app.buttons["Começar"].exists || app.tabBars.firstMatch.exists || app.buttons["Hoje"].exists, "não logou")
     }
 }

@@ -10,7 +10,7 @@ final class FlowTests: XCTestCase {
         let app = XCUIApplication(); app.launchEnvironment["JORNADA_RESET"] = "1"; app.launch()
         let wait: (XCUIElement, TimeInterval) -> Void = { el, t in
             if !el.waitForExistence(timeout: t) {
-                try? app.screenshot().pngRepresentation.write(to: URL(fileURLWithPath: "/private/tmp/claude-501/-Users-stanleyvaz-Documents-Claude-jornada/4ac99dad-c12d-4efa-b2ae-88f4d20e09c3/scratchpad/shots/fail.png"))
+                try? app.screenshot().pngRepresentation.write(to: URL(fileURLWithPath: "/tmp/jornada-uitest-fail.png"))
             }
             XCTAssertTrue(el.exists, "não apareceu: \(el)")
         }
@@ -22,18 +22,42 @@ final class FlowTests: XCTestCase {
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Li e aceito'")).firstMatch.tap()
         app.buttons["Criar conta"].tap()
 
-        // Onboarding
-        wait(app.buttons["Começar"], 15); app.buttons["Perdão"].tap()
+        // Primeiro passo: escolher o companheiro (leão)
+        let confirm = app.buttons["companion.confirm"]; wait(confirm, 15)
+        for _ in 0..<3 { // o aviso "Salvar Senha?" pode consumir o 1º toque
+            for t in ["Agora Não", "Not Now"] where app.buttons[t].waitForExistence(timeout: 1) { app.buttons[t].tap() }
+            app.buttons["companion.lion"].tap()
+            if app.buttons["Caminhar com o leão"].waitForExistence(timeout: 3) { break }
+        }
+        if !app.buttons["Caminhar com o leão"].exists { try? app.debugDescription.write(toFile: "/tmp/jornada-uitest-tree.txt", atomically: true, encoding: .utf8) }
+        XCTAssertTrue(app.buttons["Caminhar com o leão"].exists, "botão com o nome do leão")
         for _ in 0..<3 { // o aviso nativo "Salvar Senha?" pode consumir o 1º toque
-            app.buttons["Começar"].tap()
+            confirm.tap()
+            if app.buttons["Começar"].waitForExistence(timeout: 6) { break }
+        }
+
+        // Onboarding
+        wait(app.buttons["Começar"], 15)
+        XCTAssertTrue(app.staticTexts["Leão"].exists, "companheiro escolhido aparece no onboarding")
+        app.buttons["Perdão"].tap()
+        for _ in 0..<3 { // o aviso nativo "Salvar Senha?" pode consumir o 1º toque
+            if app.buttons["Começar"].exists { app.buttons["Começar"].tap() }
             if app.buttons["Concluir reflexão"].waitForExistence(timeout: 6) { break }
         }
 
         let tab: (String) -> Void = { name in
             app.swipeDown(); app.swipeDown()
+            // Barra de abas minimizada (iOS 26+): um toque no botão recolhido a expande
+            if !app.tabBars.buttons[name].exists, app.tabBars.buttons.firstMatch.exists { app.tabBars.buttons.firstMatch.tap(); sleep(1) }
             let t = app.tabBars.buttons[name].exists ? app.tabBars.buttons[name] : app.buttons[name]
-            XCTAssertTrue(t.waitForExistence(timeout: 5), "aba \(name)"); t.tap()
+            if !t.waitForExistence(timeout: 5) {
+                try? app.screenshot().pngRepresentation.write(to: URL(fileURLWithPath: "/tmp/jornada-uitest-fail.png"))
+                try? app.debugDescription.write(toFile: "/tmp/jornada-uitest-tree.txt", atomically: true, encoding: .utf8)
+            }
+            XCTAssertTrue(t.exists, "aba \(name)"); t.tap()
         }
+        // Hoje: o leão está no cenário
+        wait(app.buttons["Fazer carinho no leão"], 15)
         // Hoje: concluir reflexão
         let concluir = app.buttons["Concluir reflexão"]; wait(concluir, 15)
         app.swipeUp(); sleep(2); concluir.tap()

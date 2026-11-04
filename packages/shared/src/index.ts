@@ -31,6 +31,12 @@ export const registerSchema = credentialsSchema.extend({
   displayName: z.string().trim().max(80).optional(),
   acceptTerms: z.literal(true, { errorMap: () => ({ message: "É necessário aceitar os termos" }) }),
 });
+/** Personagem do app (animais bíblicos). A ordem é a da tela de escolha. */
+export const COMPANIONS = ["sheep", "lion", "dove", "eagle", "donkey"] as const;
+export type Companion = (typeof COMPANIONS)[number];
+export const COMPANION_LABELS: Record<Companion, string> = { sheep: "Ovelha", lion: "Leão", dove: "Pomba", eagle: "Águia", donkey: "Jumentinho" };
+export const companionSchema = z.enum(COMPANIONS);
+
 export const preferencesSchema = z.object({
   goal: z.string().trim().max(200).nullish(),
   topicSlugs: z.array(z.string().max(60)).max(15).default([]),
@@ -38,6 +44,7 @@ export const preferencesSchema = z.object({
   dailyMinutes: z.union([z.literal(1), z.literal(3), z.literal(5), z.literal(10)]).default(3),
   reminderTime: z.string().regex(/^\d{2}:\d{2}$/).nullish(),
   anchor: z.string().trim().max(60).nullish(), // "depois do café": quando/onde o hábito acontece
+  companion: companionSchema.nullish(), // ausente = mantém a escolha atual
 });
 export const noteSchema = z.object({
   body: z.string().trim().min(1).max(5000),

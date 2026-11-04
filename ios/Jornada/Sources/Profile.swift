@@ -27,6 +27,7 @@ struct ProfileView: View {
                     TextField("Nome", text: $name).textContentType(.name)
                     if let e = api.user?.email { Text(e).font(.footnote).foregroundStyle(.secondary) }
                 }
+                Section("Companheiro de jornada") { CompanionProfileRow() }
                 Section("Trocar senha") {
                     SecureField("Senha atual", text: $current).textContentType(.password)
                     SecureField("Nova senha (mín. 10 caracteres)", text: $next).textContentType(.newPassword)

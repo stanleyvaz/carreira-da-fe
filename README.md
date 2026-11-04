@@ -48,6 +48,12 @@ Debug: `SIMCTL_CHILD_JORNADA_DEBUG_LOGIN=email:senha` faz login automático (som
 - Desafio = jornada com `kind=challenge` e janela opcional de datas. **Promover** (Painel → Destaque): um único item publicado por vez aparece na tela Hoje do app, com chamada e prazo opcionais; arquivar remove o destaque.
 - Todo conteúdo gerado precisa de **revisão doutrinária humana** antes de publicar (notas dos redatores sobre pontos sensíveis: ver o histórico desta entrega).
 
+### Personagem (companheiro de jornada)
+- Cinco animais bíblicos, escolhidos na primeira abertura do app (e trocáveis em Perfil): ovelha (Jo 1:29), leão de Judá (Ap 5:5), pomba (Mt 3:16), águia (Is 40:31) e jumentinho (Zc 9:9). Todos desenhados em `Companion.swift` com as mesmas seis fases, respiração, piscar, olhar, ritual de conclusão e reação ao toque; cada um tem um símbolo na fase final (coroa de flores, coroa de rei, ramo de oliveira, asas abertas, manto e palmeira).
+- Banco: `user_preferences.companion` (NULL = ainda não escolheu; o app pergunta uma vez, inclusive para quem já usava) e `companion_phrases.animal` (NULL = frase para todos). Migração `010_companion_animals.sql`. API: `PUT /api/me/companion`, `GET /api/companion/phrases?animal=lion`.
+- CMS (*Frases do personagem*): cada frase vale para todos os animais ou só para um; cuidado com gênero ("obrigada"/"obrigado") e sons de cada bicho.
+- Desenvolvimento (somente DEBUG): `-debugCompanionGallery 1` (todos os animais e fases; `-debugGalleryKind lion` amplia um), `-debugCompanionScene eagle -debugStage 5`, `-debugCompanionPicker 1`, `-debugHappy 1`.
+
 ### Ícone do app
 `ios/Jornada/Icon/AppIcon.icon` é um pacote do Icon Composer em camadas (fundo, fita, Bíblia de couro, anéis em vidro). Regenerar as camadas: `swift ios/Tools/make_icon.swift` (também grava `ios/Tools/preview.png`, aproximação sem o vidro). Abra o `.icon` no Xcode/Icon Composer para ajustar vidro, translucidez e variantes escura/monocromática.
 
