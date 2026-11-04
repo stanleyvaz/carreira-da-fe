@@ -3,7 +3,7 @@ import type { Role } from "@jornada/shared";
 import { one, q, tx } from "../db";
 import { HttpError, forbidden, notFound } from "../errors";
 import { audit } from "./audit";
-import { sendApns } from "../push";
+import { pushConfigured, sendApns } from "../push";
 
 type Actor = { id: string; role: Role };
 const HHMM = z.string().regex(/^\d{2}:\d{2}$/);
@@ -130,22 +130,61 @@ export async function sendTest(a: Actor, id: string) {
 }
 const payloadData = (n: any) => ({ nid: String(n.id), linkKind: String(n.link_kind), linkId: n.link_id ? String(n.link_id) : "" });
 
-/** Processa a fila de push respeitando horário de silêncio (America/Sao_Paulo) e o teto semanal do usuário. */
+export const OUTBOX_MAX_ATTEMPTS = 5;
+const OUTBOX_LEASE_SECONDS = 300;
+const backoffSeconds = (attempts: number) => Math.min(3600, 60 * 2 ** (attempts - 1)); // 1, 2, 4, 8, 16 min…
+
+/**
+ * Processa a fila de push respeitando horário de silêncio (America/Sao_Paulo) e o teto semanal do usuário.
+ * Seguro para múltiplos executores: cada item é reservado atomicamente (FOR UPDATE SKIP LOCKED + lease), então
+ * dois processos nunca enviam o mesmo item. Se o processo morrer, o lease expira e o item volta à fila.
+ * Sem credenciais APNs nada é consumido: os itens continuam pendentes.
+ */
 export async function processOutbox(limit = 500) {
-  const rows = await q<any>(`SELECT o.id,o.notification_id,d.id AS device_id,d.token,d.env,d.user_id,n.title,n.body,n.link_kind,n.link_id,
+  const res = { pushSent: 0, pushFailed: 0, pushSkipped: 0, pushDeferred: 0, pushRetry: 0 };
+  if (!pushConfigured()) return { ...res, pushNotConfigured: true };
+
+  // 1) candidatos (sem lock): elegíveis agora e não reservados por outro executor
+  const rows = await q<any>(`SELECT o.id,o.attempts,d.token,d.env,d.user_id,n.id AS notification_id,n.title,n.body,n.link_kind,n.link_id,
       to_char(np.quiet_start,'HH24:MI') AS qs,to_char(np.quiet_end,'HH24:MI') AS qe,np.max_per_week,
       to_char(now() AT TIME ZONE 'America/Sao_Paulo','HH24:MI') AS nowhm,
       (SELECT count(*)::int FROM push_outbox x JOIN devices dd ON dd.id=x.device_id WHERE dd.user_id=d.user_id AND x.status='sent' AND x.sent_at > now()-interval '7 days') AS sent7
     FROM push_outbox o JOIN devices d ON d.id=o.device_id JOIN notifications n ON n.id=o.notification_id JOIN notification_preferences np ON np.user_id=d.user_id
-    WHERE o.status='pending' ORDER BY o.id LIMIT $1`, [limit]);
-  let sent = 0, failed = 0, skipped = 0, deferred = 0;
+    WHERE o.status='pending' AND o.next_attempt_at <= now() AND (o.locked_until IS NULL OR o.locked_until < now()) ORDER BY o.id LIMIT $1`, [limit]);
+  const eligible: any[] = [];
   for (const r of rows) {
     const quiet = r.qs > r.qe ? (r.nowhm >= r.qs || r.nowhm < r.qe) : (r.nowhm >= r.qs && r.nowhm < r.qe);
-    if (quiet) { deferred++; continue; } // permanece pendente; próxima execução envia
-    if (r.sent7 >= r.max_per_week) { await q("UPDATE push_outbox SET status='skipped', error='teto semanal do usuário' WHERE id=$1", [r.id]); skipped++; continue; }
-    const res = await sendApns(r.token, r.env, { title: r.title, body: r.body, data: payloadData(r) });
-    await q("UPDATE push_outbox SET status=$2,error=$3,sent_at=CASE WHEN $2='sent' THEN now() END WHERE id=$1", [r.id, res.status, res.error ?? null]);
-    if (res.status === "sent") sent++; else if (res.status === "failed") failed++; else skipped++;
+    if (quiet) res.pushDeferred++; else eligible.push(r); // silêncio: permanece pendente
   }
-  return { pushSent: sent, pushFailed: failed, pushSkipped: skipped, pushDeferred: deferred };
+  if (!eligible.length) return res;
+
+  // 2) reserva atômica: só processa o que ESTE executor conseguiu travar
+  const claimed = new Set<string>((await q<{ id: string }>(`UPDATE push_outbox SET locked_until=now()+make_interval(secs => $2), attempts=attempts+1
+    WHERE id IN (SELECT id FROM push_outbox WHERE id = ANY($1::bigint[]) AND status='pending' AND next_attempt_at <= now()
+                 AND (locked_until IS NULL OR locked_until < now()) ORDER BY id FOR UPDATE SKIP LOCKED) RETURNING id`,
+    [eligible.map((r) => r.id), OUTBOX_LEASE_SECONDS])).map((r) => String(r.id)));
+
+  const sentByUser = new Map<string, number>();
+  for (const r of eligible) {
+    if (!claimed.has(String(r.id))) continue;
+    const attempts = r.attempts + 1;
+    const used = r.sent7 + (sentByUser.get(r.user_id) ?? 0);
+    if (used >= r.max_per_week) {
+      await q("UPDATE push_outbox SET status='skipped', error='teto semanal do usuário', locked_until=NULL WHERE id=$1", [r.id]); res.pushSkipped++; continue;
+    }
+    let out;
+    try { out = await sendApns(r.token, r.env, { title: r.title, body: r.body, data: payloadData(r) }); }
+    catch (e: any) { out = { status: "failed" as const, error: String(e?.message ?? e).slice(0, 200), retryable: true }; }
+    if (out.status === "sent") {
+      await q("UPDATE push_outbox SET status='sent', error=NULL, sent_at=now(), locked_until=NULL WHERE id=$1", [r.id]);
+      sentByUser.set(r.user_id, (sentByUser.get(r.user_id) ?? 0) + 1); res.pushSent++;
+    } else if (out.status === "skipped") { // não configurado: devolve à fila sem consumir tentativa
+      await q("UPDATE push_outbox SET attempts=attempts-1, locked_until=NULL, error=$2 WHERE id=$1", [r.id, out.error ?? null]); res.pushDeferred++;
+    } else if (out.retryable && attempts < OUTBOX_MAX_ATTEMPTS) {
+      await q("UPDATE push_outbox SET error=$2, locked_until=NULL, next_attempt_at=now()+make_interval(secs => $3) WHERE id=$1", [r.id, out.error ?? null, backoffSeconds(attempts)]); res.pushRetry++;
+    } else {
+      await q("UPDATE push_outbox SET status='failed', error=$2, locked_until=NULL WHERE id=$1", [r.id, out.error ?? null]); res.pushFailed++;
+    }
+  }
+  return res;
 }

@@ -13,7 +13,9 @@ function ip(req: NextRequest) { return req.headers.get("x-forwarded-for")?.split
 function sameOrigin(req: NextRequest) {
   if (["GET", "HEAD", "OPTIONS"].includes(req.method)) return true;
   const o = req.headers.get("origin");
-  return !o || o === req.nextUrl.origin;
+  // Atrás de proxy (Tailscale Funnel) o Next standalone vê origin=http://HOSTNAME:PORT; a origem pública vem de APP_PUBLIC_ORIGINS (lista separada por vírgulas).
+  const extra = (process.env.APP_PUBLIC_ORIGINS ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+  return !o || o === req.nextUrl.origin || extra.includes(o);
 }
 
 export function api<P = Record<string, string>>(h: Handler<P>, opts: { auth?: "user" | "staff" | "none"; limit?: { key: string; max: number } } = {}) {

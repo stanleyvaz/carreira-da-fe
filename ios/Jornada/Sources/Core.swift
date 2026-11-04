@@ -111,7 +111,7 @@ struct AnyEncodable: Encodable { let v: Encodable; init(_ v: Encodable) { self.v
 struct User: Decodable { let id: String; let email: String; let displayName: String?; let role: String; let hasAvatar: Bool? }
 struct Prefs: Codable { var anchor: String?; var goal: String?; var topicSlugs: [String]; var mode: String; var dailyMinutes: Int; var reminderTime: String?; var onboarded: Bool }
 struct Topic: Decodable, Identifiable, Hashable { let id: String; let slug: String; let name: String }
-struct Passage: Decodable, Hashable { let id: String; let reference: String; let text: String?; let translation: String? }
+struct Passage: Decodable, Hashable { let id: String; let reference: String; let text: String?; let translation: String?; let bookmarked: Bool? }
 struct Today: Decodable {
     let empty: Bool?; let id: String?; let title: String?; let body: String?; let application: String?; let question: String?
     let topicSlug: String?; let passage: Passage?; let done: Bool?
@@ -168,8 +168,18 @@ struct WelcomeBack: Decodable { let daysAway: Int }
 struct MyJourney: Decodable { let counts: Week; let week: Week; let goals: Week; let days: [Day]; let topicsStudied: [String]; let allMilestones: [Milestone]; let activeDays: Int?; let welcomeBack: WelcomeBack? }
 /// "Primeiros 7 dias": jornada de entrada (1 minuto por dia). `id == nil` quando o editorial ainda não definiu.
 struct Starter: Decodable { let id: String?; let title: String?; let totalSteps: Int?; let doneSteps: Int?; let complete: Bool?; let nextStepId: String?; let nextStepTitle: String?; let day: Int?; let lockedToday: Bool?; let pacingReason: String? }
-struct Bookmark: Decodable, Identifiable { let passageId: String; let reference: String; let text: String?; var id: String { passageId } }
-struct Note: Decodable, Identifiable { let id: String; let body: String; let updatedAt: String }
+/// Onde um versículo favorito aparece no conteúdo (etapa de jornada ou reflexão diária).
+struct BookmarkSource: Decodable, Identifiable, Hashable { let kind: String; let id: String; let title: String; let journeyId: String?; let journeyTitle: String?; let position: Int? }
+struct Bookmark: Decodable, Identifiable, Hashable {
+    let passageId: String; let reference: String; let text: String?
+    var book: String? = nil; var createdAt: String? = nil; var sources: [BookmarkSource]? = nil
+    var id: String { passageId }
+}
+struct Note: Decodable, Identifiable, Hashable {
+    let id: String; let body: String; let updatedAt: String
+    var createdAt: String? = nil; var refKind: String? = nil; var refId: String? = nil
+    var refTitle: String? = nil; var stepPosition: Int? = nil; var journeyId: String? = nil; var journeyTitle: String? = nil; var passageRef: String? = nil
+}
 struct Bookmarked: Decodable { let bookmarked: Bool }
 
 // Rotas de navegação

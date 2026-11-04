@@ -61,7 +61,8 @@ export async function stepPacing(userId: string, stepId: string): Promise<Pacing
 
 const passageSel = `json_build_object('id',p.id,'reference', p.book||' '||p.chapter||':'||p.verse_start||
   CASE WHEN p.verse_end>p.verse_start THEN '-'||p.verse_end ELSE '' END,
-  'text',p.text,'translation',t.code,'license',t.license) AS passage`;
+  'text',p.text,'translation',t.code,'license',t.license,
+  'bookmarked',EXISTS(SELECT 1 FROM user_bookmarks ub WHERE ub.user_id=$2 AND ub.passage_id=p.id)) AS passage`; // $2 = id do usuário em todas as consultas que usam este trecho
 
 export async function getPreferences(userId: string) {
   return one(`SELECT goal, topic_slugs AS "topicSlugs", mode, daily_minutes AS "dailyMinutes",
@@ -215,9 +216,22 @@ export async function toggleBookmark(userId: string, passageId: string) {
   await q("INSERT INTO user_bookmarks(user_id,passage_id) VALUES ($1,$2)", [userId, passageId]);
   return { bookmarked: true };
 }
+/** Remoção idempotente (diferente do toggle: nunca recria o favorito se a lista do cliente estiver desatualizada). */
+export async function removeBookmark(userId: string, passageId: string) {
+  await q("DELETE FROM user_bookmarks WHERE user_id=$1 AND passage_id=$2", [userId, passageId]);
+}
+/** Favoritos com data e de onde vêm (etapas de jornadas e reflexões publicadas que citam o versículo). */
 export const listBookmarks = (userId: string) => q(
-  `SELECT b.passage_id AS "passageId", p.book||' '||p.chapter||':'||p.verse_start||
-     CASE WHEN p.verse_end>p.verse_start THEN '-'||p.verse_end ELSE '' END AS reference, p.text
+  `SELECT b.passage_id AS "passageId", p.book, p.book||' '||p.chapter||':'||p.verse_start||
+     CASE WHEN p.verse_end>p.verse_start THEN '-'||p.verse_end ELSE '' END AS reference, p.text,
+     b.created_at AS "createdAt",
+     COALESCE((SELECT json_agg(x) FROM (
+       SELECT 'step'::text AS kind, s.id, s.title, s.journey_id AS "journeyId", j.title AS "journeyTitle", s.position AS "position"
+         FROM journey_steps s JOIN learning_journeys j ON j.id=s.journey_id WHERE s.passage_id=b.passage_id AND j.${PUBLISHED}
+       UNION ALL
+       SELECT 'reflection'::text, r.id, r.title, NULL::uuid, NULL::text, NULL::int
+         FROM reflections r WHERE r.passage_id=b.passage_id AND r.${PUBLISHED}
+       LIMIT 5) x), '[]'::json) AS sources
    FROM user_bookmarks b JOIN bible_passages p ON p.id=b.passage_id WHERE b.user_id=$1 ORDER BY b.created_at DESC`, [userId]);
 
 // Anotações privadas (cifradas em repouso; sempre isoladas por user_id)
@@ -227,8 +241,24 @@ export async function createNote(userId: string, input: z.input<typeof noteSchem
     [userId, d.refKind ?? null, d.refId ?? null, encrypt(d.body)]);
 }
 export async function listNotes(userId: string) {
-  const rows = await q(`SELECT id,ref_kind AS "refKind",ref_id AS "refId",body_enc,updated_at AS "updatedAt"
-    FROM private_notes WHERE user_id=$1 ORDER BY updated_at DESC`, [userId]);
+  // Contexto da anotação: título do conteúdo, dia/jornada (etapas) e o versículo ligado. Tudo em uma consulta.
+  const rows = await q(`SELECT n.id, n.ref_kind AS "refKind", n.ref_id AS "refId", n.body_enc,
+      n.created_at AS "createdAt", n.updated_at AS "updatedAt",
+      COALESCE(s.title, r.title, a.title) AS "refTitle", s.position AS "stepPosition",
+      s.journey_id AS "journeyId", j.title AS "journeyTitle",
+      p.passage_id AS "passageId",
+      CASE WHEN p.passage_id IS NULL THEN NULL ELSE p.reference END AS "passageRef"
+    FROM private_notes n
+    LEFT JOIN journey_steps s ON n.ref_kind='step' AND s.id=n.ref_id
+    LEFT JOIN learning_journeys j ON j.id=s.journey_id
+    LEFT JOIN reflections r ON n.ref_kind='reflection' AND r.id=n.ref_id
+    LEFT JOIN practical_activities a ON n.ref_kind='activity' AND a.id=n.ref_id
+    LEFT JOIN LATERAL (
+      SELECT bp.id AS passage_id, bp.book||' '||bp.chapter||':'||bp.verse_start||
+        CASE WHEN bp.verse_end>bp.verse_start THEN '-'||bp.verse_end ELSE '' END AS reference
+      FROM bible_passages bp WHERE bp.id = COALESCE(s.passage_id, r.passage_id)
+    ) p ON true
+    WHERE n.user_id=$1 ORDER BY n.updated_at DESC`, [userId]);
   return rows.map(({ body_enc, ...r }) => ({ ...r, body: decrypt(body_enc) }));
 }
 export async function updateNote(userId: string, id: string, body: string) {

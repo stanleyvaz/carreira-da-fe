@@ -166,7 +166,7 @@ struct StepDetailView: View {
                             Text(s.title).font(.system(.title, design: .serif, weight: .bold))
                             if let p = s.passage {
                                 if let t = p.text { Text(t).font(.system(.title3, design: .serif)).lineSpacing(4).fixedSize(horizontal: false, vertical: true) }
-                                HStack { Text("\(p.reference)\(p.translation.map { " · \($0)" } ?? "")").font(.subheadline.weight(.semibold)); Spacer(); BookmarkButton(passageId: p.id, initial: false) }
+                                HStack { Text("\(p.reference)\(p.translation.map { " · \($0)" } ?? "")").font(.subheadline.weight(.semibold)); Spacer(); BookmarkButton(passageId: p.id, initial: p.bookmarked ?? false) }
                             }
                         }
                     }

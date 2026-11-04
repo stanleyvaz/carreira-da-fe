@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AUDIENCES, RESOURCE_KINDS, ROLES, canTransition, journeyInputSchema, promoteSchema, reflectionInputSchema, suppressSmall, transitionSchema,
   type ContentStatus, type ContentType, type Role } from "@jornada/shared";
+import type { PoolClient } from "pg";
 import { one, q, tx } from "../db";
 import { HttpError, forbidden, notFound } from "../errors";
 import { audit } from "./audit";
@@ -136,26 +137,32 @@ export async function createActivity(a: Actor, input: { title: string; invitatio
 }
 
 /** Substitui os passos de uma jornada em rascunho. */
+type StepsInput = z.output<typeof stepsSchema>;
+async function resolveStepPassages(steps: StepsInput) {
+  const pids: (string | null)[] = [];
+  for (const s of steps) pids.push(s.passage ? (await lookupRef("ACF", s.passage)).passageId : s.passageId ?? null);
+  return pids;
+}
+async function replaceSteps(c: PoolClient, journeyId: string, steps: StepsInput, pids: (string | null)[]) {
+  await c.query("DELETE FROM journey_steps WHERE journey_id=$1", [journeyId]);
+  for (const [i, s] of steps.entries()) {
+    const r = await c.query(
+      `INSERT INTO journey_steps(journey_id,position,title,passage_id,context,explanation,application,extra)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`,
+      [journeyId, i + 1, s.title, pids[i], s.context ?? null, s.explanation ?? null, s.application ?? null, s.extra ?? null]);
+    if (s.question)
+      await c.query(`INSERT INTO comprehension_questions(step_id,prompt,options,correct_index,explanation) VALUES ($1,$2,$3,$4,$5)`,
+        [r.rows[0].id, s.question.prompt, s.question.options, s.question.correctIndex, s.question.explanation ?? null]);
+  }
+  await c.query("UPDATE learning_journeys SET updated_at=now() WHERE id=$1", [journeyId]);
+}
 export async function setJourneySteps(a: Actor, journeyId: string, input: z.input<typeof stepsSchema>) {
   assertEditor(a);
   const steps = stepsSchema.parse(input);
   const j = await load("journey", journeyId);
   if (j.status !== "draft") throw new HttpError(409, "Somente rascunhos podem ser editados");
-  const pids: (string | null)[] = [];
-  for (const s of steps) pids.push(s.passage ? (await lookupRef("ACF", s.passage)).passageId : s.passageId ?? null);
-  await tx(async (c) => {
-    await c.query("DELETE FROM journey_steps WHERE journey_id=$1", [journeyId]);
-    for (const [i, s] of steps.entries()) {
-      const r = await c.query(
-        `INSERT INTO journey_steps(journey_id,position,title,passage_id,context,explanation,application,extra)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`,
-        [journeyId, i + 1, s.title, pids[i], s.context ?? null, s.explanation ?? null, s.application ?? null, s.extra ?? null]);
-      if (s.question)
-        await c.query(`INSERT INTO comprehension_questions(step_id,prompt,options,correct_index,explanation) VALUES ($1,$2,$3,$4,$5)`,
-          [r.rows[0].id, s.question.prompt, s.question.options, s.question.correctIndex, s.question.explanation ?? null]);
-    }
-    await c.query("UPDATE learning_journeys SET updated_at=now() WHERE id=$1", [journeyId]);
-  });
+  const pids = await resolveStepPassages(steps);
+  await tx((c) => replaceSteps(c, journeyId, steps, pids));
   await audit(a.id, "journey.steps.update", "journey", journeyId, { count: steps.length });
 }
 
@@ -245,8 +252,14 @@ export async function updateContent(a: Actor, type: ContentType, id: string, inp
   assertEditor(a); await assertDraft(type, id);
   if (type === "journey") {
     const d = journeyInputSchema.parse(input);
-    await q(`UPDATE learning_journeys SET topic_id=$2,title=$3,summary=$4,days=$5,kind=$6,starts_at=$7,ends_at=$8,updated_at=now() WHERE id=$1`,
-      [id, d.topicId, d.title, d.summary ?? null, d.days, d.kind, d.startsAt ?? null, d.endsAt ?? null]);
+    // `steps` opcional: metadados e etapas são gravados na mesma transação (tudo ou nada).
+    const steps = input?.steps === undefined ? null : stepsSchema.parse(input.steps);
+    const pids = steps ? await resolveStepPassages(steps) : [];
+    await tx(async (c) => {
+      await c.query(`UPDATE learning_journeys SET topic_id=$2,title=$3,summary=$4,days=$5,kind=$6,starts_at=$7,ends_at=$8,updated_at=now() WHERE id=$1`,
+        [id, d.topicId, d.title, d.summary ?? null, d.days, d.kind, d.startsAt ?? null, d.endsAt ?? null]);
+      if (steps) await replaceSteps(c, id, steps, pids);
+    });
   } else if (type === "reflection") {
     const d = reflectionInputSchema.extend({ passage: z.string().trim().max(80).nullish() }).parse(input);
     const pid = d.passage ? (await lookupRef("ACF", d.passage)).passageId : d.passageId ?? null;

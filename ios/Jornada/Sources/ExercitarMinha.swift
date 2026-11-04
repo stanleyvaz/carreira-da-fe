@@ -52,8 +52,7 @@ struct MinhaView: View {
     @EnvironmentObject var api: API
     @AppStorage("fxEnabled") private var fx = true
     @State private var m: MyJourney?
-    @State private var marks: [Bookmark] = []
-    @State private var notes: [Note] = []
+    @StateObject private var store = LibraryStore()
     @State private var topics: [String] = []
     @State private var exportURL: URL?
     @State private var confirmDelete = false
@@ -89,16 +88,31 @@ struct MinhaView: View {
                         }.card().scrollFade()
                         if !m.topicsStudied.isEmpty { VStack(alignment: .leading, spacing: 8) { Text("Temas estudados").font(.headline); FlowLayout { ForEach(m.topicsStudied, id: \.self) { Text($0).font(.footnote).padding(.horizontal, 12).frame(minHeight: 30).background(Color(.tertiarySystemFill), in: Capsule()) } } }.card() }
                     }
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Versículos favoritos").font(.headline)
-                        if marks.isEmpty { Text("Nenhum ainda.").foregroundStyle(.secondary) }
-                        ForEach(marks) { b in VStack(alignment: .leading, spacing: 2) { Text(b.reference).font(.subheadline.bold()).foregroundStyle(Theme.accent); if let t = b.text { Text(t).font(.system(.body, design: .serif)) } } }
-                    }.card()
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Anotações privadas").font(.headline)
-                        if notes.isEmpty { Text("Nenhuma ainda.").foregroundStyle(.secondary) }
-                        ForEach(notes) { n in Text(n.body) ; Divider() }
-                    }.card()
+                    NavigationLink { FavoritosView(store: store) } label: {
+                        LibraryCard(title: "Versículos favoritos", icon: "star.fill", count: store.marks.count,
+                                    emptyText: "Nenhum ainda. Toque em “Favoritar” em um versículo para guardá-lo aqui.") {
+                            ForEach(store.marks.prefix(2)) { b in
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(b.reference).font(.subheadline.bold()).foregroundStyle(Theme.accent)
+                                    if let t = b.text { Text(t).font(.system(.subheadline, design: .serif)).foregroundStyle(.primary).lineLimit(2).multilineTextAlignment(.leading) }
+                                }
+                            }
+                        }
+                    }.buttonStyle(.plain)
+                    NavigationLink { AnotacoesView(store: store) } label: {
+                        LibraryCard(title: "Anotações privadas", icon: "square.and.pencil", count: store.notes.count,
+                                    emptyText: "Nenhuma ainda. Use “Anotação privada” nas etapas e exercícios.") {
+                            ForEach(store.notes.prefix(2)) { n in
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(n.body).font(.subheadline).foregroundStyle(.primary).lineLimit(2).multilineTextAlignment(.leading)
+                                    HStack(spacing: 6) {
+                                        if let o = n.originTitle { Text(o).lineLimit(1) }
+                                        if let d = n.updated { Text("· \(Fmt.short(d))") }
+                                    }.font(.caption).foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    }.buttonStyle(.plain)
                     VStack(alignment: .leading, spacing: 14) {
                         Text("Conta e privacidade").font(.headline)
                         Toggle("Sons e vibração", isOn: $fx).tint(Theme.accent).onChange(of: fx) { _, v in if v { FX.shared.choose() } }
@@ -114,6 +128,7 @@ struct MinhaView: View {
                 }.padding(.horizontal, 16).padding(.bottom, 24)
             }
             .navigationTitle("").navigationBarTitleDisplayMode(.inline).toolbarBackground(.hidden, for: .navigationBar).userMenu()
+            .contentDestinations()
             .task { await load() }
             .sheet(isPresented: $showProfile) { ProfileView() }
             .sheet(isPresented: $showReminders) { RemindersView() }
@@ -128,9 +143,10 @@ struct MinhaView: View {
             .frame(maxWidth: .infinity).padding(.vertical, 14).background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
     private func load() async {
-        do { async let a: MyJourney = api.get("/api/me/journey"); async let b: [Bookmark] = api.get("/api/bookmarks"); async let c: [Note] = api.get("/api/notes")
-            let (aa, bb, cc) = try await (a, b, c); withAnimation(.spring(duration: 0.6)) { m = aa }; marks = bb; notes = cc; error = nil
-        } catch { self.error = error.localizedDescription }
+        async let lib: Void = store.load(api)
+        do { let aa: MyJourney = try await api.get("/api/me/journey"); withAnimation(.spring(duration: 0.6)) { m = aa }; error = nil }
+        catch { self.error = error.localizedDescription }
+        await lib
     }
     private func export() async {
         do { let d = try await api.raw("GET", "/api/me/export"); let u = FileManager.default.temporaryDirectory.appendingPathComponent("jornada-meus-dados.json"); try d.write(to: u); exportURL = u; FX.shared.celebrate() }

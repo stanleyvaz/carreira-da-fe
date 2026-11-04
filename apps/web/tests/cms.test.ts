@@ -277,3 +277,17 @@ describe("praticar: um convite por dia", () => {
     await u.completeActivity(r.id, ids[1]);
   });
 });
+
+describe("salvamento atômico de jornada", () => {
+  it("grava metadados e etapas juntos; falha de validação não altera nada", async () => {
+    await seedBible();
+    const editor = await mkUser("atomico@x.org", "editor"); const topicId = await mkTopic();
+    const id = await ed.createJourney(editor, { topicId, title: "Antes", days: 3, kind: "journey" });
+    await ed.updateContent(editor, "journey", id, { topicId, title: "Depois", days: 3, kind: "journey", steps: [{ title: "Etapa 1", passage: "Colossenses 3:13" }] });
+    const ok: any = await ed.getContent(editor, "journey", id);
+    expect(ok.title).toBe("Depois"); expect(ok.steps).toHaveLength(1); expect(ok.steps[0].passage).toBe("Colossenses 3:13");
+    await expect(ed.updateContent(editor, "journey", id, { topicId, title: "Nunca", days: 3, kind: "journey", steps: [{ title: "Etapa X", passage: "Colossenses 3:99" }] })).rejects.toMatchObject({ status: 404 });
+    const after: any = await ed.getContent(editor, "journey", id);
+    expect(after.title).toBe("Depois"); expect(after.steps).toHaveLength(1);
+  });
+});
