@@ -1,0 +1,1 @@
+Carreira da Fé: este deploy só encaminha requisições ao servidor próprio.

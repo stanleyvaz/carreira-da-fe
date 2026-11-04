@@ -44,3 +44,6 @@ ios/**/DerivedData/
 ios/**/xcuserdata/
 ios/*.xcodeproj/
 ios/**/Info*.plist
+
+# cópias de segurança locais
+*.bak-*
