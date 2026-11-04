@@ -104,6 +104,7 @@ struct APIError: LocalizedError { let message: String; var errorDescription: Str
         user = try? await get("/api/me")
         if user?.mustChangePassword == true { return } // demais rotas ficam bloqueadas até trocar a senha temporária
         prefs = try? await get("/api/me/preferences"); avatarVersion += 1
+        await syncCompanion()
         await Phrases.shared.refresh(self); await Usage.shared.refreshConsent(self)
     }
     func signOut() async { try? await post("/api/auth/logout"); signOutLocally() }
@@ -120,12 +121,24 @@ struct Prefs: Codable { var anchor: String?; var goal: String?; var topicSlugs: 
 extension API {
     /// Personagem atual (ovelha enquanto a pessoa não escolheu).
     var companion: CompanionKind { CompanionKind(prefs?.companion) }
-    /// Salva a escolha do personagem e busca as frases dele.
+    /// Escolha guardada no aparelho (por usuário) até o servidor confirmar.
+    private var companionKey: String? { user.map { "companionChoice.\($0.id)" } }
+    /// Aplica a escolha na hora e salva no servidor. Se o servidor falhar (sem internet ou API antiga),
+    /// a escolha vale neste aparelho e é reenviada na próxima atualização do perfil; ninguém fica preso na tela.
     func setCompanion(_ k: CompanionKind) async throws {
-        struct B: Encodable { let companion: String }
-        try await send("PUT", "/api/me/companion", B(companion: k.rawValue), as: Empty.self)
         prefs?.companion = k.rawValue
+        if let key = companionKey { UserDefaults.standard.set(k.rawValue, forKey: key) }
+        await syncCompanion()
         await Phrases.shared.refresh(self)
+    }
+    /// Envia a escolha pendente; ao confirmar, o servidor passa a ser a fonte.
+    func syncCompanion() async {
+        guard let key = companionKey, let raw = UserDefaults.standard.string(forKey: key) else { return }
+        struct B: Encodable { let companion: String }
+        prefs?.companion = raw // a escolha local é a mais recente
+        if (try? await send("PUT", "/api/me/companion", B(companion: raw), as: Empty.self)) != nil {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
     }
 }
 struct Topic: Decodable, Identifiable, Hashable { let id: String; let slug: String; let name: String }
