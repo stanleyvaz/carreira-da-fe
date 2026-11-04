@@ -51,6 +51,7 @@ struct ExercitarView: View {
 struct MinhaView: View {
     @EnvironmentObject var api: API
     @AppStorage("fxEnabled") private var fx = true
+    @ObservedObject private var usage = Usage.shared
     @State private var m: MyJourney?
     @StateObject private var store = LibraryStore()
     @State private var topics: [String] = []
@@ -88,7 +89,7 @@ struct MinhaView: View {
                         }.card().scrollFade()
                         if !m.topicsStudied.isEmpty { VStack(alignment: .leading, spacing: 8) { Text("Temas estudados").font(.headline); FlowLayout { ForEach(m.topicsStudied, id: \.self) { Text($0).font(.footnote).padding(.horizontal, 12).frame(minHeight: 30).background(Color(.tertiarySystemFill), in: Capsule()) } } }.card() }
                     }
-                    NavigationLink { FavoritosView(store: store) } label: {
+                    NavigationLink(value: LibraryRoute.favoritos) {
                         LibraryCard(title: "Versículos favoritos", icon: "star.fill", count: store.marks.count,
                                     emptyText: "Nenhum ainda. Toque em “Favoritar” em um versículo para guardá-lo aqui.") {
                             ForEach(store.marks.prefix(2)) { b in
@@ -99,7 +100,7 @@ struct MinhaView: View {
                             }
                         }
                     }.buttonStyle(.plain)
-                    NavigationLink { AnotacoesView(store: store) } label: {
+                    NavigationLink(value: LibraryRoute.anotacoes) {
                         LibraryCard(title: "Anotações privadas", icon: "square.and.pencil", count: store.notes.count,
                                     emptyText: "Nenhuma ainda. Use “Anotação privada” nas etapas e exercícios.") {
                             ForEach(store.notes.prefix(2)) { n in
@@ -116,6 +117,10 @@ struct MinhaView: View {
                     VStack(alignment: .leading, spacing: 14) {
                         Text("Conta e privacidade").font(.headline)
                         Toggle("Sons e vibração", isOn: $fx).tint(Theme.accent).onChange(of: fx) { _, v in if v { FX.shared.choose() } }
+                        VStack(alignment: .leading, spacing: 4) {
+                            Toggle("Ajudar com estatísticas de uso", isOn: Binding(get: { usage.consent }, set: { v in Task { do { try await usage.setConsent(v, api: api) } catch { self.error = error.localizedDescription } } })).tint(Theme.accent)
+                            Text("Opcional. Enviamos só quanto tempo o app fica em cada área, somado com o de todos, sem identificar você. Pode desligar quando quiser.").font(.caption).foregroundStyle(.secondary)
+                        }
                         if let u = api.user { Text(u.email).font(.footnote).foregroundStyle(.secondary) }
                         Button { showProfile = true } label: { Label("Perfil, foto e senha", systemImage: "person.crop.circle") }
                         Button { showReminders = true } label: { Label("Lembretes e notificações", systemImage: "bell") }
@@ -129,6 +134,15 @@ struct MinhaView: View {
             }
             .navigationTitle("").navigationBarTitleDisplayMode(.inline).toolbarBackground(.hidden, for: .navigationBar).userMenu()
             .contentDestinations()
+            .onAppear { Usage.shared.enter("minha") }
+            .navigationDestination(for: LibraryRoute.self) { r in
+                switch r {
+                case .favoritos: FavoritosView(store: store).usageArea("favoritos")
+                case .anotacoes: AnotacoesView(store: store).usageArea("favoritos")
+                case .favorito(let id): FavoritoDetailView(store: store, passageId: id).usageArea("favoritos")
+                case .nota(let id): NoteDetailView(store: store, noteId: id).usageArea("favoritos")
+                }
+            }
             .task { await load() }
             .sheet(isPresented: $showProfile) { ProfileView() }
             .sheet(isPresented: $showReminders) { RemindersView() }

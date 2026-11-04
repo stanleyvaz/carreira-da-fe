@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const u = await currentUser();
   if (!u) redirect("/entrar?next=/admin");
+  if (u.mustChangePassword) redirect("/trocar-senha?next=/admin");
   if (!ADMIN_ROLES.includes(u.role)) redirect("/");
   return <ToastProvider><DialogProvider>
     <div className="adm"><AdminNav role={u.role} name={u.displayName ?? u.email} /><main className="admmain" id="conteudo">{children}</main></div>

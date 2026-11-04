@@ -67,8 +67,10 @@ struct APIError: LocalizedError { let message: String; var errorDescription: Str
         let code = (resp as? HTTPURLResponse)?.statusCode ?? 0
         if code == 401 && path != "/api/auth/login" { signOutLocally() }
         guard (200..<300).contains(code) else {
-            struct E: Decodable { let error: String? }
-            let msg = (try? JSONDecoder().decode(E.self, from: data))?.error
+            struct E: Decodable { let error: String?; let code: String? }
+            let e = try? JSONDecoder().decode(E.self, from: data)
+            if code == 403, e?.code == "password_change_required" { user?.mustChangePassword = true }
+            let msg = e?.error
             throw APIError(message: msg ?? "Algo deu errado. Tente novamente.")
         }
         return data
@@ -99,7 +101,10 @@ struct APIError: LocalizedError { let message: String; var errorDescription: Str
         await refreshProfile()
     }
     func refreshProfile() async {
-        user = try? await get("/api/me"); prefs = try? await get("/api/me/preferences"); avatarVersion += 1
+        user = try? await get("/api/me")
+        if user?.mustChangePassword == true { return } // demais rotas ficam bloqueadas até trocar a senha temporária
+        prefs = try? await get("/api/me/preferences"); avatarVersion += 1
+        await Phrases.shared.refresh(self); await Usage.shared.refreshConsent(self)
     }
     func signOut() async { try? await post("/api/auth/logout"); signOutLocally() }
     func signOutLocally() { SharedStore.clear(); Keychain.set(nil); token = nil; user = nil; prefs = nil }
@@ -108,7 +113,7 @@ struct Empty: Decodable {}
 struct AnyEncodable: Encodable { let v: Encodable; init(_ v: Encodable) { self.v = v }; func encode(to e: Encoder) throws { try v.encode(to: e) } }
 
 // MARK: - Modelos
-struct User: Decodable { let id: String; let email: String; let displayName: String?; let role: String; let hasAvatar: Bool? }
+struct User: Decodable { let id: String; let email: String; let displayName: String?; let role: String; let hasAvatar: Bool?; var mustChangePassword: Bool? }
 struct Prefs: Codable { var anchor: String?; var goal: String?; var topicSlugs: [String]; var mode: String; var dailyMinutes: Int; var reminderTime: String?; var onboarded: Bool }
 struct Topic: Decodable, Identifiable, Hashable { let id: String; let slug: String; let name: String }
 struct Passage: Decodable, Hashable { let id: String; let reference: String; let text: String?; let translation: String?; let bookmarked: Bool? }
@@ -169,7 +174,7 @@ struct MyJourney: Decodable { let counts: Week; let week: Week; let goals: Week;
 /// "Primeiros 7 dias": jornada de entrada (1 minuto por dia). `id == nil` quando o editorial ainda não definiu.
 struct Starter: Decodable { let id: String?; let title: String?; let totalSteps: Int?; let doneSteps: Int?; let complete: Bool?; let nextStepId: String?; let nextStepTitle: String?; let day: Int?; let lockedToday: Bool?; let pacingReason: String? }
 /// Onde um versículo favorito aparece no conteúdo (etapa de jornada ou reflexão diária).
-struct BookmarkSource: Decodable, Identifiable, Hashable { let kind: String; let id: String; let title: String; let journeyId: String?; let journeyTitle: String?; let position: Int? }
+struct BookmarkSource: Decodable, Identifiable, Hashable { let kind: String; let id: String; let title: String; let journeyId: String?; let journeyTitle: String?; let position: Int?; var available: Bool? = nil }
 struct Bookmark: Decodable, Identifiable, Hashable {
     let passageId: String; let reference: String; let text: String?
     var book: String? = nil; var createdAt: String? = nil; var sources: [BookmarkSource]? = nil
@@ -185,3 +190,13 @@ struct Bookmarked: Decodable { let bookmarked: Bool }
 // Rotas de navegação
 struct JourneyRoute: Hashable { let id: String }
 struct StepRoute: Hashable { let id: String; let slug: String? }
+/// Conteúdo citado por um favorito/anotação: abre se publicado; senão mostra o resumo.
+struct SourceRoute: Hashable { let kind: String; let id: String; var title: String? = nil; var subtitle: String? = nil }
+/// Telas da biblioteca pessoal. Navegação só por valor (misturar com links por destino causava loop).
+enum LibraryRoute: Hashable { case favoritos, anotacoes, favorito(String), nota(String) }
+struct ContentSource: Decodable {
+    let kind: String; let id: String; let available: Bool; let title: String
+    let position: Int?; let journeyId: String?; let journeyTitle: String?; let topicName: String?; let publishDate: String?
+    let summary: String?; let body: String?; let application: String?; let question: String?
+    let passageRef: String?; let passageText: String?
+}

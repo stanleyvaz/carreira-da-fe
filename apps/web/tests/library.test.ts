@@ -62,3 +62,23 @@ describe("favoritos", () => {
     expect(((await u.getStep(user.id, step.id)) as any).passage.bookmarked).toBe(true);
   });
 });
+
+describe("conteúdo de origem de favoritos e anotações", () => {
+  it("abre se publicado; arquivado aparece como indisponível com resumo", async () => {
+    const { id: journeyId } = await publishedJourney();
+    const user = await mkUser("o@x.org");
+    const p = await passage();
+    const step = (await one<{ id: string }>("SELECT id FROM journey_steps WHERE journey_id=$1 AND position=1", [journeyId]))!;
+    await q("UPDATE journey_steps SET passage_id=$2, context='Contexto da etapa' WHERE id=$1", [step.id, p]);
+    await q("UPDATE learning_journeys SET summary='Resumo da jornada' WHERE id=$1", [journeyId]);
+    await u.toggleBookmark(user.id, p);
+    expect((await u.listBookmarks(user.id) as any[])[0].sources[0]).toMatchObject({ id: step.id, available: true });
+    expect(await u.contentSource("step", step.id)).toMatchObject({ available: true, title: "Etapa 1", journeyTitle: "Jornada de teste", passageRef: "Salmos 23:1" });
+    await q("UPDATE learning_journeys SET status='archived' WHERE id=$1", [journeyId]);
+    expect((await u.listBookmarks(user.id) as any[])[0].sources[0]).toMatchObject({ id: step.id, available: false });
+    expect(await u.contentSource("step", step.id)).toMatchObject({ available: false, summary: "Resumo da jornada", position: 1 });
+    await q("UPDATE learning_journeys SET status='draft' WHERE id=$1", [journeyId]);
+    expect((await u.listBookmarks(user.id) as any[])[0].sources).toHaveLength(0);
+    await expect(u.contentSource("step", "00000000-0000-0000-0000-000000000000")).rejects.toMatchObject({ status: 404 });
+  });
+});

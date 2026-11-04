@@ -314,15 +314,15 @@ struct WorldScene: View {
     private static let idle = ["O dia está lindo, não está?", "Estou pastando um pouquinho… 🌼", "Deus cuida de cada detalhe.", "Quando quiser, eu estou aqui."]
 
     private var greetingPhrase: String {
-        let n = (name?.isEmpty == false) ? ", \(name ?? "")" : ""
         let hour = Calendar.current.component(.hour, from: .now)
+        let n = name ?? ""
         if todayDone == false {
-            if hour < 12 { return "Bom dia\(n)! Vamos ler a Palavra de hoje?" }
-            if hour < 18 { return "Boa tarde\(n)! A reflexão de hoje está te esperando." }
-            return "Boa noite\(n). Um minutinho com a Palavra antes de dormir?"
+            if hour < 12 { return Phrases.shared.pick("greeting_morning", name: n, fallback: ["Bom dia, {nome}! Vamos ler a Palavra de hoje?"]) }
+            if hour < 18 { return Phrases.shared.pick("greeting_afternoon", name: n, fallback: ["Boa tarde, {nome}! A reflexão de hoje está te esperando."]) }
+            return Phrases.shared.pick("greeting_evening", name: n, fallback: ["Boa noite, {nome}. Um minutinho com a Palavra antes de dormir?"])
         }
-        if todayDone == true { return "Hoje já foi lindo\(n). Pode descansar comigo." }
-        return "Oi\(n)! Que bom te ver. 🐑"
+        if todayDone == true { return Phrases.shared.pick("greeting_done", name: n, fallback: ["Hoje já foi lindo, {nome}. Pode descansar comigo."]) }
+        return Phrases.shared.pick("greeting_default", name: n, fallback: ["Oi, {nome}! Que bom te ver. 🐑"])
     }
 
     private func say(_ s: String, for seconds: Double = 4.5) {
@@ -359,9 +359,9 @@ struct WorldScene: View {
             }
             .frame(width: W, height: H)
         }
-        .onChange(of: poke) { _, _ in say(Self.pokes.randomElement() ?? "Béé!", for: 3.5) }
+        .onChange(of: poke) { _, _ in say(Phrases.shared.pick("poke", name: name, fallback: Self.pokes), for: 3.5) }
         .onChange(of: reaction) { _, _ in
-            say(Self.thanks.randomElement() ?? "Obrigada!", for: 4)
+            say(Phrases.shared.pick("thanks", name: name, fallback: Self.thanks), for: 4)
             // Ritual: comemora, pasta e, quando a flor nasce, toca um som suave e aparece "+1"
             Task {
                 try? await Task.sleep(for: .seconds(2.9))
@@ -377,7 +377,7 @@ struct WorldScene: View {
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(24))
                 if Task.isCancelled { break }
-                say(Self.idle.randomElement() ?? "", for: 4)
+                say(Phrases.shared.pick("idle", name: name, fallback: Self.idle), for: 4)
             }
         }
     }

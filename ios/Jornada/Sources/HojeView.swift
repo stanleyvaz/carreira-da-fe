@@ -254,5 +254,6 @@ extension View {
         self.navigationDestination(for: JourneyRoute.self) { JourneyDetailView(id: $0.id) }
             .navigationDestination(for: ResourceRoute.self) { ReaderView(id: $0.id) }
             .navigationDestination(for: StepRoute.self) { StepDetailView(id: $0.id, slug: $0.slug) }
+            .navigationDestination(for: SourceRoute.self) { SourceView(route: $0) }
     }
 }

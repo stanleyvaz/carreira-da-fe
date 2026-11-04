@@ -3,7 +3,7 @@ import { register } from "../lib/services/accounts";
 import * as ed from "../lib/services/editorial";
 
 export async function reset() {
-  await q("TRUNCATE users, topics, songs, resources, notifications, media, bible_translations, editorial_reviews, content_versions, audit_logs, rate_limits CASCADE");
+  await q("TRUNCATE users, topics, songs, resources, notifications, media, bible_translations, editorial_reviews, content_versions, audit_logs, rate_limits, geo_daily, content_daily, area_time_daily, companion_phrases CASCADE");
 }
 export async function mkUser(email: string, role = "user") {
   const id = await register({ email, password: "senha-segura-123", acceptTerms: true });

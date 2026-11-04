@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@jornada/shared": "*",
+    "maxmind": "^4.3.29",
     "next": "16.4.3",
     "pg": "^8.13.0",
     "react": "19.3.0",

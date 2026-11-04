@@ -1,3 +1,3 @@
 import { api } from "@/lib/http";
-import { aggregateMetrics } from "@/lib/services/editorial";
-export const GET = api(async (_r, { user }) => aggregateMetrics(user), { auth: "staff" });
+import { dashboard } from "@/lib/services/analytics";
+export const GET = api(async (req, { user }) => dashboard(user, req.nextUrl.searchParams.get("days") ?? undefined), { auth: "staff" });

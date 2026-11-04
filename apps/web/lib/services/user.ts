@@ -3,6 +3,7 @@ import { noteSchema, preferencesSchema, rankJourneys, stepProgressSchema } from 
 import { one, q } from "../db";
 import { decrypt, encrypt } from "../crypto";
 import { HttpError, notFound } from "../errors";
+import { trackOpen } from "./usage";
 
 const PUBLISHED = "status = 'published'";
 
@@ -121,6 +122,7 @@ export async function getJourney(userId: string, journeyId: string) {
   const j = await one(`SELECT j.id,j.title,j.summary,j.days,tp.name AS "topicName",tp.slug AS "topicSlug" FROM learning_journeys j
     JOIN topics tp ON tp.id=j.topic_id WHERE j.id=$1 AND j.${PUBLISHED}`, [journeyId]);
   if (!j) throw notFound();
+  void trackOpen("journey", journeyId);
   const lock = await challengeLock(userId, journeyId);
   if (lock.locked) throw new HttpError(423, lock.reason!);
   const steps = await q(
@@ -141,6 +143,7 @@ export async function getStep(userId: string, stepId: string) {
      LEFT JOIN bible_passages p ON p.id=s.passage_id LEFT JOIN bible_translations t ON t.id=p.translation_id
      WHERE s.id=$1 AND j.${PUBLISHED}`, [stepId, userId]);
   if (!s) throw notFound();
+  void trackOpen("step", stepId);
   const lock = await challengeLock(userId, (s as any).journeyId);
   if (lock.locked) throw new HttpError(423, lock.reason!);
   // Gabarito não é enviado ao cliente; a correção ocorre ao concluir (feedback de aprendizado, sem pontuação).
@@ -220,17 +223,19 @@ export async function toggleBookmark(userId: string, passageId: string) {
 export async function removeBookmark(userId: string, passageId: string) {
   await q("DELETE FROM user_bookmarks WHERE user_id=$1 AND passage_id=$2", [userId, passageId]);
 }
-/** Favoritos com data e de onde vêm (etapas de jornadas e reflexões publicadas que citam o versículo). */
+/** Favoritos com data e de onde vêm (etapas e reflexões publicadas ou arquivadas que citam o versículo; `available` indica se ainda abre). */
 export const listBookmarks = (userId: string) => q(
   `SELECT b.passage_id AS "passageId", p.book, p.book||' '||p.chapter||':'||p.verse_start||
      CASE WHEN p.verse_end>p.verse_start THEN '-'||p.verse_end ELSE '' END AS reference, p.text,
      b.created_at AS "createdAt",
      COALESCE((SELECT json_agg(x) FROM (
-       SELECT 'step'::text AS kind, s.id, s.title, s.journey_id AS "journeyId", j.title AS "journeyTitle", s.position AS "position"
-         FROM journey_steps s JOIN learning_journeys j ON j.id=s.journey_id WHERE s.passage_id=b.passage_id AND j.${PUBLISHED}
+       SELECT 'step'::text AS kind, s.id, s.title, s.journey_id AS "journeyId", j.title AS "journeyTitle", s.position AS "position",
+              j.status='published' AS available
+         FROM journey_steps s JOIN learning_journeys j ON j.id=s.journey_id WHERE s.passage_id=b.passage_id AND j.status IN ('published','archived')
        UNION ALL
-       SELECT 'reflection'::text, r.id, r.title, NULL::uuid, NULL::text, NULL::int
-         FROM reflections r WHERE r.passage_id=b.passage_id AND r.${PUBLISHED}
+       SELECT 'reflection'::text, r.id, r.title, NULL::uuid, NULL::text, NULL::int, r.status='published'
+         FROM reflections r WHERE r.passage_id=b.passage_id AND r.status IN ('published','archived')
+       ORDER BY available DESC
        LIMIT 5) x), '[]'::json) AS sources
    FROM user_bookmarks b JOIN bible_passages p ON p.id=b.passage_id WHERE b.user_id=$1 ORDER BY b.created_at DESC`, [userId]);
 
@@ -359,4 +364,31 @@ export async function getLibraryItem(id: string) {
   return one(`SELECT r.id,r.kind,r.source,r.title,r.url AS "originalUrl",r.blurb,r.body,r.author_name AS "authorName",r.audio_url AS "audioUrl",r.video_url AS "videoUrl",
       r.image_media_id AS "imageId",r.published_on::text AS "publishedOn",r.audiences
     FROM resources r WHERE r.id=$1 AND r.status='published'`, [id]);
+}
+
+/** Resumo de um conteúdo citado em favoritos/anotações. Abre se publicado; se arquivado ou removido, o app mostra o resumo. */
+export async function contentSource(kind: string, id: string) {
+  const short = (t: string | null | undefined, n = 320) => (t && t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : t ?? null);
+  const passage = `(SELECT bp.book||' '||bp.chapter||':'||bp.verse_start||CASE WHEN bp.verse_end>bp.verse_start THEN '-'||bp.verse_end ELSE '' END
+      FROM bible_passages bp WHERE bp.id=x.passage_id) AS "passageRef",
+    (SELECT bp.text FROM bible_passages bp WHERE bp.id=x.passage_id) AS "passageText"`;
+  if (kind === "step") {
+    const r = await one(`SELECT x.id, x.title, x.position, x.context, x.application, j.id AS "journeyId", j.title AS "journeyTitle", j.summary,
+        j.status='published' AS available, tp.name AS "topicName", ${passage}
+      FROM journey_steps x JOIN learning_journeys j ON j.id=x.journey_id LEFT JOIN topics tp ON tp.id=j.topic_id WHERE x.id=$1 AND j.status IN ('published','archived')`, [id]);
+    if (!r) throw notFound();
+    return { kind, id: r.id, available: r.available, title: r.title, position: r.position, journeyId: r.journeyId, journeyTitle: r.journeyTitle,
+      topicName: r.topicName, summary: short(r.summary) ?? short(r.context), body: r.available ? null : short(r.application ?? r.context, 600),
+      passageRef: r.passageRef, passageText: r.passageText };
+  }
+  if (kind === "reflection") {
+    const r = await one(`SELECT x.id, x.title, x.body, x.application, x.question, x.publish_date::text AS "publishDate",
+        x.status='published' AS available, tp.name AS "topicName", ${passage}
+      FROM reflections x LEFT JOIN topics tp ON tp.id=x.topic_id WHERE x.id=$1 AND x.status IN ('published','archived')`, [id]);
+    if (!r) throw notFound();
+    return { kind, id: r.id, available: r.available, title: r.title, publishDate: r.publishDate, topicName: r.topicName,
+      summary: short(r.body), body: r.available ? r.body : short(r.body, 600), application: r.application, question: r.available ? r.question : null,
+      passageRef: r.passageRef, passageText: r.passageText };
+  }
+  throw notFound();
 }

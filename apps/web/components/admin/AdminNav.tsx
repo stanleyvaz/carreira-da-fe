@@ -16,6 +16,8 @@ const ICON: Record<string, string> = {
   temas: "M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L2 12V2h10l8.6 8.6a2 2 0 010 2.8z M7 7h.01",
   equipe: "M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2 M10 11a4 4 0 100-8 4 4 0 000 8z M21 21v-2a4 4 0 00-3-3.9 M16 3.1a4 4 0 010 7.8",
   indicadores: "M4 20V10 M10 20V4 M16 20v-8 M22 20H2",
+  usuarios: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2 M9 11a4 4 0 100-8 4 4 0 000 8z M19 8v6 M22 11h-6",
+  ovelhinha: "M7 9a5 5 0 0110 0v3a5 5 0 01-10 0z M5 10a2 2 0 100 4 M19 10a2 2 0 110 4 M10 12h.01 M14 12h.01 M10 20h4",
   auditoria: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M9 12l2 2 4-4",
   menu: "M4 6h16 M4 12h16 M4 18h16",
 };
@@ -26,10 +28,10 @@ const GROUPS: readonly { label: string | null; items: readonly Item[] }[] = [
   { label: null, items: [["/admin", "Painel", "painel"]] },
   { label: "Conteúdo", items: [["/admin/lista/jornadas", "Jornadas", "jornadas"], ["/admin/lista/desafios", "Desafios", "desafios"], ["/admin/lista/reflexoes", "Reflexões diárias", "reflexoes"],
     ["/admin/lista/exercicios", "Exercícios", "exercicios"], ["/admin/lista/musicas", "Músicas", "musicas"], ["/admin/lista/indicacoes", "Biblioteca", "biblioteca"]] },
-  { label: "Distribuição", items: [["/admin/notificacoes", "Notificações", "notificacoes"]] },
-  { label: "Gestão", items: [["/admin/temas", "Temas", "temas"], ["/admin/equipe", "Equipe", "equipe"], ["/admin/indicadores", "Indicadores", "indicadores"], ["/admin/auditoria", "Auditoria", "auditoria"]] },
+  { label: "Distribuição", items: [["/admin/notificacoes", "Notificações", "notificacoes"], ["/admin/ovelhinha", "Frases da ovelhinha", "ovelhinha"]] },
+  { label: "Gestão", items: [["/admin/temas", "Temas", "temas"], ["/admin/usuarios", "Usuários do app", "usuarios"], ["/admin/equipe", "Equipe", "equipe"], ["/admin/indicadores", "Indicadores", "indicadores"], ["/admin/auditoria", "Auditoria", "auditoria"]] },
 ];
-const ROLE_LABEL: Record<string, string> = { admin: "Administrador", editor: "Editor", reviewer: "Revisor", publisher: "Publicador" };
+const ROLE_LABEL: Record<string, string> = { admin: "Administrador", editor: "Editor", reviewer: "Revisor", publisher: "Publicador", analyst: "Analista" };
 
 export default function AdminNav({ role, name }: { role: string; name: string }) {
   const p = usePathname(); const r = useRouter(); const [open, setOpen] = useState(false);

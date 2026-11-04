@@ -7,7 +7,7 @@ import { forbidden, unauthorized } from "./errors";
 
 export const SESSION_COOKIE = "jornada_session";
 const TTL_DAYS = 30;
-export type SessionUser = { id: string; email: string; displayName: string | null; role: Role; hasAvatar?: boolean };
+export type SessionUser = { id: string; email: string; displayName: string | null; role: Role; hasAvatar?: boolean; mustChangePassword?: boolean };
 
 export async function createSession(userId: string): Promise<{ token: string; expires: Date }> {
   const token = randomBytes(32).toString("base64url");
@@ -18,9 +18,9 @@ export async function createSession(userId: string): Promise<{ token: string; ex
 export async function userFromToken(token: string | undefined | null): Promise<SessionUser | null> {
   if (!token) return null;
   return one<SessionUser>(
-    `SELECT u.id, u.email, u.display_name AS "displayName", u.role, u.avatar_media_id IS NOT NULL AS "hasAvatar"
+    `SELECT u.id, u.email, u.display_name AS "displayName", u.role, u.avatar_media_id IS NOT NULL AS "hasAvatar", u.must_change_password AS "mustChangePassword"
        FROM sessions s JOIN users u ON u.id = s.user_id
-      WHERE s.id_hash = $1 AND s.expires_at > now()`,
+      WHERE s.id_hash = $1 AND s.expires_at > now() AND u.blocked_at IS NULL`,
     [sha256(token)],
   );
 }

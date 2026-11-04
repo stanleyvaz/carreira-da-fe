@@ -42,6 +42,7 @@ struct ProfileView: View {
             .onAppear { name = api.user?.displayName ?? ""; has = api.user?.hasAvatar ?? false }
             .onChange(of: pick) { _, item in Task { await upload(item) } }
         }
+        .usageArea("perfil", parent: "tab")
     }
     private func saveName() async {
         struct B: Encodable { let displayName: String }

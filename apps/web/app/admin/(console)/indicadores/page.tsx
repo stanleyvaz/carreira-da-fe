@@ -1,4 +1,4 @@
-import { MetricsPanel } from "@/components/admin/Panels";
+import { MetricsDashboard } from "@/components/admin/Metrics";
 export default async function Page() {
-  return <MetricsPanel />;
+  return <MetricsDashboard />;
 }

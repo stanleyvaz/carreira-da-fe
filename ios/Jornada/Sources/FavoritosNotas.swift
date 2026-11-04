@@ -9,6 +9,11 @@ enum Fmt {
         let f = ISO8601DateFormatter(); f.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         return f.date(from: s) ?? ISO8601DateFormatter().date(from: s)
     }
+    /// Datas sem hora ("2026-11-04").
+    static func day(_ s: String?) -> Date? {
+        guard let s else { return nil }
+        let f = ISO8601DateFormatter(); f.formatOptions = [.withFullDate]; return f.date(from: s)
+    }
     /// "3 de nov. de 2026"
     static func short(_ d: Date) -> String { d.formatted(.dateTime.day().month(.abbreviated).year().locale(pt)) }
     /// "3 de novembro de 2026 às 14:30"
@@ -193,7 +198,7 @@ struct FavoritosView: View {
     }
 
     private func row(_ b: Bookmark) -> some View {
-        NavigationLink { FavoritoDetailView(store: store, bookmark: b) } label: {
+        NavigationLink(value: LibraryRoute.favorito(b.passageId)) {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(b.reference).font(.subheadline.bold()).foregroundStyle(Theme.accent)
@@ -222,11 +227,32 @@ struct FavoritoDetailView: View {
     @EnvironmentObject var api: API
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var store: LibraryStore
-    let bookmark: Bookmark
+    let passageId: String
     @State private var confirm = false
     @State private var copied = false
+    private var bookmark: Bookmark? { store.marks.first { $0.passageId == passageId } }
 
     var body: some View {
+        Group {
+            if let b = bookmark { content(b) } else { Color.clear.onAppear { dismiss() } }
+        }
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle(bookmark?.reference ?? "").navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if let b = bookmark {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button { UIPasteboard.general.string = b.shareText; copied = true; FX.shared.tap() } label: { Image(systemName: copied ? "checkmark" : "doc.on.doc") }.accessibilityLabel("Copiar versículo")
+                    ShareLink(item: b.shareText) { Image(systemName: "square.and.arrow.up") }
+                }
+            }
+        }
+        .confirmationDialog("Remover este versículo dos favoritos?", isPresented: $confirm, titleVisibility: .visible) {
+            Button("Remover", role: .destructive) { if let b = bookmark { Task { await store.removeBookmark(b, api: api); dismiss() } } }
+            Button("Cancelar", role: .cancel) {}
+        }
+    }
+
+    private func content(_ bookmark: Bookmark) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 12) {
@@ -240,13 +266,15 @@ struct FavoritoDetailView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Aparece em").font(.headline)
                         ForEach(bookmark.sourceList) { s in
-                            if s.kind == "step" {
-                                NavigationLink(value: StepRoute(id: s.id, slug: nil)) {
-                                    HStack { Label(s.line, systemImage: s.icon).multilineTextAlignment(.leading); Spacer(minLength: 8); Image(systemName: "chevron.right").font(.footnote.bold()).foregroundStyle(.tertiary) }
-                                }.buttonStyle(.plain)
-                            } else {
-                                Label(s.line, systemImage: s.icon).foregroundStyle(.secondary)
-                            }
+                            NavigationLink(value: SourceRoute(kind: s.kind, id: s.id, title: s.title, subtitle: s.line)) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Label(s.line, systemImage: s.icon).multilineTextAlignment(.leading)
+                                        if s.available == false { Text("Não está mais disponível · ver resumo").font(.caption).foregroundStyle(.secondary) }
+                                    }
+                                    Spacer(minLength: 8); Image(systemName: "chevron.right").font(.footnote.bold()).foregroundStyle(.tertiary)
+                                }.contentShape(Rectangle())
+                            }.buttonStyle(.plain)
                             if s.id != bookmark.sourceList.last?.id { Divider() }
                         }
                     }.card()
@@ -255,17 +283,84 @@ struct FavoritoDetailView: View {
                     .buttonStyle(.bordered)
             }.padding(.horizontal, 16).padding(.bottom, 28)
         }
-        .background(Color(.systemGroupedBackground))
-        .navigationTitle(bookmark.reference).navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Button { UIPasteboard.general.string = bookmark.shareText; copied = true; FX.shared.tap() } label: { Image(systemName: copied ? "checkmark" : "doc.on.doc") }.accessibilityLabel("Copiar versículo")
-                ShareLink(item: bookmark.shareText) { Image(systemName: "square.and.arrow.up") }
+    }
+}
+
+/// Abre o conteúdo citado. Se ele saiu do ar, mostra um aviso gentil e um resumo do que ele trazia.
+struct SourceView: View {
+    @EnvironmentObject var api: API
+    let route: SourceRoute
+    @State private var src: ContentSource?
+    @State private var failed = false
+
+    var body: some View {
+        Group {
+            if let src, src.available, src.kind == "step" { StepDetailView(id: src.id, slug: nil) }
+            else if let src { ScrollView { summary(src).padding(.horizontal, 16).padding(.bottom, 28) }.background(Color(.systemGroupedBackground)) }
+            else if failed { ScrollView { gone(title: route.title, subtitle: route.subtitle, text: nil).padding(.horizontal, 16) }.background(Color(.systemGroupedBackground)) }
+            else { ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity) }
+        }
+        .navigationTitle(src?.available == true && src?.kind == "step" ? "" : (route.kind == "step" ? "Etapa" : "Reflexão")).navigationBarTitleDisplayMode(.inline)
+        .task {
+            guard src == nil else { return }
+            do { src = try await api.get("/api/sources/\(route.kind)/\(route.id)") } catch { failed = true }
+        }
+    }
+
+    @ViewBuilder private func summary(_ s: ContentSource) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            if !s.available { unavailableBox }
+            VStack(alignment: .leading, spacing: 10) {
+                if let t = s.topicName { Text(t.uppercased()).font(.caption.bold()).foregroundStyle(.secondary) }
+                Text(s.title).font(.title2.bold())
+                if let j = s.journeyTitle { Label("\(s.position.map { "Dia \($0) · " } ?? "")\(j)", systemImage: "signpost.right").font(.subheadline).foregroundStyle(Theme.accent) }
+                if let d = s.publishDate, let date = Fmt.day(d) { Label("Reflexão de \(Fmt.short(date))", systemImage: "sun.max").font(.subheadline).foregroundStyle(Theme.accent) }
+            }.card()
+            if let p = s.passageRef {
+                VStack(alignment: .leading, spacing: 8) {
+                    if let t = s.passageText { Text(t).font(.system(.body, design: .serif)).lineSpacing(3) }
+                    Text(p).font(.footnote.weight(.semibold)).foregroundStyle(Theme.accent)
+                }.card()
+            }
+            if let b = s.body ?? s.summary {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(s.available ? "Reflexão" : "Em resumo").font(.headline)
+                    Text(b).lineSpacing(4).textSelection(.enabled)
+                }.card()
+            }
+            if s.available, let a = s.application { VStack(alignment: .leading, spacing: 8) { Text("Para viver hoje").font(.headline); Text(a).lineSpacing(4) }.card() }
+            if s.available, let q = s.question { VStack(alignment: .leading, spacing: 8) { Text("Para pensar").font(.headline); Text(q).lineSpacing(4) }.card() }
+            if !s.available {
+                Label("Seu versículo favorito e suas anotações continuam guardados com você.", systemImage: "heart.fill")
+                    .font(.footnote).foregroundStyle(.secondary).padding(.horizontal, 4)
             }
         }
-        .confirmationDialog("Remover este versículo dos favoritos?", isPresented: $confirm, titleVisibility: .visible) {
-            Button("Remover", role: .destructive) { Task { await store.removeBookmark(bookmark, api: api); dismiss() } }
-            Button("Cancelar", role: .cancel) {}
+    }
+
+    private var unavailableBox: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: "sparkles").font(.title2).foregroundStyle(Theme.accent)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Este conteúdo não está mais disponível").font(.headline)
+                Text("Ele saiu do app, mas guardamos um resumo para você relembrar o que ele trazia.").font(.subheadline).foregroundStyle(.secondary)
+            }
+        }
+        .padding(16).frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.accent.opacity(0.12), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .accessibilityElement(children: .combine)
+    }
+
+    private func gone(title: String?, subtitle: String?, text: String?) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            unavailableBox
+            if title != nil || subtitle != nil {
+                VStack(alignment: .leading, spacing: 8) {
+                    if let t = title { Text(t).font(.title3.bold()) }
+                    if let s = subtitle { Text(s).font(.subheadline).foregroundStyle(.secondary) }
+                }.card()
+            }
+            Label("Seu versículo favorito e suas anotações continuam guardados com você.", systemImage: "heart.fill")
+                .font(.footnote).foregroundStyle(.secondary).padding(.horizontal, 4)
         }
     }
 }
@@ -376,7 +471,7 @@ struct AnotacoesView: View {
     }
 
     private func row(_ n: Note) -> some View {
-        NavigationLink { NoteDetailView(store: store, noteId: n.id) } label: {
+        NavigationLink(value: LibraryRoute.nota(n.id)) {
             VStack(alignment: .leading, spacing: 6) {
                 Text(n.body).lineLimit(4).multilineTextAlignment(.leading)
                 Label(n.originTitle ?? "Anotação livre", systemImage: n.icon).font(.caption).foregroundStyle(Theme.accent).lineLimit(1)
@@ -441,8 +536,10 @@ struct NoteDetailView: View {
                     Label(n.originTitle ?? "Anotação livre", systemImage: n.icon).font(.subheadline.weight(.semibold)).foregroundStyle(Theme.accent)
                     if let j = n.journeyTitle { Text("Jornada: \(j)").font(.footnote).foregroundStyle(.secondary) }
                     if let p = n.passageRef { Label(p, systemImage: "book").font(.footnote).foregroundStyle(.secondary) }
-                    if n.canOpenStep, let id = n.refId {
-                        NavigationLink(value: StepRoute(id: id, slug: nil)) { Label("Abrir esta etapa", systemImage: "arrow.right.circle").font(.footnote.weight(.semibold)) }
+                    if let kind = n.refKind, kind == "step" || kind == "reflection", let id = n.refId {
+                        NavigationLink(value: SourceRoute(kind: kind, id: id, title: n.refTitle, subtitle: n.originTitle)) {
+                            Label(kind == "step" ? "Abrir esta etapa" : "Abrir esta reflexão", systemImage: "arrow.right.circle").font(.footnote.weight(.semibold))
+                        }
                     }
                 }.card()
                 Text(n.body).font(.body).lineSpacing(4).textSelection(.enabled).card()

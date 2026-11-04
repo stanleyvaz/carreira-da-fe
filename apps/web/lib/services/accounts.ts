@@ -23,10 +23,11 @@ export async function register(input: z.input<typeof registerSchema>) {
 }
 export async function login(input: z.input<typeof credentialsSchema>) {
   const d = credentialsSchema.parse(input);
-  const u = await one<{ id: string; password_hash: string }>("SELECT id,password_hash FROM users WHERE lower(email)=$1", [d.email]);
+  const u = await one<{ id: string; password_hash: string; blocked: boolean }>("SELECT id,password_hash,blocked_at IS NOT NULL AS blocked FROM users WHERE lower(email)=$1", [d.email]);
   // Mesmo custo de verificação mesmo quando o usuário não existe (reduz enumeração por tempo).
   const ok = await verifyPassword(d.password, u?.password_hash ?? "scrypt$AAAAAAAAAAAAAAAAAAAAAA==$" + "A".repeat(86) + "==");
   if (!u || !ok) throw new HttpError(401, "E-mail ou senha inválidos");
+  if (u.blocked) throw new HttpError(403, "Esta conta está bloqueada. Fale com o suporte do Carreira da Fé.", "account_blocked");
   return u.id;
 }
 /** Exclusão de conta: remove usuário e, por cascata, todos os dados pessoais. */
@@ -62,7 +63,7 @@ export async function changePassword(userId: string, currentToken: string | unde
   if (d.currentPassword === d.newPassword) throw new HttpError(422, "A nova senha precisa ser diferente da atual");
   const hash = await hashPassword(d.newPassword);
   await tx(async (c) => {
-    await c.query("UPDATE users SET password_hash=$2 WHERE id=$1", [userId, hash]);
+    await c.query("UPDATE users SET password_hash=$2, must_change_password=false WHERE id=$1", [userId, hash]);
     await c.query("DELETE FROM sessions WHERE user_id=$1 AND ($2::text IS NULL OR id_hash<>$2)", [userId, currentToken ? sha256(currentToken) : null]);
   });
   await audit(userId, "account.password.change", "user", userId);

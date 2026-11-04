@@ -20,7 +20,8 @@ struct RootView: View {
     var body: some View {
         Group {
             if !api.isAuthed { AuthView().transition(.opacity) }
-            else if checking && api.prefs == nil { ProgressView().task { await api.refreshProfile(); checking = false } }
+            else if checking && api.prefs == nil && api.user?.mustChangePassword != true { ProgressView().task { await api.refreshProfile(); checking = false } }
+            else if api.user?.mustChangePassword == true { ForcedPasswordView() }
             else if api.prefs?.onboarded == false { OnboardingView().transition(.move(edge: .trailing)) }
             else { MainTabs().transition(.opacity.combined(with: .scale(scale: 1.03))) }
         }
@@ -44,6 +45,9 @@ struct MainTabs: View {
     @State private var tab = 0
     #endif
     @ObservedObject private var notifier = Notifier.shared
+    @Environment(\.scenePhase) private var phase
+    private static let areas = ["hoje", "aprender", "exercitar", "minha"]
+    private var tabArea: String { Self.areas.indices.contains(tab) ? Self.areas[tab] : "hoje" }
     @State private var link: LinkSheet?
     struct LinkSheet: Identifiable { let id = UUID(); let kind: String; let target: String }
     var body: some View {
@@ -53,7 +57,9 @@ struct MainTabs: View {
             ExercitarView().tabItem { Label("Exercitar", systemImage: "heart.fill") }.tag(2)
             MinhaView().tabItem { Label("Minha jornada", systemImage: "chart.pie.fill") }.tag(3)
         }
-        .onChange(of: tab) { _, _ in FX.shared.choose() }
+        .onChange(of: tab) { _, _ in FX.shared.choose(); Usage.shared.tabArea = tabArea; Usage.shared.enter(tabArea) }
+        .onAppear { Usage.shared.tabArea = tabArea; Usage.shared.enter(tabArea) }
+        .onChange(of: phase) { _, p in if p == .active { Usage.shared.resume(Usage.shared.tabArea) } else { Usage.shared.pause() } }
         .onChange(of: notifier.pendingLink?.kind) { _, _ in
             guard let l = notifier.pendingLink else { return }
             notifier.pendingLink = nil
