@@ -114,7 +114,20 @@ struct AnyEncodable: Encodable { let v: Encodable; init(_ v: Encodable) { self.v
 
 // MARK: - Modelos
 struct User: Decodable { let id: String; let email: String; let displayName: String?; let role: String; let hasAvatar: Bool?; var mustChangePassword: Bool? }
-struct Prefs: Codable { var anchor: String?; var goal: String?; var topicSlugs: [String]; var mode: String; var dailyMinutes: Int; var reminderTime: String?; var onboarded: Bool }
+struct Prefs: Codable { var anchor: String?; var goal: String?; var topicSlugs: [String]; var mode: String; var dailyMinutes: Int; var reminderTime: String?; var onboarded: Bool
+    /// Personagem escolhido ("sheep", "lion", "dove", "eagle", "donkey"); nil = ainda não escolheu.
+    var companion: String? = nil }
+extension API {
+    /// Personagem atual (ovelha enquanto a pessoa não escolheu).
+    var companion: CompanionKind { CompanionKind(prefs?.companion) }
+    /// Salva a escolha do personagem e busca as frases dele.
+    func setCompanion(_ k: CompanionKind) async throws {
+        struct B: Encodable { let companion: String }
+        try await send("PUT", "/api/me/companion", B(companion: k.rawValue), as: Empty.self)
+        prefs?.companion = k.rawValue
+        await Phrases.shared.refresh(self)
+    }
+}
 struct Topic: Decodable, Identifiable, Hashable { let id: String; let slug: String; let name: String }
 struct Passage: Decodable, Hashable { let id: String; let reference: String; let text: String?; let translation: String?; let bookmarked: Bool? }
 struct Today: Decodable {

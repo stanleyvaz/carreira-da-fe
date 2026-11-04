@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { noteSchema, preferencesSchema, rankJourneys, stepProgressSchema } from "@jornada/shared";
+import { companionSchema, noteSchema, preferencesSchema, rankJourneys, stepProgressSchema } from "@jornada/shared";
 import { one, q } from "../db";
 import { decrypt, encrypt } from "../crypto";
 import { HttpError, notFound } from "../errors";
@@ -67,13 +67,19 @@ const passageSel = `json_build_object('id',p.id,'reference', p.book||' '||p.chap
 
 export async function getPreferences(userId: string) {
   return one(`SELECT goal, topic_slugs AS "topicSlugs", mode, daily_minutes AS "dailyMinutes",
-    to_char(reminder_time,'HH24:MI') AS "reminderTime", anchor, onboarded FROM user_preferences WHERE user_id=$1`, [userId]);
+    to_char(reminder_time,'HH24:MI') AS "reminderTime", anchor, companion, onboarded FROM user_preferences WHERE user_id=$1`, [userId]);
+}
+/** Troca só o personagem (tela de escolha e Perfil), sem mexer nas demais preferências. */
+export async function setCompanion(userId: string, input: unknown) {
+  const { companion } = z.object({ companion: companionSchema }).parse(input);
+  await q("UPDATE user_preferences SET companion=$2, updated_at=now() WHERE user_id=$1", [userId, companion]);
+  return { companion };
 }
 export async function savePreferences(userId: string, input: z.input<typeof preferencesSchema>) {
   const d = preferencesSchema.parse(input);
   await q(`UPDATE user_preferences SET goal=$2, topic_slugs=$3, mode=$4, daily_minutes=$5, reminder_time=$6, anchor=$7,
-    onboarded=true, updated_at=now() WHERE user_id=$1`,
-    [userId, d.goal ?? null, d.topicSlugs, d.mode, d.dailyMinutes, d.reminderTime ?? null, d.anchor || null]);
+    companion=coalesce($8, companion), onboarded=true, updated_at=now() WHERE user_id=$1`,
+    [userId, d.goal ?? null, d.topicSlugs, d.mode, d.dailyMinutes, d.reminderTime ?? null, d.anchor || null, d.companion ?? null]);
   // Quem escolhe um horário aceita explicitamente o lembrete da hora da Palavra (pode desligar quando quiser).
   await q("UPDATE notification_preferences SET enabled=$2, reading_reminder=$2 WHERE user_id=$1", [userId, !!d.reminderTime]);
   // Consentimento de personalização: registrado quando o usuário declara preferências.

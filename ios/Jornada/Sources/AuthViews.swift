@@ -78,11 +78,37 @@ struct OnboardingView: View {
     @State private var time = Calendar.current.date(from: DateComponents(hour: 8, minute: 0)) ?? .now
     @State private var saving = false
     @State private var error: String?
+    /// Primeiro passo: escolher o personagem (ovelha, leão, pomba, águia ou jumentinho).
+    @State private var companion: CompanionKind?
 
     var body: some View {
+        Group {
+            if let companion { form(companion) }
+            else {
+                CompanionPickerView { k in
+                    // Salva já (se falhar, vai de novo junto com as preferências em "Começar").
+                    try? await api.setCompanion(k)
+                    withAnimation(.spring(duration: 0.5, bounce: 0.15)) { self.companion = k }
+                }
+                .transition(.move(edge: .leading).combined(with: .opacity))
+            }
+        }
+        .onAppear { if companion == nil, let c = api.prefs?.companion { companion = CompanionKind(c) } }
+    }
+
+    private func form(_ companion: CompanionKind) -> some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
+                    HStack(spacing: 12) {
+                        CompanionView(stage: .ovelha, kind: companion, showGround: false).frame(width: 56, height: 56)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Seu companheiro").font(.footnote).foregroundStyle(.secondary)
+                            Text(companion.name).font(.headline)
+                        }
+                        Spacer()
+                        Button("Trocar") { withAnimation(.spring(duration: 0.5, bounce: 0.15)) { self.companion = nil } }.font(.subheadline.weight(.semibold))
+                    }.card()
                     Text("Tudo aqui é opcional e pode ser mudado depois.").foregroundStyle(.secondary)
                     section("O que gostaria de priorizar?") {
                         TextField("Ex.: ter um momento de calma no dia", text: $goal).padding(12).background(Color(.tertiarySystemFill), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -111,24 +137,25 @@ struct OnboardingView: View {
                         }
                     }
                     if let error { Text(error).foregroundStyle(.red).font(.footnote) }
-                    Button { Task { await save() } } label: { if saving { ProgressView().tint(.white) } else { Text("Começar") } }
+                    Button { Task { await save(companion) } } label: { if saving { ProgressView().tint(.white) } else { Text("Começar") } }
                         .buttonStyle(ProminentButtonStyle()).disabled(saving)
                 }.padding(20).animation(.spring(duration: 0.4), value: remind)
             }
             .background(Color(.systemGroupedBackground)).navigationTitle("Vamos começar").tint(Theme.accent)
             .task { topics = (try? await api.get("/api/topics")) ?? [] }
         }
+        .transition(.move(edge: .trailing).combined(with: .opacity))
     }
     static let anchors: [(label: String, hour: Int, minute: Int)] = [("Ao acordar", 6, 30), ("Depois do café", 8, 0), ("Na hora do almoço", 12, 30), ("No fim do dia", 19, 30), ("Antes de dormir", 21, 30)]
     private func section<C: View>(_ t: String, @ViewBuilder _ c: () -> C) -> some View {
         VStack(alignment: .leading, spacing: 12) { Text(t).font(.headline); c() }.card()
     }
-    private func save() async {
-        struct Body: Encodable { let goal: String?; let topicSlugs: [String]; let mode: String; let dailyMinutes: Int; let reminderTime: String?; let anchor: String? }
+    private func save(_ companion: CompanionKind) async {
+        struct Body: Encodable { let goal: String?; let topicSlugs: [String]; let mode: String; let dailyMinutes: Int; let reminderTime: String?; let anchor: String?; let companion: String }
         saving = true
         let f = DateFormatter(); f.dateFormat = "HH:mm"
         do {
-            try await api.send("PUT", "/api/me/preferences", Body(goal: goal.isEmpty ? nil : goal, topicSlugs: Array(selected), mode: mode, dailyMinutes: minutes, reminderTime: remind ? f.string(from: time) : nil, anchor: remind ? anchor : nil), as: Empty.self)
+            try await api.send("PUT", "/api/me/preferences", Body(goal: goal.isEmpty ? nil : goal, topicSlugs: Array(selected), mode: mode, dailyMinutes: minutes, reminderTime: remind ? f.string(from: time) : nil, anchor: remind ? anchor : nil, companion: companion.rawValue), as: Empty.self)
             if remind { _ = await Notifier.shared.requestAuthorization() }
             FX.shared.play(.welcome); FX.shared.notify(.success)
             await api.refreshProfile()

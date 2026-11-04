@@ -10,8 +10,18 @@ import SwiftUI
         _api = StateObject(wrappedValue: API())
     }
     var body: some Scene {
-        WindowGroup { RootView().environmentObject(api).tint(Theme.accent).task { Notifier.shared.start(api: api) } }
+        WindowGroup {
+            #if DEBUG
+            if UserDefaults.standard.bool(forKey: "debugCompanionGallery") { CompanionGallery() }
+            else if let k = UserDefaults.standard.string(forKey: "debugCompanionScene").flatMap(CompanionKind.init(rawValue:)) { CompanionSceneDebug(kind: k) }
+            else if UserDefaults.standard.bool(forKey: "debugCompanionPicker") { CompanionPickerView { _ in }.tint(Theme.accent) }
+            else { main }
+            #else
+            main
+            #endif
+        }
     }
+    private var main: some View { RootView().environmentObject(api).tint(Theme.accent).task { Notifier.shared.start(api: api) } }
 }
 
 struct RootView: View {
@@ -23,10 +33,12 @@ struct RootView: View {
             else if checking && api.prefs == nil && api.user?.mustChangePassword != true { ProgressView().task { await api.refreshProfile(); checking = false } }
             else if api.user?.mustChangePassword == true { ForcedPasswordView() }
             else if api.prefs?.onboarded == false { OnboardingView().transition(.move(edge: .trailing)) }
+            else if api.prefs != nil && api.prefs?.companion == nil { FirstCompanionView().transition(.opacity) } // quem já usava o app escolhe uma vez
             else { MainTabs().transition(.opacity.combined(with: .scale(scale: 1.03))) }
         }
         .animation(.spring(duration: 0.6, bounce: 0.15), value: api.isAuthed)
         .animation(.spring(duration: 0.6, bounce: 0.15), value: api.prefs?.onboarded)
+        .animation(.spring(duration: 0.6, bounce: 0.15), value: api.prefs?.companion)
         #if DEBUG
         .task { // Somente builds de desenvolvimento: login automático para testes no simulador.
             if !api.isAuthed, let c = ProcessInfo.processInfo.environment["JORNADA_DEBUG_LOGIN"], let i = c.firstIndex(of: ":") {

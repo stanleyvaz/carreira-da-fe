@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - O mundo da ovelhinha: o cenário É a tela (estilo "pet app"), o conteúdo sobe como uma folha por cima.
+// MARK: - O mundo do personagem (ovelha, leão, pomba, águia ou jumentinho): o cenário É a tela (estilo "pet app"), o conteúdo sobe como uma folha por cima.
 // O mundo cresce com o que a pessoa faz (flores, árvore, arco-íris) e nunca encolhe.
 
 // MARK: Cores e céu por hora do dia
@@ -48,7 +48,7 @@ struct WorldBackdrop: View {
     var reaction: Int = 0
     @Environment(\.accessibilityReduceMotion) private var reduce
 
-    // Ritual: a conclusão faz nascer uma flor nova, depois que a ovelhinha pasta.
+    // Ritual: a conclusão faz nascer uma flor nova, depois que o personagem abaixa a cabeça (pasta, fareja ou bica).
     @State private var pendingSince = Date.distantPast
     @State private var lastIncrease = Date.distantPast
     @State private var bloomStart = Date.distantFuture
@@ -296,9 +296,10 @@ private struct RisingLabel: View {
     }
 }
 
-// MARK: - Cena: fundo + ovelhinha grande, que fala e reage ao toque
+// MARK: - Cena: fundo + personagem grande, que fala e reage ao toque
 struct WorldScene: View {
     let stage: CompanionStage
+    var kind: CompanionKind = .sheep
     let total: Int
     var name: String?
     var todayDone: Bool?
@@ -309,9 +310,6 @@ struct WorldScene: View {
     @State private var bubbleID = 0
     @State private var plusID: Int?
 
-    private static let pokes = ["Béé! 🐑", "Cosquinha! Hihi", "Sem pressa, eu estou aqui.", "Respira fundo comigo… 🌿", "Você está indo bem.", "Que tal um versículo?", "Gosto quando você aparece."]
-    private static let thanks = ["Que alegria! 💛", "Obrigada por caminhar comigo!", "Eu senti isso aqui no coração."]
-    private static let idle = ["O dia está lindo, não está?", "Estou pastando um pouquinho… 🌼", "Deus cuida de cada detalhe.", "Quando quiser, eu estou aqui."]
 
     private var greetingPhrase: String {
         let hour = Calendar.current.component(.hour, from: .now)
@@ -322,7 +320,7 @@ struct WorldScene: View {
             return Phrases.shared.pick("greeting_evening", name: n, fallback: ["Boa noite, {nome}. Um minutinho com a Palavra antes de dormir?"])
         }
         if todayDone == true { return Phrases.shared.pick("greeting_done", name: n, fallback: ["Hoje já foi lindo, {nome}. Pode descansar comigo."]) }
-        return Phrases.shared.pick("greeting_default", name: n, fallback: ["Oi, {nome}! Que bom te ver. 🐑"])
+        return Phrases.shared.pick("greeting_default", name: n, fallback: [kind.greetingDefault])
     }
 
     private func say(_ s: String, for seconds: Double = 4.5) {
@@ -342,10 +340,10 @@ struct WorldScene: View {
             let groundY = H * 0.795
             let frameTop = groundY - side * 0.86
             let R = 0.27 * side * stage.scale
-            let bubbleY = frameTop + side * 0.86 - R * 2.5 - 30
+            let bubbleY = frameTop + side * 0.86 - R * kind.top - 30
             ZStack {
                 WorldBackdrop(stage: stage, total: total, reaction: reaction)
-                CompanionView(stage: stage, reaction: reaction &+ poke, showGround: false)
+                CompanionView(stage: stage, kind: kind, reaction: reaction &+ poke, showGround: false)
                     .frame(width: side, height: side)
                     .position(x: W / 2, y: frameTop + side / 2)
                 if let phrase {
@@ -359,9 +357,9 @@ struct WorldScene: View {
             }
             .frame(width: W, height: H)
         }
-        .onChange(of: poke) { _, _ in say(Phrases.shared.pick("poke", name: name, fallback: Self.pokes), for: 3.5) }
+        .onChange(of: poke) { _, _ in say(Phrases.shared.pick("poke", name: name, fallback: kind.pokes), for: 3.5) }
         .onChange(of: reaction) { _, _ in
-            say(Phrases.shared.pick("thanks", name: name, fallback: Self.thanks), for: 4)
+            say(Phrases.shared.pick("thanks", name: name, fallback: kind.thanks), for: 4)
             // Ritual: comemora, pasta e, quando a flor nasce, toca um som suave e aparece "+1"
             Task {
                 try? await Task.sleep(for: .seconds(2.9))
@@ -371,13 +369,13 @@ struct WorldScene: View {
                 plusID = nil
             }
         }
-        .task {
+        .task(id: kind) {
             try? await Task.sleep(for: .seconds(1.2))
             say(greetingPhrase)
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(24))
                 if Task.isCancelled { break }
-                say(Phrases.shared.pick("idle", name: name, fallback: Self.idle), for: 4)
+                say(Phrases.shared.pick("idle", name: name, fallback: kind.idle), for: 4)
             }
         }
     }
@@ -395,6 +393,7 @@ struct WorldScreen<Content: View>: View {
     var onRefresh: (() async -> Void)? = nil
     @ViewBuilder var content: Content
 
+    @EnvironmentObject private var api: API
     @AppStorage("companionStageSeen") private var seen = -1
     @State private var grew = false
     @State private var burstTick = 0
@@ -407,6 +406,7 @@ struct WorldScreen<Content: View>: View {
 
     private var total: Int { counts.reflections + counts.steps + counts.activities + debugBonus }
     private var stage: CompanionStage { .from(total: total) }
+    private var kind: CompanionKind { api.companion }
 
     var body: some View {
         GeometryReader { geo in
@@ -418,7 +418,7 @@ struct WorldScreen<Content: View>: View {
                 Color(.systemGroupedBackground).ignoresSafeArea()
                 // Cenário (fica atrás; sobe devagar ao rolar e estica ao puxar)
                 ZStack(alignment: .topLeading) {
-                    WorldScene(stage: stage, total: total, name: name, todayDone: todayDone, reaction: reaction &+ debugTick, poke: poke)
+                    WorldScene(stage: stage, kind: kind, total: total, name: name, todayDone: todayDone, reaction: reaction &+ debugTick, poke: poke)
                     hud(top: top)
                     Burst(trigger: burstTick).frame(maxWidth: .infinity, maxHeight: .infinity)
                     if grew { banner.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center).offset(y: -sceneH * 0.1) }
@@ -430,11 +430,11 @@ struct WorldScreen<Content: View>: View {
 
                 ScrollView {
                     VStack(spacing: 0) {
-                        // Área "vazia" sobre o cenário: tocar nela faz carinho na ovelhinha
+                        // Área "vazia" sobre o cenário: tocar nela faz carinho no personagem
                         Color.clear.frame(height: max(0, sceneH * 0.86 - top))
                             .contentShape(Rectangle())
                             .onTapGesture { poke &+= 1; FX.shared.tap() }
-                            .accessibilityLabel("Fazer carinho na ovelhinha").accessibilityAddTraits(.isButton)
+                            .accessibilityLabel("Fazer carinho \(kind.inArticle)").accessibilityAddTraits(.isButton)
                         VStack(spacing: 0) {
                             Capsule().fill(Color.secondary.opacity(0.35)).frame(width: 40, height: 5).padding(.top, 10).padding(.bottom, 8)
                             content
@@ -470,8 +470,8 @@ struct WorldScreen<Content: View>: View {
 
     private var banner: some View {
         VStack(spacing: 4) {
-            Text("Ela cresceu! 🎉").font(.headline)
-            Text("Agora: \(stage.name)").font(.subheadline)
+            Text("\(kind.pronoun.capitalized) cresceu! 🎉").font(.headline)
+            Text("Agora: \(kind.stageName(stage))").font(.subheadline)
         }
         .padding(.horizontal, 22).padding(.vertical, 14)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
@@ -489,14 +489,14 @@ struct WorldScreen<Content: View>: View {
                         Circle().stroke(.white.opacity(0.3), lineWidth: 3)
                         Circle().trim(from: 0, to: max(0.03, stage.progress(total: total))).stroke(.white, style: StrokeStyle(lineWidth: 3, lineCap: .round)).rotationEffect(.degrees(-90))
                     }.frame(width: 18, height: 18)
-                    Text("Fase \(stage.rawValue + 1) · \(stage.name)").lineLimit(1).minimumScaleFactor(0.75)
+                    Text("Fase \(stage.rawValue + 1) · \(kind.stageName(stage))").lineLimit(1).minimumScaleFactor(0.75)
                 }.chip()
                 HStack(spacing: 4) { Text("🌼"); Text("\(total)").monospacedDigit().contentTransition(.numericText()) }.chip()
                     .accessibilityElement(children: .combine).accessibilityLabel("\(total) flores no campo")
                 if let d = activeDays, d > 0 { HStack(spacing: 4) { Text("☀️"); Text("\(d)d").monospacedDigit() }.chip().accessibilityElement(children: .combine).accessibilityLabel("Com a Palavra em \(d) dos últimos 7 dias") }
             }
             if let n = stage.next {
-                Text("Faltam \(max(0, n.threshold - total)) para ela crescer").font(.caption).foregroundStyle(.white.opacity(0.92)).shadow(color: .black.opacity(0.3), radius: 4, y: 1)
+                Text("Faltam \(max(0, n.threshold - total)) para \(kind.pronoun) crescer").font(.caption).foregroundStyle(.white.opacity(0.92)).shadow(color: .black.opacity(0.3), radius: 4, y: 1)
             }
         }
         .padding(.horizontal, 20).padding(.top, top + 6)

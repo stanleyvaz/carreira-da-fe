@@ -28,7 +28,7 @@ const GROUPS: readonly { label: string | null; items: readonly Item[] }[] = [
   { label: null, items: [["/admin", "Painel", "painel"]] },
   { label: "Conteúdo", items: [["/admin/lista/jornadas", "Jornadas", "jornadas"], ["/admin/lista/desafios", "Desafios", "desafios"], ["/admin/lista/reflexoes", "Reflexões diárias", "reflexoes"],
     ["/admin/lista/exercicios", "Exercícios", "exercicios"], ["/admin/lista/musicas", "Músicas", "musicas"], ["/admin/lista/indicacoes", "Biblioteca", "biblioteca"]] },
-  { label: "Distribuição", items: [["/admin/notificacoes", "Notificações", "notificacoes"], ["/admin/ovelhinha", "Frases da ovelhinha", "ovelhinha"]] },
+  { label: "Distribuição", items: [["/admin/notificacoes", "Notificações", "notificacoes"], ["/admin/ovelhinha", "Frases do personagem", "ovelhinha"]] },
   { label: "Gestão", items: [["/admin/temas", "Temas", "temas"], ["/admin/usuarios", "Usuários do app", "usuarios"], ["/admin/equipe", "Equipe", "equipe"], ["/admin/indicadores", "Indicadores", "indicadores"], ["/admin/auditoria", "Auditoria", "auditoria"]] },
 ];
 const ROLE_LABEL: Record<string, string> = { admin: "Administrador", editor: "Editor", reviewer: "Revisor", publisher: "Publicador", analyst: "Analista" };

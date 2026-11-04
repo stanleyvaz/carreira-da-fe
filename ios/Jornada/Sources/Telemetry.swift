@@ -57,21 +57,32 @@ extension View {
     }
 }
 
-// MARK: - Frases da ovelhinha (editáveis no CMS)
+// MARK: - Frases do personagem (editáveis no CMS)
+/// O servidor junta as frases gerais e as do animal escolhido. O cache local é separado por animal
+/// (assim o leão nunca "bale" se a troca acontecer sem internet).
 @MainActor final class Phrases {
     static let shared = Phrases()
-    private var byCategory: [String: [String]] = (UserDefaults.standard.data(forKey: "companionPhrases"))
-        .flatMap { try? JSONDecoder().decode([String: [String]].self, from: $0) } ?? [:]
+    private var animal = "sheep"
+    private var byCategory: [String: [String]] = [:]
+    private init() { load(UserDefaults.standard.string(forKey: "companionAnimal") ?? "sheep") }
+    private func key(_ a: String) -> String { a == "sheep" ? "companionPhrases" : "companionPhrases.\(a)" }
+    private func load(_ a: String) {
+        animal = a
+        UserDefaults.standard.set(a, forKey: "companionAnimal")
+        byCategory = UserDefaults.standard.data(forKey: key(a)).flatMap { try? JSONDecoder().decode([String: [String]].self, from: $0) } ?? [:]
+    }
 
     func refresh(_ api: API) async {
-        guard let d: [String: [String]] = try? await api.get("/api/companion/phrases") else { return }
+        let a = api.companion.rawValue
+        if a != animal { load(a) }
+        guard let d: [String: [String]] = try? await api.get("/api/companion/phrases?animal=\(a)") else { return }
         byCategory = d
-        if let data = try? JSONEncoder().encode(d) { UserDefaults.standard.set(data, forKey: "companionPhrases") }
+        if let data = try? JSONEncoder().encode(d) { UserDefaults.standard.set(data, forKey: key(a)) }
     }
     /// Frase sorteada da categoria; se o CMS não tiver nenhuma habilitada, usa as padrão do app.
     func pick(_ category: String, name: String?, fallback: [String]) -> String {
         let list = byCategory[category].flatMap { $0.isEmpty ? nil : $0 } ?? fallback
-        return fill(list.randomElement() ?? fallback.first ?? "Béé!", name: name)
+        return fill(list.randomElement() ?? fallback.first ?? "", name: name)
     }
     private func fill(_ s: String, name: String?) -> String {
         let n = name?.trimmingCharacters(in: .whitespaces) ?? ""
